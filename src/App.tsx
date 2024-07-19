@@ -1,5 +1,6 @@
 import "./App.css";
-import ButtonHover from "./components/Buttons/ButtonHover/ButtonHover";
+import { LikeButton } from "./components/Buttons";
+// import { RainbowBorder } from "./components/Border";
 
 const App = () => {
   return (
@@ -7,7 +8,8 @@ const App = () => {
       {/* components list */}
       {/* components */}
       <div className="centered-div">
-        <ButtonHover />
+        {/* <RainbowBorder><></></RainbowBorder> */}
+        <LikeButton />
       </div>
     </main>
   );

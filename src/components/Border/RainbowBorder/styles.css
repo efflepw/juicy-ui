@@ -1,0 +1,46 @@
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 90deg;
+  inherits: true;
+}
+
+:root {
+  --border-width: 8px;
+  --d: 1800ms;
+  --angle: 60deg;
+  --c1: rgb(255, 248, 168);
+  --c2: rgba(43, 97, 233, 0.819);
+  --c3: rgba(37, 191, 225, 0.819);
+  --c4: rgba(53, 225, 37, 0.819);
+  --c5: rgba(224, 172, 67, 0.819);
+  --c6: rgba(228, 53, 53, 0.867);
+}
+
+.rainbow-border {
+  border: var(--border-width) solid;
+  border-image: conic-gradient(
+      from var(--angle),
+      var(--c1),
+      var(--c2),
+      var(--c3),
+      var(--c4),
+      var(--c5),
+      var(--c6),
+      var(--c1)
+    )
+    30;
+  animation: borderRotate var(--d) linear infinite forwards;
+
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.rainbow-border:focus {
+  outline: none;
+}
+
+@keyframes borderRotate {
+  100% {
+    --angle: 420deg;
+  }
+}

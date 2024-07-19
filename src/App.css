@@ -1,3 +1,10 @@
+body {
+  padding: 0;
+  margin: 0;
+
+  background-color: #bac9ce;
+}
+
 .centered-div {
   width: 100vw;
   height: 100vh;
@@ -7,56 +14,6 @@
   align-items: center;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 90deg;
-  inherits: true;
-}
-
-:root {
-  --d: 1800ms;
-  --angle: 60deg;
-  --c1: rgb(255, 248, 168);
-  --c2: rgba(43, 97, 233, 0.819);
-  --c3: rgba(37, 191, 225, 0.819);
-  --c4: rgba(53, 225, 37, 0.819);
-  --c5: rgba(224, 172, 67, 0.819);
-  --c6: rgba(228, 53, 53, 0.867);
-}
-
-.wrapper {
-  min-width: min(40rem, 100%);
-}
-
-.box {
-  font-size: 32px;
-  border: 4px solid;
-  border-image: conic-gradient(
-      from var(--angle),
-      var(--c1),
-      var(--c2),
-      var(--c3),
-      var(--c4),
-      var(--c5),
-      var(--c6),
-      var(--c1)
-    )
-    30;
-  animation: borderRotate var(--d) linear infinite forwards;
-  padding: 8px 32px;
-  background-color: rgb(33, 30, 30, 0);
-}
-
-.box:focus {
-  outline: none;
-}
-
-@keyframes borderRotate {
-  100% {
-    --angle: 420deg;
-  }
+button {
+  font-family: "Montserrat";
 }
