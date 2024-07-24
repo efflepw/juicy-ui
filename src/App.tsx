@@ -1,6 +1,6 @@
 import "./App.css";
-import { LikeButton } from "./components/Buttons";
-// import { RainbowBorder } from "./components/Border";
+import { RainbowOnMove } from "./components/Background";
+import { RainbowBorder } from "./components/Border";
 
 const App = () => {
   return (
@@ -9,7 +9,10 @@ const App = () => {
       {/* components */}
       <div className="centered-div">
         {/* <RainbowBorder><></></RainbowBorder> */}
-        <LikeButton />
+        {/* <LikeButton /> */}
+        <RainbowBorder>
+          <RainbowOnMove />
+        </RainbowBorder>
       </div>
     </main>
   );
