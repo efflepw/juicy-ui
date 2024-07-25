@@ -1,6 +1,5 @@
 import "./App.css";
 import { RainbowOnMove } from "./components/Background";
-import { RainbowBorder } from "./components/Border";
 
 const App = () => {
   return (
@@ -10,9 +9,7 @@ const App = () => {
       <div className="centered-div">
         {/* <RainbowBorder><></></RainbowBorder> */}
         {/* <LikeButton /> */}
-        <RainbowBorder>
-          <RainbowOnMove />
-        </RainbowBorder>
+        <RainbowOnMove />
       </div>
     </main>
   );
