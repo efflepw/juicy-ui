@@ -1,6 +1,5 @@
 import "./App.css";
-import { LikeButton } from "./components/Buttons";
-// import { RainbowBorder } from "./components/Border";
+import { MonoParticles } from "./components/Destroy";
 
 const App = () => {
   return (
@@ -9,7 +8,8 @@ const App = () => {
       {/* components */}
       <div className="centered-div">
         {/* <RainbowBorder><></></RainbowBorder> */}
-        <LikeButton />
+        {/* <LikeButton /> */}
+        <MonoParticles />
       </div>
     </main>
   );
