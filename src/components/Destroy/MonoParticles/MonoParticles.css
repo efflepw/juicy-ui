@@ -1,0 +1,24 @@
+.mono-particles-container {
+  position: relative;
+}
+
+.mono-particles-canvas {
+  background-color: #edc7c7;
+
+  position: absolute;
+
+  top: -50%;
+  left: -25%;
+
+  width: 150%;
+  height: 200%;
+
+  z-index: -1;
+}
+
+.mono-particles-content {
+  width: 400px;
+  height: 250px;
+
+  background-color: #d25f5f;
+}

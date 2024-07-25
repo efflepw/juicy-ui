@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./RainbowBorder.css";
 
 type Props = {
   children: React.ReactNode;
