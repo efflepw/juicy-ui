@@ -6,6 +6,8 @@
 
 **At the moment**, you can't see a preview of all available components; they need to be imported manually.
 
+**At the moment**, components can't be used as-is for various situations, but you can reuse any code from the repository as you wish.
+
 
 ## Getting Started
 
