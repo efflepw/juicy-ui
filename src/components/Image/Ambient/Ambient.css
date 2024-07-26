@@ -1,0 +1,30 @@
+.ambient-effect-container-parent {
+  background-color: rgb(0, 0, 0);
+
+  z-index: -2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 600px;
+  height: 400px;
+
+  border-radius: 24px;
+}
+
+.ambient-effect-container {
+  position: relative;
+}
+
+.ambient-effect-canvas {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+
+  z-index: -1;
+}
+
+.ambient-effect-image {
+  width: 400px;
+}
