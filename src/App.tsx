@@ -1,11 +1,12 @@
 import "./App.css";
-import { Password } from "./components/Input";
+
+import { Ambient } from "./components/Image";
 
 const App = () => {
   return (
     <main>
       <div className="centered-div">
-        <Password />
+        <Ambient />
       </div>
     </main>
   );
