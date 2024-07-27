@@ -1,6 +1,6 @@
-import { Ref } from "react";
+import { RefObject } from "react";
 import { MousePosition } from "../../../hooks/useMousePosition";
-import { CONFIG, WAVES_CONFIG } from "./const";
+import { CONFIG, MOUSE_MODES, WAVES_CONFIG } from "./const";
 import { Entity, InteractableEntity, Mouse, ParticleEntity } from "./types";
 
 const getRandomColor = (): string => {
@@ -28,23 +28,23 @@ export const createWaves = (): Entity[] =>
     speed: WAVES_CONFIG.BASE_SPEED + Math.random() * WAVES_CONFIG.SPEED_DELTA,
   }));
 
-// const waveRepulsion = (
-//   particle: ParticleEntity,
-//   wave: InteractableEntity
-// ): boolean => {
-//   const distanceToWave = calculateDistance(particle, wave);
+const waveRepulsion = (
+  particle: ParticleEntity,
+  wave: InteractableEntity
+): boolean => {
+  const distanceToWave = calculateDistance(particle, wave);
 
-//   if (distanceToWave < CONFIG.INTERACTION_DISTANCE) {
-//     const angle = Math.atan2(particle.y - wave.y, particle.x - wave.x);
+  if (distanceToWave < CONFIG.INTERACTION_DISTANCE) {
+    const angle = Math.atan2(particle.y - wave.y, particle.x - wave.x);
 
-//     particle.angle = angle;
-//     particle.speed = particle.speed + CONFIG.DISTANCE_ACCELERATOR;
+    particle.angle = angle;
+    particle.speed = particle.speed + CONFIG.DISTANCE_ACCELERATOR;
 
-//     return true;
-//   }
+    return true;
+  }
 
-//   return false;
-// };
+  return false;
+};
 
 const waveAttraction = (
   particle: ParticleEntity,
@@ -68,16 +68,16 @@ const waveAttraction = (
   return false;
 };
 
-// const interactWithMouse = (particle: ParticleEntity, mouse: Mouse) => {
-//   switch (CONFIG.MOUSE_MODE) {
-//     case MOUSE_MODES.REPULSION:
-//       return waveRepulsion(particle, mouse);
-//     case MOUSE_MODES.ATTRACTION:
-//       return waveAttraction(particle, mouse, CONFIG.INTERACTION_DISTANCE);
-//     default:
-//       return false;
-//   }
-// };
+const interactWithMouse = (particle: ParticleEntity, mouse: Mouse) => {
+  switch (CONFIG.MOUSE_MODE) {
+    case MOUSE_MODES.REPULSION:
+      return waveRepulsion(particle, mouse);
+    case MOUSE_MODES.ATTRACTION:
+      return waveAttraction(particle, mouse, CONFIG.INTERACTION_DISTANCE);
+    default:
+      return false;
+  }
+};
 
 const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
   let interacted = false;
@@ -92,15 +92,15 @@ const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
 
 const updateParticlesPosition = (
   particles: ParticleEntity[],
-  waves: Entity[]
-  // mouse: Mouse
+  waves: Entity[],
+  mouse: Mouse
 ) => {
   particles.forEach((particle) => {
     let interacted = false;
 
-    // if (CONFIG.MOUSE_MODE !== MOUSE_MODES.OFF) {
-    //   interacted = interactWithMouse(particle, mouse);
-    // }
+    if (CONFIG.MOUSE_MODE !== MOUSE_MODES.OFF) {
+      interacted = interactWithMouse(particle, mouse);
+    }
 
     if (CONFIG.ENABLE_WAVES) {
       interacted = interacted || interactWithWaves(particle, waves);
@@ -155,41 +155,52 @@ const renderParticlesArc = (
 };
 
 export const updateMousePosition = (
-  mousePosition: MousePosition,
-  rect: DOMRect,
   canvas: HTMLCanvasElement,
-  mouse: Mouse
-) => {
+  mouse: Mouse,
+  mouseRef: RefObject<MousePosition>
+): Mouse => {
+  if (!mouseRef || !mouseRef.current) return mouse;
+
+  const rect = canvas.getBoundingClientRect();
+
   const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
 
-  mouse.prevX = mouse.x;
-  mouse.prevY = mouse.y;
+  const mousePosition: MousePosition = mouseRef.current;
 
-  mouse.x = (mousePosition.x - rect.left) * scaleX;
-  mouse.y = (mousePosition.y - rect.top) * scaleY;
+  let angle = mouse.angle;
 
   if (mouse.x !== mouse.prevX && mouse.y !== mouse.prevY) {
-    mouse.angle = Math.atan2(mouse.y - mouse.prevY, mouse.x - mouse.prevX);
+    angle = Math.atan2(mouse.y - mouse.prevY, mouse.x - mouse.prevX);
   }
+
+  return {
+    angle,
+    prevX: mouse.x,
+    prevY: mouse.y,
+    x: (mousePosition.x - rect.left) * scaleX,
+    y: (mousePosition.y - rect.top) * scaleY,
+  };
 };
 
 export const animateParticles = (
   canvas: HTMLCanvasElement,
   particles: ParticleEntity[],
   waves: Entity[],
-  mouseRef: Ref<MousePosition>
+  mouseRef: RefObject<MousePosition>,
+  mouse: Mouse
 ) => {
   const context = canvas.getContext("2d")!;
+  const updatedMouse = updateMousePosition(canvas, mouse, mouseRef);
 
   context.clearRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
 
   updateWavesPosition(waves);
-  updateParticlesPosition(particles, waves);
+  updateParticlesPosition(particles, waves, mouse);
 
   renderParticlesArc(context, particles);
 
   requestAnimationFrame(() =>
-    animateParticles(canvas, particles, waves, mouseRef)
+    animateParticles(canvas, particles, waves, mouseRef, updatedMouse)
   );
 };

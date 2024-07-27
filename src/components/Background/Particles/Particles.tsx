@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import "./Particles.css";
 import { useMousePosition } from "../../../hooks";
 import { animateParticles, createParticles, createWaves } from "./utils";
+import { MOUSE_INITIAL_STATE } from "./const";
 
 const Particles = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,7 +21,7 @@ const Particles = () => {
     const particles = createParticles();
     const waves = createWaves();
 
-    animateParticles(canvas, particles, waves, mouseRef);
+    animateParticles(canvas, particles, waves, mouseRef, MOUSE_INITIAL_STATE);
   }, []);
 
   return <canvas className="canvas-bg" ref={canvasRef}></canvas>;

@@ -1,4 +1,4 @@
-import { Ref, useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 
 export type MousePosition = {
   x: number;
@@ -6,7 +6,7 @@ export type MousePosition = {
 };
 
 type UseMousePosition = {
-  mouseRef: Ref<MousePosition>;
+  mouseRef: RefObject<MousePosition>;
 };
 
 const useMousePosition = (): UseMousePosition => {

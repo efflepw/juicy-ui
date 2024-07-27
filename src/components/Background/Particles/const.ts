@@ -14,7 +14,7 @@ export const MOUSE_MODES = {
 };
 
 export const CONFIG = {
-  PARTICLES_AMOUNT: 100,
+  PARTICLES_AMOUNT: 300,
   SPEED: 0.2,
   SPEED_DELTA: 0.1,
   ANGLE_DELTA: 0.05,
@@ -24,7 +24,6 @@ export const CONFIG = {
   SPEED_CAP: 1.8,
   CANVAS_WIDTH: 1728,
   CANVAS_HEIGHT: 897,
-  DOT_SIZE: 2,
   ARC_SIZE: 3,
   INTERACTION_DISTANCE: 100,
   PALETTE: THEMES.PALETTE_1,
@@ -33,7 +32,7 @@ export const CONFIG = {
 };
 
 export const WAVES_CONFIG = {
-  COUNT: 1,
+  COUNT: 10,
   BASE_SPEED: 0.5,
   SIZE: 50,
   SPEED_DELTA: 0.4,
