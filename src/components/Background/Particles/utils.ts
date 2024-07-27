@@ -1,0 +1,195 @@
+import { Ref } from "react";
+import { MousePosition } from "../../../hooks/useMousePosition";
+import { CONFIG, WAVES_CONFIG } from "./const";
+import { Entity, InteractableEntity, Mouse, ParticleEntity } from "./types";
+
+const getRandomColor = (): string => {
+  const randomIndex = Math.floor(Math.random() * CONFIG.PALETTE.length);
+
+  return CONFIG.PALETTE[randomIndex];
+};
+
+export const createParticles = (): ParticleEntity[] =>
+  Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => ({
+    x: Math.random() * CONFIG.CANVAS_WIDTH,
+    y: Math.random() * CONFIG.CANVAS_HEIGHT,
+    angle: Math.random() * Math.PI * 2,
+    speed: CONFIG.SPEED + Math.random() * 0.1,
+    maxFloatingSpeed:
+      CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+    color: getRandomColor(),
+  }));
+
+export const createWaves = (): Entity[] =>
+  Array.from({ length: WAVES_CONFIG.COUNT }, () => ({
+    x: Math.random() * CONFIG.CANVAS_WIDTH,
+    y: Math.random() * CONFIG.CANVAS_HEIGHT,
+    angle: Math.random() * Math.PI * 2,
+    speed: WAVES_CONFIG.BASE_SPEED + Math.random() * WAVES_CONFIG.SPEED_DELTA,
+  }));
+
+// const waveRepulsion = (
+//   particle: ParticleEntity,
+//   wave: InteractableEntity
+// ): boolean => {
+//   const distanceToWave = calculateDistance(particle, wave);
+
+//   if (distanceToWave < CONFIG.INTERACTION_DISTANCE) {
+//     const angle = Math.atan2(particle.y - wave.y, particle.x - wave.x);
+
+//     particle.angle = angle;
+//     particle.speed = particle.speed + CONFIG.DISTANCE_ACCELERATOR;
+
+//     return true;
+//   }
+
+//   return false;
+// };
+
+const waveAttraction = (
+  particle: ParticleEntity,
+  wave: InteractableEntity,
+  size: number
+) => {
+  const distanceToWave = calculateDistance(particle, wave);
+
+  if (distanceToWave < size) {
+    const angleDelta = Math.sign(wave.angle - particle.angle) * 0.05;
+
+    particle.angle += angleDelta;
+    particle.speed = Math.min(
+      particle.speed + CONFIG.DISTANCE_ACCELERATOR,
+      CONFIG.SPEED_CAP
+    );
+
+    return true;
+  }
+
+  return false;
+};
+
+// const interactWithMouse = (particle: ParticleEntity, mouse: Mouse) => {
+//   switch (CONFIG.MOUSE_MODE) {
+//     case MOUSE_MODES.REPULSION:
+//       return waveRepulsion(particle, mouse);
+//     case MOUSE_MODES.ATTRACTION:
+//       return waveAttraction(particle, mouse, CONFIG.INTERACTION_DISTANCE);
+//     default:
+//       return false;
+//   }
+// };
+
+const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
+  let interacted = false;
+
+  waves.forEach((wave) => {
+    interacted =
+      interacted || waveAttraction(particle, wave, WAVES_CONFIG.SIZE);
+  });
+
+  return interacted;
+};
+
+const updateParticlesPosition = (
+  particles: ParticleEntity[],
+  waves: Entity[]
+  // mouse: Mouse
+) => {
+  particles.forEach((particle) => {
+    let interacted = false;
+
+    // if (CONFIG.MOUSE_MODE !== MOUSE_MODES.OFF) {
+    //   interacted = interactWithMouse(particle, mouse);
+    // }
+
+    if (CONFIG.ENABLE_WAVES) {
+      interacted = interacted || interactWithWaves(particle, waves);
+    }
+
+    particle.x += Math.cos(particle.angle) * particle.speed;
+    particle.y += Math.sin(particle.angle) * particle.speed;
+
+    particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+
+    if (!interacted && particle.speed > particle.maxFloatingSpeed) {
+      particle.speed -= CONFIG.DISTANCE_SLOW;
+    }
+
+    wrapAroundCanvas(particle);
+  });
+};
+
+const updateWavesPosition = (waves: Entity[]): void => {
+  waves.forEach((wave) => {
+    wave.x += Math.cos(wave.angle) * wave.speed;
+    wave.y += Math.sin(wave.angle) * wave.speed;
+
+    wave.angle += WAVES_CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+
+    wrapAroundCanvas(wave);
+  });
+};
+
+const wrapAroundCanvas = (particle: Entity): void => {
+  if (particle.x < 0) particle.x = CONFIG.CANVAS_WIDTH;
+  if (particle.x > CONFIG.CANVAS_WIDTH) particle.x = 0;
+  if (particle.y < 0) particle.y = CONFIG.CANVAS_HEIGHT;
+  if (particle.y > CONFIG.CANVAS_HEIGHT) particle.y = 0;
+};
+
+const calculateDistance = (p1: InteractableEntity, p2: InteractableEntity) =>
+  Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+
+const renderParticlesArc = (
+  ctx: CanvasRenderingContext2D,
+  particles: ParticleEntity[]
+) => {
+  particles.forEach((particle) => {
+    ctx.beginPath();
+    ctx.fillStyle = particle.color;
+    ctx.arc(particle.x, particle.y, CONFIG.ARC_SIZE, 0, Math.PI * 2);
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = particle.color;
+    ctx.fill();
+  });
+};
+
+export const updateMousePosition = (
+  mousePosition: MousePosition,
+  rect: DOMRect,
+  canvas: HTMLCanvasElement,
+  mouse: Mouse
+) => {
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+
+  mouse.prevX = mouse.x;
+  mouse.prevY = mouse.y;
+
+  mouse.x = (mousePosition.x - rect.left) * scaleX;
+  mouse.y = (mousePosition.y - rect.top) * scaleY;
+
+  if (mouse.x !== mouse.prevX && mouse.y !== mouse.prevY) {
+    mouse.angle = Math.atan2(mouse.y - mouse.prevY, mouse.x - mouse.prevX);
+  }
+};
+
+export const animateParticles = (
+  canvas: HTMLCanvasElement,
+  particles: ParticleEntity[],
+  waves: Entity[],
+  mouseRef: Ref<MousePosition>
+) => {
+  const context = canvas.getContext("2d")!;
+
+  context.clearRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+
+  updateWavesPosition(waves);
+  updateParticlesPosition(particles, waves);
+
+  renderParticlesArc(context, particles);
+
+  requestAnimationFrame(() =>
+    animateParticles(canvas, particles, waves, mouseRef)
+  );
+};

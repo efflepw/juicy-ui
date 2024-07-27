@@ -1,11 +1,11 @@
 import "./App.css";
-import { Ambient } from "./components/Image";
+import { Particles } from "./components/Background";
 
 const App = () => {
   return (
     <main>
       <div className="centered-div">
-        <Ambient />
+        <Particles />
       </div>
     </main>
   );
