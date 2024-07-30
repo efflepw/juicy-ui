@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components.preview/Navbar";
+import { Particles } from "./components/Background";
+import { Ambient } from "./components/Image";
 
 type Section = {
   id: string;
@@ -10,14 +12,9 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
-    id: "red-block",
-    name: "Red",
-    component: (
-      <div
-        style={{ backgroundColor: "rgba(228, 53, 53, 0.867)" }}
-        className="test-block"
-      ></div>
-    ),
+    id: "ambient",
+    name: "Ambient",
+    component: <Ambient />,
   },
   {
     id: "yellow-block",
@@ -75,21 +72,25 @@ const App = () => {
   };
 
   return (
-    <div>
-      <header></header>
-      <main
-        className="grid h-screen"
-        style={{ gridTemplateColumns: "1fr 5fr" }}
-      >
-        <Navbar
-          sections={SECTION_COMPONENTS}
-          setSelectedSection={onSelectSection}
-        />
-        <div className="flex items-center justify-center bg-black">
-          {selectedSection.component}
-        </div>
-      </main>
-    </div>
+    <>
+      <Particles />
+      <div className="h-screen flex flex-col p-2 gap-2">
+        <header className="h-24 bg-lightdark rounded-3xl"></header>
+        <main
+          className="grid flex-grow gap-1"
+          style={{ gridTemplateColumns: "1fr 5fr" }}
+        >
+          <Navbar
+            activeId={selectedSection.id}
+            sections={SECTION_COMPONENTS}
+            setSelectedSection={onSelectSection}
+          />
+          <div className="flex items-center justify-center rounded-3xl bg-lightdark">
+            {selectedSection.component}
+          </div>
+        </main>
+      </div>
+    </>
   );
 };
 

@@ -4,21 +4,32 @@ type NavSection = {
 };
 
 type Props = {
+  activeId: string;
   sections: NavSection[];
   setSelectedSection: (id: string) => void;
 };
 
-const Navbar = ({ sections, setSelectedSection }: Props) => {
+// const SUB_SECTIONS = ["Red", "Orange", "Yellow", "Green", "Blue"];
+
+const Navbar = ({ activeId, sections, setSelectedSection }: Props) => {
   return (
-    <nav className="flex-grow bg-sky-900 flex flex-col justify-center items-center">
-      {sections.map(({ id, name }) => (
-        <div
-          className="px-4 py-2 bg-black w-56 text-center cursor-pointer"
-          onClick={() => setSelectedSection(id)}
-        >
-          <span>{name}</span>
-        </div>
-      ))}
+    <nav className="flex-grow  flex flex-col items-center">
+      <div className="bg-lightdark rounded-3xl py-6 px-8 h-full">
+        {sections.map(({ id, name }) => (
+          <div
+            className="w-52 cursor-pointer hover:underline text-lg leading-relaxed"
+            onClick={() => setSelectedSection(id)}
+          >
+            <span
+              className={`${
+                activeId == id ? "text-white underline" : "text-gray"
+              }`}
+            >
+              {name}
+            </span>
+          </div>
+        ))}
+      </div>
     </nav>
   );
 };
