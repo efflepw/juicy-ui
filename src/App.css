@@ -17,3 +17,8 @@ body {
 button {
   font-family: "Montserrat";
 }
+
+.test-block {
+  width: 600px;
+  height: 400px;
+}
