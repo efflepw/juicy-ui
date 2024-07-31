@@ -63,9 +63,8 @@ const App = () => {
 
   return (
     <>
-      {/* <Particles /> */}
       <div className="h-screen flex flex-col p-2 gap-2">
-        <header className="h-24 bg-lightdark rounded-3xl"></header>
+        <header className="h-24 bg-secondary rounded-3xl"></header>
         <main
           className="grid flex-grow gap-1"
           style={{ gridTemplateColumns: "1fr 5fr" }}

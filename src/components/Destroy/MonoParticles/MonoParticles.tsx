@@ -71,7 +71,7 @@ const MonoParticles = () => {
 
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#d25f5f";
+      ctx.fillStyle = "#8298b0";
 
       particles = updateParticlesPosition(particles, iter);
 
