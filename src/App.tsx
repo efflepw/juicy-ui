@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components.preview/Navbar";
-import { Particles } from "./components/Background";
+import LikeButtons from "./components.preview/LikeButtons";
 import { Ambient } from "./components/Image";
+import { MonoParticles } from "./components/Destroy";
+import { RainbowBorder } from "./components/Border";
+import { Particles } from "./components/Background";
 
 type Section = {
   id: string;
@@ -12,49 +15,36 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
+    id: "mono-particles",
+    name: "Mono Particles",
+    component: <MonoParticles />,
+  },
+  {
+    id: "rainbow-border",
+    name: "Rainbow border",
+    component: (
+      <RainbowBorder>
+        <div
+          style={{ backgroundColor: "#000000" }}
+          className="test-block"
+        ></div>
+      </RainbowBorder>
+    ),
+  },
+  {
     id: "ambient",
     name: "Ambient",
     component: <Ambient />,
   },
   {
-    id: "yellow-block",
-    name: "Yellow",
-    component: (
-      <div
-        style={{ backgroundColor: "rgba(224, 172, 67, 0.819)" }}
-        className="test-block"
-      ></div>
-    ),
+    id: "like-button",
+    name: "Like button",
+    component: <LikeButtons />,
   },
   {
-    id: "blue-block",
-    name: "Blue",
-    component: (
-      <div
-        style={{ backgroundColor: "rgba(43, 97, 233, 0.819)" }}
-        className="test-block"
-      ></div>
-    ),
-  },
-  {
-    id: "green-block",
-    name: "Green",
-    component: (
-      <div
-        style={{ backgroundColor: "rgba(53, 225, 37, 0.819)" }}
-        className="test-block"
-      ></div>
-    ),
-  },
-  {
-    id: "pink-block",
-    name: "Pink",
-    component: (
-      <div
-        style={{ backgroundColor: "rgba(239, 98, 247, 0.819)" }}
-        className="test-block"
-      ></div>
-    ),
+    id: "particles-background",
+    name: "Particles background",
+    component: <Particles />,
   },
 ];
 
@@ -73,7 +63,7 @@ const App = () => {
 
   return (
     <>
-      <Particles />
+      {/* <Particles /> */}
       <div className="h-screen flex flex-col p-2 gap-2">
         <header className="h-24 bg-lightdark rounded-3xl"></header>
         <main

@@ -9,8 +9,6 @@ type Props = {
   setSelectedSection: (id: string) => void;
 };
 
-// const SUB_SECTIONS = ["Red", "Orange", "Yellow", "Green", "Blue"];
-
 const Navbar = ({ activeId, sections, setSelectedSection }: Props) => {
   return (
     <nav className="flex-grow  flex flex-col items-center">

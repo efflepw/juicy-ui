@@ -35,10 +35,10 @@ const Ambient = () => {
 
     context.drawImage(
       imageRef.current,
-      400 * 0.025,
-      282.5 * 0.125,
-      canvas.width - 400 * 0.075,
-      canvas.height - 282.5 * 0.225
+      400 * 0.1,
+      282.5 * 0.2,
+      canvas.width - 400 * 0.2,
+      canvas.height - 282.5 * 0.4
     );
   }, [imageLoaded]);
 
