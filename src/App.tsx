@@ -6,6 +6,7 @@ import { Ambient } from "./components/Image";
 import { MonoParticles } from "./components/Destroy";
 import { RainbowBorder } from "./components/Border";
 import { Particles } from "./components/Background";
+import AuroraBg from "./components.preview/AuroraBg";
 
 type Section = {
   id: string;
@@ -14,6 +15,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "aurora-bg",
+    name: "Aurora background",
+    component: <AuroraBg />,
+  },
   {
     id: "mono-particles",
     name: "Mono Particles",
@@ -42,7 +48,7 @@ const SECTION_COMPONENTS: Section[] = [
     component: <LikeButtons />,
   },
   {
-    id: "particles-background",
+    id: "particles-bg",
     name: "Particles background",
     component: <Particles />,
   },
@@ -74,7 +80,7 @@ const App = () => {
             sections={SECTION_COMPONENTS}
             setSelectedSection={onSelectSection}
           />
-          <div className="flex items-center justify-center rounded-3xl bg-lightdark">
+          <div className="flex items-center justify-center rounded-3xl bg-lightdark p-4">
             {selectedSection.component}
           </div>
         </main>
