@@ -4,8 +4,8 @@ import Navbar from "./components.preview/Navbar";
 import LikeButtons from "./components.preview/LikeButtons";
 import { Ambient } from "./components/Image";
 import { MonoParticles } from "./components/Destroy";
-import { RainbowBorder } from "./components/Border";
 import { Particles } from "./components/Background";
+import { RainbowBorder } from "./components/Border";
 import AuroraBg from "./components.preview/AuroraBg";
 
 type Section = {
@@ -15,16 +15,6 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
-  {
-    id: "aurora-bg",
-    name: "Aurora background",
-    component: <AuroraBg />,
-  },
-  {
-    id: "mono-particles",
-    name: "Mono Particles",
-    component: <MonoParticles />,
-  },
   {
     id: "rainbow-border",
     name: "Rainbow border",
@@ -36,6 +26,16 @@ const SECTION_COMPONENTS: Section[] = [
         ></div>
       </RainbowBorder>
     ),
+  },
+  {
+    id: "aurora-bg",
+    name: "Aurora background",
+    component: <AuroraBg />,
+  },
+  {
+    id: "mono-particles",
+    name: "Mono Particles",
+    component: <MonoParticles />,
   },
   {
     id: "ambient",
@@ -70,7 +70,7 @@ const App = () => {
   return (
     <>
       <div className="h-screen flex flex-col p-2 gap-2">
-        <header className="h-24 bg-secondary rounded-3xl"></header>
+        <header className="h-24 bg-secondary rounded-2xl"></header>
         <main
           className="grid flex-grow gap-1"
           style={{ gridTemplateColumns: "1fr 5fr" }}
@@ -80,7 +80,7 @@ const App = () => {
             sections={SECTION_COMPONENTS}
             setSelectedSection={onSelectSection}
           />
-          <div className="flex items-center justify-center rounded-3xl bg-lightdark p-4">
+          <div className="flex items-center justify-center rounded-2xl bg-lightdark p-3">
             {selectedSection.component}
           </div>
         </main>

@@ -17,26 +17,46 @@
 }
 
 .rainbow-border {
-  border: var(--border-width) solid;
-  border-image: conic-gradient(
-      from var(--angle),
-      var(--c1),
-      var(--c2),
-      var(--c3),
-      var(--c4),
-      var(--c5),
-      var(--c6),
-      var(--c1)
-    )
-    30;
-  animation: borderRotate var(--d) linear infinite forwards;
-
-  min-width: 50px;
-  min-height: 50px;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 30px;
 }
 
-.rainbow-border:focus {
-  outline: none;
+.rainbow-border::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -10px;
+  bottom: -10px;
+  margin: auto;
+  background-image: conic-gradient(
+    from var(--angle),
+    var(--c1),
+    var(--c2),
+    var(--c3),
+    var(--c4),
+    var(--c5),
+    var(--c6),
+    var(--c1)
+  );
+  pointer-events: none;
+
+  animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.rainbow-border::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  background: black;
+  pointer-events: none;
+
+  border-radius: 20px;
 }
 
 @keyframes borderRotate {

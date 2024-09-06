@@ -12,7 +12,7 @@ type Props = {
 const Navbar = ({ activeId, sections, setSelectedSection }: Props) => {
   return (
     <nav className="flex-grow  flex flex-col items-center">
-      <div className="bg-lightdark rounded-3xl py-6 px-8 h-full">
+      <div className="bg-lightdark rounded-2xl py-6 px-8 h-full">
         {sections.map(({ id, name }) => (
           <div
             className="w-52 cursor-pointer hover:underline text-lg leading-relaxed"

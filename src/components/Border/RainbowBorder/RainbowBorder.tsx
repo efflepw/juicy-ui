@@ -4,8 +4,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ButtonHover = ({ children }: Props) => {
+const RainbowBorder = ({ children }: Props) => {
   return <div className="rainbow-border">{children}</div>;
 };
 
-export default ButtonHover;
+export default RainbowBorder;
