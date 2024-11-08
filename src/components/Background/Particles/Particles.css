@@ -1,3 +1,4 @@
+/* use as canvas bg */
 .canvas-bg {
   position: absolute;
 
@@ -8,4 +9,10 @@
   height: 100%;
 
   z-index: -10;
+}
+
+.canvas-preview {
+  height: 400px;
+
+  padding-bottom: 20px;
 }

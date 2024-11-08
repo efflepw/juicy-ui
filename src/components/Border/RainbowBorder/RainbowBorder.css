@@ -5,7 +5,8 @@
 }
 
 :root {
-  --border-width: 8px;
+  --border-width: 6px;
+  --border-radius: 10px;
   --d: 1800ms;
   --angle: 60deg;
   --c1: rgb(255, 248, 168);
@@ -20,7 +21,7 @@
   position: relative;
   margin: auto;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: var(--border-radius);
 }
 
 .rainbow-border::before {
@@ -49,14 +50,14 @@
 .rainbow-border::after {
   content: "";
   position: absolute;
-  left: 1rem;
-  top: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  background: black;
+  left: var(--border-width);
+  top: var(--border-width);
+  right: var(--border-width);
+  bottom: var(--border-width);
+  background: rgb(21, 21, 21);
   pointer-events: none;
 
-  border-radius: 20px;
+  border-radius: calc(var(--border-radius) - var(--border-width));
 }
 
 @keyframes borderRotate {

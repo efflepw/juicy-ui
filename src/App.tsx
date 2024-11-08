@@ -7,6 +7,8 @@ import { MonoParticles } from "./components/Destroy";
 import { Particles } from "./components/Background";
 import { RainbowBorder } from "./components/Border";
 import AuroraBg from "./components.preview/AuroraBg";
+import Header from "./components.preview/Header";
+import Skeleton from "./components.preview/Skeleton";
 
 type Section = {
   id: string;
@@ -16,20 +18,33 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
+    id: "rainbow-skeleton",
+    name: "Rainbow skeleton",
+    component: (
+      <div>
+        <div className="flex gap-5 bg-white rounded px-4 py-10">
+          <Skeleton />
+          <Skeleton />
+        </div>
+        <div className="flex gap-5 mb-6 bg-black rounded px-4 py-10">
+          <Skeleton />
+          <Skeleton />
+        </div>
+      </div>
+    ),
+  },
+  {
     id: "rainbow-border",
     name: "Rainbow border",
     component: (
       <RainbowBorder>
-        <div
-          style={{ backgroundColor: "#000000" }}
-          className="test-block"
-        ></div>
+        <button className="preview-button"></button>
       </RainbowBorder>
     ),
   },
   {
     id: "aurora-bg",
-    name: "Aurora background",
+    name: "Aurora",
     component: <AuroraBg />,
   },
   {
@@ -49,8 +64,13 @@ const SECTION_COMPONENTS: Section[] = [
   },
   {
     id: "particles-bg",
-    name: "Particles background",
-    component: <Particles />,
+    name: "Particles",
+    component: (
+      <div className="w-[100%]">
+        <Particles />
+        <Particles />
+      </div>
+    ),
   },
 ];
 
@@ -68,11 +88,11 @@ const App = () => {
   };
 
   return (
-    <>
-      <div className="h-screen flex flex-col p-2 gap-2">
-        <header className="h-24 bg-secondary rounded-2xl"></header>
+    <div className="w-[80%] m-[auto]">
+      <Header />
+      <div className="flex flex-col py-2 gap-2">
         <main
-          className="grid flex-grow gap-1"
+          className="grid flex-grow gap-2 pt-16"
           style={{ gridTemplateColumns: "1fr 5fr" }}
         >
           <Navbar
@@ -80,12 +100,12 @@ const App = () => {
             sections={SECTION_COMPONENTS}
             setSelectedSection={onSelectSection}
           />
-          <div className="flex items-center justify-center rounded-2xl bg-lightdark p-3">
+          <div className="flex items-center justify-center p-3">
             {selectedSection.component}
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 };
 

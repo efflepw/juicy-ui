@@ -24,7 +24,7 @@ const Particles = () => {
     animateParticles(canvas, particles, waves, mouseRef, MOUSE_INITIAL_STATE);
   }, []);
 
-  return <canvas className="canvas-bg" ref={canvasRef}></canvas>;
+  return <canvas className="canvas-preview" ref={canvasRef}></canvas>;
 };
 
 export default Particles;
