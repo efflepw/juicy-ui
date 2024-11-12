@@ -15,6 +15,7 @@ const Navbar = ({ activeId, sections, setSelectedSection }: Props) => {
       <div className="bg-lightdark rounded-xl py-6 px-8 h-full w-full">
         {sections.map(({ id, name }) => (
           <div
+            key={id}
             className="cursor-pointer hover:underline text-lg leading-relaxed"
             onClick={() => setSelectedSection(id)}
           >

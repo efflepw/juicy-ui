@@ -1,0 +1,37 @@
+@keyframes emoji-burst {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotation))
+      scale(var(--scale));
+    opacity: 0;
+  }
+}
+
+@keyframes emoji-drop {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotation))
+      scale(var(--scale));
+    opacity: 0;
+  }
+}
+
+.burst-animation {
+  animation: emoji-burst 1s cubic-bezier(0.3, 1, 0.4, 1) forwards;
+}
+
+.drop-animation {
+  animation: emoji-drop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

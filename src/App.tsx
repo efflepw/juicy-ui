@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components.preview/Navbar";
-import LikeButtons from "./components.preview/LikeButtons";
+import ButtonsPreview from "./components.preview/ButtonsPreview";
 import { Ambient } from "./components/Image";
 import { MonoParticles } from "./components/Destroy";
 import { Particles } from "./components/Background";
@@ -17,6 +17,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "buttons",
+    name: "Buttons",
+    component: <ButtonsPreview />,
+  },
   {
     id: "rainbow-skeleton",
     name: "Rainbow skeleton",
@@ -56,11 +61,6 @@ const SECTION_COMPONENTS: Section[] = [
     id: "ambient",
     name: "Ambient",
     component: <Ambient />,
-  },
-  {
-    id: "like-button",
-    name: "Like button",
-    component: <LikeButtons />,
   },
   {
     id: "particles-bg",

@@ -5,8 +5,6 @@ import { useState } from "react";
 const TwitterLikeButton = () => {
   const [liked, setLiked] = useState(false);
 
-  console.log({ liked });
-
   return (
     <div className="twitter-like">
       <div className="twitter-like-bg">
