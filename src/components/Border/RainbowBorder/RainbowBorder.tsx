@@ -5,6 +5,7 @@ type Props = {
 };
 
 const RainbowBorder = ({ children }: Props) => {
+  // @todo add color presets
   return <div className="rainbow-border">{children}</div>;
 };
 

@@ -31,7 +31,11 @@ const SECTION_COMPONENTS: Section[] = [
           <Skeleton />
           <Skeleton />
         </div>
-        <div className="flex gap-5 mb-6 bg-black rounded px-4 py-10">
+        <div className="flex gap-5 mb-6 bg-gray-700 rounded px-4 py-10 mt-10">
+          <Skeleton />
+          <Skeleton />
+        </div>
+        <div className="flex gap-5 mb-6 bg-black rounded px-4 py-10 mt-10">
           <Skeleton />
           <Skeleton />
         </div>
@@ -100,7 +104,7 @@ const App = () => {
             sections={SECTION_COMPONENTS}
             setSelectedSection={onSelectSection}
           />
-          <div className="flex items-center justify-center p-3">
+          <div className="flex items-center justify-center py-10 px-4">
             {selectedSection.component}
           </div>
         </main>

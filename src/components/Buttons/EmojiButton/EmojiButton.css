@@ -13,25 +13,48 @@
   }
 }
 
-@keyframes emoji-drop {
-  0% {
-    transform: translate(0, 0) rotate(0deg) scale(0);
-    opacity: 1;
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotation))
-      scale(var(--scale));
-    opacity: 0;
-  }
-}
-
 .burst-animation {
   animation: emoji-burst 1s cubic-bezier(0.3, 1, 0.4, 1) forwards;
 }
 
+@keyframes emoji-drop {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(var(--mid-x));
+  }
+  100% {
+    transform: translateX(var(--end-x));
+    /* rotate(var(--rotation)) */
+    /* scale(var(--scale)); */
+    opacity: 0;
+  }
+}
+
+@keyframes emoji-drop-after {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(var(--mid-y));
+  }
+  100% {
+    transform: translateY(var(--end-y));
+  }
+}
+
 .drop-animation {
-  animation: emoji-drop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: emoji-drop 1s ease-out forwards;
+}
+
+.drop-animation::after {
+  content: "";
+  display: block;
+  background-color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  animation: emoji-drop-after 1s ease-in forwards;
 }
