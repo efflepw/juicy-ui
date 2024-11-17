@@ -20,41 +20,38 @@
 @keyframes emoji-drop {
   0% {
     transform: translateX(0);
-    opacity: 1;
   }
-  40% {
+  30% {
     transform: translateX(var(--mid-x));
   }
   100% {
     transform: translateX(var(--end-x));
-    /* rotate(var(--rotation)) */
-    /* scale(var(--scale)); */
-    opacity: 0;
   }
 }
 
 @keyframes emoji-drop-after {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(0) scale(1);
   }
-  20% {
+  30% {
+    animation-timing-function: ease-in;
     transform: translateY(var(--mid-y));
+    opacity: 1;
   }
   100% {
-    transform: translateY(var(--end-y));
+    transform: translateY(var(--end-y)) rotate(var(--rotation))
+      scale(var(--scale));
+    opacity: 0;
   }
 }
 
 .drop-animation {
-  animation: emoji-drop 1s ease-out forwards;
+  animation: emoji-drop 1s linear forwards;
 }
 
 .drop-animation::after {
-  content: "";
+  content: "🤡";
   display: block;
-  background-color: #fff;
-  width: 20px;
-  height: 20px;
   border-radius: 20px;
-  animation: emoji-drop-after 1s ease-in forwards;
+  animation: emoji-drop-after 1s cubic-bezier(0.1, 0.5, 0.5, 0.9) forwards;
 }
