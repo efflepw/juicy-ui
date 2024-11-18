@@ -1,70 +1,12 @@
 import "./EmojiButton.css";
+
 import React, { useState } from "react";
 
-const BURST_COUNT = 12;
+import { BURST_COUNT } from "./const";
+import { EmojiData, EmojiButtonProps } from "./types";
+import { getAnimationFunction } from "./utils";
 
-interface EmojiData {
-  id: string;
-  icon: string;
-  centerX: number;
-  centerY: number;
-  angle: number;
-  distance: number;
-  rotation: number;
-  scale: number;
-}
-
-interface BurstAnimationStyles extends React.CSSProperties {
-  "--end-x": string;
-  "--end-y": string;
-  "--rotation": string;
-  "--scale": number;
-}
-
-interface DropAnimationStyles extends React.CSSProperties {
-  "--emoji-icon": string;
-  "--mid-x": string;
-  "--mid-y": string;
-  "--end-x": string;
-  "--end-y": string;
-  "--rotation": string;
-  "--scale": number;
-}
-
-type SupportedAnimationTypes = "burst" | "drop";
-
-type Props = {
-  emoji: string;
-  animationType: SupportedAnimationTypes;
-};
-
-const getBurstAnimationStyles = (e: EmojiData): BurstAnimationStyles => ({
-  left: `${e.centerX}px`,
-  top: `${e.centerY}px`,
-  "--end-x": `${Math.cos(e.angle) * e.distance}px`,
-  "--end-y": `${Math.sin(e.angle) * e.distance}px`,
-  "--rotation": `${e.rotation}deg`,
-  "--scale": e.scale,
-});
-
-const getDropAnimationStyles = (e: EmojiData): DropAnimationStyles => {
-  return {
-    left: `${e.centerX}px`,
-    top: `${e.centerY}px`,
-    "--emoji-icon": e.icon,
-    "--mid-x": `-60px`,
-    "--end-x": `-120px`,
-    "--mid-y": `-60px`,
-    "--end-y": `120px`,
-    "--rotation": `${e.rotation}deg`,
-    "--scale": e.scale,
-  };
-};
-
-const getAnimationFunction = (animationType: SupportedAnimationTypes) =>
-  animationType == "burst" ? getBurstAnimationStyles : getDropAnimationStyles;
-
-const EmojiButton: React.FC<Props> = ({ emoji, animationType }) => {
+const EmojiButton: React.FC<EmojiButtonProps> = ({ emoji, animationType }) => {
   const [emojis, setEmojis] = useState<EmojiData[]>([]);
 
   const createEmojis = () => {
@@ -76,7 +18,7 @@ const EmojiButton: React.FC<Props> = ({ emoji, animationType }) => {
 
     const newEmojis: EmojiData[] = Array.from({ length: BURST_COUNT }).map(
       (_, index) => {
-        const angle = (index / BURST_COUNT) * Math.PI * 2;
+        const angle = Math.random() * Math.PI * 2;
         const distance = 50 + Math.random() * 100;
 
         return {
@@ -107,7 +49,7 @@ const EmojiButton: React.FC<Props> = ({ emoji, animationType }) => {
           className={`absolute text-2xl ${animationType}-animation pointer-events-none`}
           style={getAnimationFunction(animationType)(e)}
         >
-          {/* {emoji} */}
+          {animationType == "burst" ? emoji : ""}
         </div>
       ))}
 

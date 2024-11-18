@@ -32,11 +32,12 @@
 @keyframes emoji-drop-after {
   0% {
     transform: translateY(0) rotate(0) scale(1);
+    opacity: 1;
   }
   30% {
     animation-timing-function: ease-in;
-    transform: translateY(var(--mid-y));
-    opacity: 1;
+    transform: translateY(var(--mid-y)) rotate(calc(var(--rotation) * 0.3));
+    opacity: 0.9;
   }
   100% {
     transform: translateY(var(--end-y)) rotate(var(--rotation))
@@ -50,7 +51,7 @@
 }
 
 .drop-animation::after {
-  content: "🤡";
+  content: var(--emoji-icon);
   display: block;
   border-radius: 20px;
   animation: emoji-drop-after 1s cubic-bezier(0.1, 0.5, 0.5, 0.9) forwards;

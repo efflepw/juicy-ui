@@ -6,8 +6,8 @@ const ButtonsPreview = () => {
     <div className="flex justify-around items-center w-full">
       <LikeButton />
       <TwitterLikeButton />
-      <EmojiButton emoji="💖" animationType={"burst"} />
-      <EmojiButton emoji="🤡" animationType={"drop"} />
+      <EmojiButton emoji="😂" animationType={"burst"} />
+      <EmojiButton emoji="😂" animationType={"drop"} />
     </div>
   );
 };
