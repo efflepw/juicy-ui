@@ -2,7 +2,8 @@ body {
   padding: 0;
   margin: 0;
 
-  background-color: rgb(21, 21, 21);
+  background-color: #0c0c0c;
+  /* background-color: #262d26; */
 }
 
 .centered-div {

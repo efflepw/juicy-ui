@@ -72,7 +72,6 @@ const SECTION_COMPONENTS: Section[] = [
     component: (
       <div className="w-[100%]">
         <Particles />
-        <Particles />
       </div>
     ),
   },

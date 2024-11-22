@@ -9,6 +9,7 @@ import { getAnimationFunction } from "./utils";
 const EmojiButton: React.FC<EmojiButtonProps> = ({ emoji, animationType }) => {
   const [emojis, setEmojis] = useState<EmojiData[]>([]);
 
+  // @todo add emoji animation waves
   const createEmojis = () => {
     // @todo update center position accordingly to size
     const centerX = 8;

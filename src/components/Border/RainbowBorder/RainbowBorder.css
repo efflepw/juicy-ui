@@ -4,7 +4,7 @@
   inherits: true;
 }
 
-:root {
+/* :root {
   --border-width: 6px;
   --border-radius: 10px;
   --d: 1800ms;
@@ -15,6 +15,19 @@
   --c4: rgba(53, 225, 37, 0.819);
   --c5: rgba(224, 172, 67, 0.819);
   --c6: rgba(228, 53, 53, 0.867);
+} */
+
+:root {
+  --border-width: 6px;
+  --border-radius: 10px;
+  --d: 1800ms;
+  --angle: 60deg;
+  --c1: #bb90facc;
+  --c2: #fd9090cc;
+  --c3: #fff962cc;
+  --c4: #9bf993cc;
+  --c5: #80daf5cc;
+  --c6: #bb90facc;
 }
 
 .rainbow-border {
