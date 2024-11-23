@@ -9,6 +9,7 @@ import { RainbowBorder } from "./components/Border";
 import AuroraBg from "./components.preview/AuroraBg";
 import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
+import ImageHover from "./components.preview/ImageHover";
 
 type Section = {
   id: string;
@@ -17,6 +18,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "image-hover",
+    name: "Image hover",
+    component: <ImageHover />,
+  },
   {
     id: "buttons",
     name: "Buttons",
