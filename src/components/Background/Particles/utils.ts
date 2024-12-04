@@ -1,7 +1,13 @@
 import { RefObject } from "react";
 import { MousePosition } from "../../../hooks/useMousePosition";
 import { CONFIG, MOUSE_MODES, WAVES_CONFIG } from "./const";
-import { Entity, InteractableEntity, Mouse, ParticleEntity } from "./types";
+import {
+  CanvasSize,
+  Entity,
+  InteractableEntity,
+  Mouse,
+  ParticleEntity,
+} from "./types";
 
 const getRandomColor = (): string => {
   const randomIndex = Math.floor(Math.random() * CONFIG.PALETTE.length);
@@ -9,10 +15,10 @@ const getRandomColor = (): string => {
   return CONFIG.PALETTE[randomIndex];
 };
 
-export const createParticles = (): ParticleEntity[] =>
+export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] =>
   Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => ({
-    x: Math.random() * CONFIG.CANVAS_WIDTH,
-    y: Math.random() * CONFIG.CANVAS_HEIGHT,
+    x: Math.random() * canvasSize.width,
+    y: Math.random() * canvasSize.height,
     angle: Math.random() * Math.PI * 2,
     speed: CONFIG.SPEED + Math.random() * 0.1,
     maxFloatingSpeed:
@@ -20,10 +26,10 @@ export const createParticles = (): ParticleEntity[] =>
     color: getRandomColor(),
   }));
 
-export const createWaves = (): Entity[] =>
+export const createWaves = (canvasSize: CanvasSize): Entity[] =>
   Array.from({ length: WAVES_CONFIG.COUNT }, () => ({
-    x: Math.random() * CONFIG.CANVAS_WIDTH,
-    y: Math.random() * CONFIG.CANVAS_HEIGHT,
+    x: Math.random() * canvasSize.width,
+    y: Math.random() * canvasSize.height,
     angle: Math.random() * Math.PI * 2,
     speed: WAVES_CONFIG.BASE_SPEED + Math.random() * WAVES_CONFIG.SPEED_DELTA,
   }));
@@ -93,7 +99,8 @@ const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
 const updateParticlesPosition = (
   particles: ParticleEntity[],
   waves: Entity[],
-  mouse: Mouse
+  mouse: Mouse,
+  canvasSize: CanvasSize
 ) => {
   particles.forEach((particle) => {
     let interacted = false;
@@ -115,26 +122,26 @@ const updateParticlesPosition = (
       particle.speed -= CONFIG.DISTANCE_SLOW;
     }
 
-    wrapAroundCanvas(particle);
+    wrapAroundCanvas(particle, canvasSize);
   });
 };
 
-const updateWavesPosition = (waves: Entity[]): void => {
+const updateWavesPosition = (waves: Entity[], canvasSize: CanvasSize): void => {
   waves.forEach((wave) => {
     wave.x += Math.cos(wave.angle) * wave.speed;
     wave.y += Math.sin(wave.angle) * wave.speed;
 
     wave.angle += WAVES_CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
 
-    wrapAroundCanvas(wave);
+    wrapAroundCanvas(wave, canvasSize);
   });
 };
 
-const wrapAroundCanvas = (particle: Entity): void => {
-  if (particle.x < 0) particle.x = CONFIG.CANVAS_WIDTH;
-  if (particle.x > CONFIG.CANVAS_WIDTH) particle.x = 0;
-  if (particle.y < 0) particle.y = CONFIG.CANVAS_HEIGHT;
-  if (particle.y > CONFIG.CANVAS_HEIGHT) particle.y = 0;
+const wrapAroundCanvas = (particle: Entity, canvasSize: CanvasSize): void => {
+  if (particle.x < 0) particle.x = canvasSize.width;
+  if (particle.x > canvasSize.width) particle.x = 0;
+  if (particle.y < 0) particle.y = canvasSize.height;
+  if (particle.y > canvasSize.height) particle.y = 0;
 };
 
 const calculateDistance = (p1: InteractableEntity, p2: InteractableEntity) =>
@@ -188,19 +195,27 @@ export const animateParticles = (
   particles: ParticleEntity[],
   waves: Entity[],
   mouseRef: RefObject<MousePosition>,
-  mouse: Mouse
+  mouse: Mouse,
+  canvasSize: CanvasSize
 ) => {
   const context = canvas.getContext("2d")!;
   const updatedMouse = updateMousePosition(canvas, mouse, mouseRef);
 
-  context.clearRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+  context.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
-  updateWavesPosition(waves);
-  updateParticlesPosition(particles, waves, mouse);
+  updateWavesPosition(waves, canvasSize);
+  updateParticlesPosition(particles, waves, mouse, canvasSize);
 
   renderParticlesArc(context, particles);
 
   requestAnimationFrame(() =>
-    animateParticles(canvas, particles, waves, mouseRef, updatedMouse)
+    animateParticles(
+      canvas,
+      particles,
+      waves,
+      mouseRef,
+      updatedMouse,
+      canvasSize
+    )
   );
 };

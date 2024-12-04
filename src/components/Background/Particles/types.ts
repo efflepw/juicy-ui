@@ -19,3 +19,8 @@ export type Mouse = {
   prevY: number;
   angle: number;
 };
+
+export type CanvasSize = {
+  width: number;
+  height: number;
+};

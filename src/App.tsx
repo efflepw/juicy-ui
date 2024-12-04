@@ -11,6 +11,7 @@ import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
 import ImageHover from "./components.preview/ImageHover";
 import RainbowBorderPreview from "./components.preview/RainbowBorder";
+import { RainbowBorderV0 } from "./components/Border";
 
 type Section = {
   id: string;
@@ -19,6 +20,17 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "particles-bg",
+    name: "Particles",
+    component: (
+      <div className="w-[100%]">
+        <RainbowBorderV0>
+          <Particles />
+        </RainbowBorderV0>
+      </div>
+    ),
+  },
   {
     id: "image-hover",
     name: "Image hover",
@@ -68,15 +80,6 @@ const SECTION_COMPONENTS: Section[] = [
     id: "ambient",
     name: "Ambient",
     component: <Ambient />,
-  },
-  {
-    id: "particles-bg",
-    name: "Particles",
-    component: (
-      <div className="w-[100%]">
-        <Particles />
-      </div>
-    ),
   },
 ];
 

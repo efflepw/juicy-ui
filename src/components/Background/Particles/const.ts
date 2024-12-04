@@ -5,6 +5,7 @@ export const THEMES = {
   PALETTE_4: ["#FEFFD2", "#FFEEA9", "#FFBF78", "#FF7D29"],
   PALETTE_5: ["#a67c00", "#bf9b30", "#ffbf00", "#ffcf40", "#ffdc73"],
   PALETTE_6: ["#c4c4fd", "#ffec9c", "#6a71a5", "#35336b", "#091e36"],
+  RAINBOW: ["#bb90facc", "#fd9090cc", "#fff962cc", "#9bf993cc", "#80daf5cc"],
 };
 
 export const MOUSE_MODES = {
@@ -14,7 +15,7 @@ export const MOUSE_MODES = {
 };
 
 export const CONFIG = {
-  PARTICLES_AMOUNT: 300,
+  PARTICLES_AMOUNT: 100,
   SPEED: 0.2,
   SPEED_DELTA: 0.1,
   ANGLE_DELTA: 0.05,
@@ -22,11 +23,9 @@ export const CONFIG = {
   DISTANCE_ACCELERATOR: 0.01,
   DISTANCE_SLOW: 0.005,
   SPEED_CAP: 1.8,
-  CANVAS_WIDTH: 1728,
-  CANVAS_HEIGHT: 897,
   ARC_SIZE: 3,
   INTERACTION_DISTANCE: 100,
-  PALETTE: THEMES.PALETTE_3,
+  PALETTE: THEMES.RAINBOW,
   MOUSE_MODE: MOUSE_MODES.REPULSION,
   ENABLE_WAVES: false,
 };
