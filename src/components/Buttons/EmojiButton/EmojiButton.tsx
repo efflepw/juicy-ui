@@ -2,14 +2,13 @@ import "./EmojiButton.css";
 
 import React, { useState } from "react";
 
-import { BURST_COUNT } from "./const";
+import { BURST_COUNT, WAVE_DELAY_MS, WAVES_AMOUNT } from "./const";
 import { EmojiData, EmojiButtonProps } from "./types";
 import { getAnimationFunction } from "./utils";
 
 const EmojiButton: React.FC<EmojiButtonProps> = ({ emoji, animationType }) => {
   const [emojis, setEmojis] = useState<EmojiData[]>([]);
 
-  // @todo add emoji animation waves
   const createEmojis = () => {
     // @todo update center position accordingly to size
     const centerX = 8;
@@ -42,6 +41,16 @@ const EmojiButton: React.FC<EmojiButtonProps> = ({ emoji, animationType }) => {
     }, 1000);
   };
 
+  const setbackLaunch = (iter: number = 0) => {
+    if (iter < WAVES_AMOUNT) {
+      createEmojis();
+
+      setTimeout(() => {
+        setbackLaunch(iter + 1);
+      }, WAVE_DELAY_MS);
+    }
+  };
+
   return (
     <div className="relative">
       {emojis.map((e) => (
@@ -55,7 +64,7 @@ const EmojiButton: React.FC<EmojiButtonProps> = ({ emoji, animationType }) => {
       ))}
 
       <button
-        onClick={createEmojis}
+        onClick={() => setbackLaunch()}
         className="text-4xl hover:scale-110 active:scale-95 transition-transform"
         type="button"
       >

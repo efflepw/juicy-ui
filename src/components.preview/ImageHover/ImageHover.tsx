@@ -1,4 +1,7 @@
-import BlackAndWhiteHover from "../../components/ImageHover/BlackAndWhiteHover/BlackAndWhiteHover";
+import {
+  BlackAndWhiteHover,
+  RainbowBorderHover,
+} from "../../components/ImageHover";
 
 const ImageHover = () => {
   return (
@@ -7,8 +10,9 @@ const ImageHover = () => {
         <BlackAndWhiteHover />
         <BlackAndWhiteHover />
         <BlackAndWhiteHover />
-        <BlackAndWhiteHover />
-        <BlackAndWhiteHover />
+        <RainbowBorderHover />
+        <RainbowBorderHover />
+        <RainbowBorderHover />
       </div>
     </div>
   );

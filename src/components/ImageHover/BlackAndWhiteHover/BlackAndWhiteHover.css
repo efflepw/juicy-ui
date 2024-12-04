@@ -1,11 +1,14 @@
 .black-and-white-hover {
   filter: grayscale(100%);
   transition: 0.5s;
+  border-radius: 16px;
+  z-index: 1;
 }
 
 .black-and-white-hover:hover {
   filter: grayscale(0%);
   transition: 1s;
   transform: scale(110%);
+  z-index: 40;
   cursor: pointer;
 }

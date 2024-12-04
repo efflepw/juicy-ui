@@ -5,11 +5,11 @@ import ButtonsPreview from "./components.preview/ButtonsPreview";
 import { Ambient } from "./components/Image";
 import { MonoParticles } from "./components/Destroy";
 import { Particles } from "./components/Background";
-import { RainbowBorder } from "./components/Border";
 import AuroraBg from "./components.preview/AuroraBg";
 import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
 import ImageHover from "./components.preview/ImageHover";
+import RainbowBorderPreview from "./components.preview/RainbowBorder";
 
 type Section = {
   id: string;
@@ -51,11 +51,7 @@ const SECTION_COMPONENTS: Section[] = [
   {
     id: "rainbow-border",
     name: "Rainbow border",
-    component: (
-      <RainbowBorder>
-        <button className="preview-button"></button>
-      </RainbowBorder>
-    ),
+    component: <RainbowBorderPreview />,
   },
   {
     id: "aurora-bg",

@@ -19,7 +19,7 @@
 
 :root {
   --border-width: 6px;
-  --border-radius: 10px;
+  --border-radius: 16px;
   --d: 1800ms;
   --angle: 60deg;
   --c1: #bb90facc;
@@ -32,7 +32,6 @@
 
 .rainbow-border {
   position: relative;
-  margin: auto;
   overflow: hidden;
   border-radius: var(--border-radius);
 }
@@ -67,10 +66,42 @@
   top: var(--border-width);
   right: var(--border-width);
   bottom: var(--border-width);
-  background: rgb(21, 21, 21);
+  background: #0c0c0c;
   pointer-events: none;
 
   border-radius: calc(var(--border-radius) - var(--border-width));
+}
+
+.rainbow-image-border {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.rainbow-image-border:hover {
+  cursor: pointer;
+
+  transform: scale(105%);
+  transition: 0.5s;
+}
+
+.rainbow-image-border:after {
+  background-image: var(--image-bg-src);
+  background-size: cover;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: 0.5s;
+}
+
+.rainbow-image-border:hover:after {
+  left: var(--border-width);
+  top: var(--border-width);
+  right: var(--border-width);
+  bottom: var(--border-width);
+  transition: 0.5s;
 }
 
 @keyframes borderRotate {
