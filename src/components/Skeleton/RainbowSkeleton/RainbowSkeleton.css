@@ -1,0 +1,27 @@
+.rainbow-skeleton-anim {
+  background: linear-gradient(
+    -45deg,
+    #7b7b7b1a 30%,
+    #fd9090cc 40%,
+    #fff962cc 45%,
+    #9bf993cc 50%,
+    #80daf5cc 55%,
+    #bb90facc 60%,
+    #7b7b7b1a 70%
+  );
+  background-size: 1000%;
+  animation: skeleton-loading 30s linear infinite;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 800%;
+  }
+}

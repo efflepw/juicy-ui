@@ -1,0 +1,96 @@
+:root {
+  --stripe-color: #fff;
+}
+
+.aurora-container {
+  width: 100%;
+  height: 400px;
+
+  position: relative;
+
+  background-color: #fff;
+
+  border-radius: 8px;
+}
+
+.aurora-bg {
+  width: 100%;
+  height: 100%;
+
+  --stripes: repeating-linear-gradient(
+    100deg,
+    var(--stripe-color) 0%,
+    var(--stripe-color) 7%,
+    transparent 10%,
+    transparent 12%,
+    var(--stripe-color) 16%
+  );
+
+  --aurora: repeating-linear-gradient(
+    100deg,
+    #60a5fa 10%,
+    #e879f9 15%,
+    #60a5fa 20%,
+    #5eead4 25%,
+    #60a5fa 30%
+  );
+
+  background-image: var(--stripes), var(--aurora);
+  background-size: 300%, 200%;
+  background-position: 50% 50%, 50% 50%;
+
+  filter: blur(10px) invert(100%);
+
+  mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+
+  border-radius: 12px;
+}
+
+@keyframes smoothBg {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--stripes), var(--aurora);
+  background-size: 200%, 100%;
+  animation: smoothBg 60s linear infinite;
+  background-attachment: fixed;
+  mix-blend-mode: difference;
+}
+
+.aurora-content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  place-content: center;
+  place-items: center;
+
+  mix-blend-mode: difference;
+
+  & h1 {
+    font-size: 128px;
+    font-weight: 500;
+
+    position: relative;
+  }
+}
+
+.aurora-container.dark {
+  background-color: black;
+  --stripe-color: black;
+}
+
+.aurora-bg.dark {
+  filter: blur(10px) opacity(50%) saturate(200%);
+}

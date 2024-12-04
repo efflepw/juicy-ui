@@ -1,0 +1,27 @@
+.twitter-like-icon {
+  height: 100px;
+  width: 100px;
+  background: url("twitter.png");
+  background-position: left;
+  cursor: pointer;
+  position: absolute;
+}
+
+.twitter-like .liked {
+  animation: twitter-like-anim 0.3s steps(28) forwards;
+}
+
+@keyframes twitter-like-anim {
+  to {
+    background-position: right;
+  }
+}
+
+.twitter-like-bg {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 100ms ease;
+}

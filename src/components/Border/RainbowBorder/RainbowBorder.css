@@ -4,8 +4,9 @@
   inherits: true;
 }
 
-:root {
-  --border-width: 8px;
+/* :root {
+  --border-width: 6px;
+  --border-radius: 10px;
   --d: 1800ms;
   --angle: 60deg;
   --c1: rgb(255, 248, 168);
@@ -14,29 +15,93 @@
   --c4: rgba(53, 225, 37, 0.819);
   --c5: rgba(224, 172, 67, 0.819);
   --c6: rgba(228, 53, 53, 0.867);
+} */
+
+:root {
+  --border-width: 6px;
+  --border-radius: 16px;
+  --d: 1800ms;
+  --angle: 60deg;
+  --c1: #bb90facc;
+  --c2: #fd9090cc;
+  --c3: #fff962cc;
+  --c4: #9bf993cc;
+  --c5: #80daf5cc;
+  --c6: #bb90facc;
 }
 
 .rainbow-border {
-  border: var(--border-width) solid;
-  border-image: conic-gradient(
-      from var(--angle),
-      var(--c1),
-      var(--c2),
-      var(--c3),
-      var(--c4),
-      var(--c5),
-      var(--c6),
-      var(--c1)
-    )
-    30;
-  animation: borderRotate var(--d) linear infinite forwards;
-
-  min-width: 50px;
-  min-height: 50px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
 }
 
-.rainbow-border:focus {
-  outline: none;
+.rainbow-border::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -10px;
+  bottom: -10px;
+  margin: auto;
+  background-image: conic-gradient(
+    from var(--angle),
+    var(--c1),
+    var(--c2),
+    var(--c3),
+    var(--c4),
+    var(--c5),
+    var(--c6),
+    var(--c1)
+  );
+  pointer-events: none;
+
+  animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.rainbow-border::after {
+  content: "";
+  position: absolute;
+  left: var(--border-width);
+  top: var(--border-width);
+  right: var(--border-width);
+  bottom: var(--border-width);
+  background: #0c0c0c;
+  pointer-events: none;
+
+  border-radius: calc(var(--border-radius) - var(--border-width));
+}
+
+.rainbow-image-border {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.rainbow-image-border:hover {
+  cursor: pointer;
+
+  transform: scale(105%);
+  transition: 0.5s;
+}
+
+.rainbow-image-border:after {
+  background-image: var(--image-bg-src);
+  background-size: cover;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: 0.5s;
+}
+
+.rainbow-image-border:hover:after {
+  left: var(--border-width);
+  top: var(--border-width);
+  right: var(--border-width);
+  bottom: var(--border-width);
+  transition: 0.5s;
 }
 
 @keyframes borderRotate {
