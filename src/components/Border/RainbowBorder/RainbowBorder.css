@@ -4,21 +4,9 @@
   inherits: true;
 }
 
-/* :root {
-  --border-width: 6px;
-  --border-radius: 10px;
-  --d: 1800ms;
-  --angle: 60deg;
-  --c1: rgb(255, 248, 168);
-  --c2: rgba(43, 97, 233, 0.819);
-  --c3: rgba(37, 191, 225, 0.819);
-  --c4: rgba(53, 225, 37, 0.819);
-  --c5: rgba(224, 172, 67, 0.819);
-  --c6: rgba(228, 53, 53, 0.867);
-} */
-
 :root {
   --border-width: 6px;
+  --inner-border-width: 0px;
   --border-radius: 16px;
   --d: 1800ms;
   --angle: 60deg;
@@ -32,18 +20,19 @@
 
 .rainbow-border {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  display: inline-block;
   border-radius: var(--border-radius);
 }
 
 .rainbow-border::before {
   content: "";
   position: absolute;
-  left: -10px;
-  right: -10px;
-  top: -10px;
-  bottom: -10px;
-  margin: auto;
+  left: calc(-1 * var(--border-width));
+  right: calc(-1 * var(--border-width));
+  top: calc(-1 * var(--border-width));
+  bottom: calc(-1 * var(--border-width));
+
   background-image: conic-gradient(
     from var(--angle),
     var(--c1),
@@ -54,53 +43,62 @@
     var(--c6),
     var(--c1)
   );
-  pointer-events: none;
-
   animation: borderRotate var(--d) linear infinite forwards;
+  border-radius: var(--border-radius);
+
+  z-index: 1;
+  pointer-events: none;
 }
 
 .rainbow-border::after {
   content: "";
   position: absolute;
-  left: var(--border-width);
-  top: var(--border-width);
-  right: var(--border-width);
-  bottom: var(--border-width);
+  left: var(--inner-border-width);
+  top: var(--inner-border-width);
+  right: var(--inner-border-width);
+  bottom: var(--inner-border-width);
   background: #0c0c0c;
   pointer-events: none;
+  z-index: 2;
+
+  border-radius: calc(
+    var(--border-radius) - var(--border-width) - var(--inner-border-width)
+  );
+}
+
+.rainbow-border > * {
+  position: relative;
+  z-index: 3;
 
   border-radius: calc(var(--border-radius) - var(--border-width));
 }
 
-.rainbow-image-border {
-  cursor: pointer;
+.rb-on-hover {
   transition: 0.5s;
 }
 
-.rainbow-image-border:hover {
+.rb-on-hover:hover {
   cursor: pointer;
 
-  transform: scale(105%);
+  transform: scale(98%);
   transition: 0.5s;
 }
 
-.rainbow-image-border:after {
-  background-image: var(--image-bg-src);
-  background-size: cover;
-
+.rb-on-hover::before {
   left: 0;
-  top: 0;
   right: 0;
+  top: 0;
   bottom: 0;
 
   transition: 0.5s;
 }
 
-.rainbow-image-border:hover:after {
-  left: var(--border-width);
-  top: var(--border-width);
-  right: var(--border-width);
-  bottom: var(--border-width);
+.rb-on-hover:hover::before {
+  left: calc(-1 * var(--border-width));
+  right: calc(-1 * var(--border-width));
+  top: calc(-1 * var(--border-width));
+  bottom: calc(-1 * var(--border-width));
+
   transition: 0.5s;
 }
 

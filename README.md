@@ -8,24 +8,32 @@
 
 **At the moment**, components can't be used as-is for various situations, but you can reuse any code from the repository as you wish.
 
-
 ## Getting Started
 
 To get started with the app, follow these steps:
 
 1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/efflepw/engaging-ui.git
-    ```
+   ```bash
+   git clone https://github.com/efflepw/engaging-ui.git
+   ```
 2. **Navigate to the project directory:**
-    ```bash
-    cd engaging-ui
-    ```
+   ```bash
+   cd engaging-ui
+   ```
 3. **Install the dependencies:**
-    ```bash
-    npm install
-    ```
+   ```bash
+   pnpm install
+   ```
 4. **Start the development server:**
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   pnpm run dev
+   ```
+
+## TODO
+
+- [x] fix rainbow border BG overlay
+- [ ] add space effect for particles canvas
+- [ ] separate class and component functionality
+- [ ] add ability to import class functionality as TW classname
+- [ ] try rainbow text selection
+- [ ]

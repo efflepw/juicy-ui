@@ -21,6 +21,11 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
+    id: "rainbow-border",
+    name: "Rainbow border",
+    component: <RainbowBorderPreview />,
+  },
+  {
     id: "particles-bg",
     name: "Particles",
     component: (
@@ -60,11 +65,6 @@ const SECTION_COMPONENTS: Section[] = [
         </div>
       </div>
     ),
-  },
-  {
-    id: "rainbow-border",
-    name: "Rainbow border",
-    component: <RainbowBorderPreview />,
   },
   {
     id: "aurora-bg",

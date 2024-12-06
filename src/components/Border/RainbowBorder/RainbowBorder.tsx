@@ -2,30 +2,15 @@ import "./RainbowBorder.css";
 
 type Props = {
   children: React.ReactNode;
-  imageBgSrc?: string;
+  showOnHover?: boolean;
 };
 
-export interface CSSVars extends React.CSSProperties {
-  "--image-bg-src"?: string;
-}
+export interface CSSVars extends React.CSSProperties {}
 
-const getCssVars = (imageBgSrc?: string): CSSVars =>
-  imageBgSrc
-    ? {
-        "--image-bg-src": `url("${imageBgSrc}")`,
-      }
-    : {};
+const RainbowBorder = ({ showOnHover, children }: Props) => {
+  const className = `rainbow-border ${showOnHover ? "rb-on-hover" : ""}`;
 
-const RainbowBorder = ({ imageBgSrc, children }: Props) => {
-  const className = `rainbow-border ${
-    imageBgSrc ? "rainbow-image-border" : ""
-  }`;
-
-  return (
-    <div className={className} style={getCssVars(imageBgSrc)}>
-      {children}
-    </div>
-  );
+  return <div className={className}>{children}</div>;
 };
 
 export default RainbowBorder;

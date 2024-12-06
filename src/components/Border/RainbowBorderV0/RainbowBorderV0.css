@@ -5,10 +5,10 @@
 }
 
 :root {
-  --border-width: 6px;
-  --border-radius: 16px;
-  --d: 1800ms;
-  --angle: 60deg;
+  --border-width-v0: 6px;
+  --border-radius-v0: 16px;
+  --d-v0: 1800ms;
+  --angle-v0: 60deg;
   --c1: #bb90facc;
   --c2: #fd9090cc;
   --c3: #fff962cc;
@@ -18,9 +18,9 @@
 }
 
 .rainbow-border-v0 {
-  border: var(--border-width) solid;
+  border: var(--border-width-v0) solid;
   border-image: conic-gradient(
-      from var(--angle),
+      from var(--angle-v0),
       var(--c1),
       var(--c2),
       var(--c3),
@@ -30,7 +30,7 @@
       var(--c1)
     )
     30;
-  animation: borderRotate var(--d) linear infinite forwards;
+  animation: borderRotate var(--d-v0) linear infinite forwards;
 }
 
 .rainbow-border-v0:focus {

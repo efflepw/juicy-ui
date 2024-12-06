@@ -9,6 +9,16 @@ const RainbowBorderPreview = () => {
       <RainbowBorder>
         <button className="preview-button"></button>
       </RainbowBorder>
+      <RainbowBorder>
+        <button className="preview-button bg-gray-950 text-red-100 font-medium text-xl p-4">
+          Find out
+        </button>
+      </RainbowBorder>
+      <RainbowBorder showOnHover>
+        <button className="preview-button bg-gray-950 text-red-100 font-medium text-xl p-4">
+          Hover to find out
+        </button>
+      </RainbowBorder>
     </div>
   );
 };
