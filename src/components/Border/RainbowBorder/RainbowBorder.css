@@ -5,7 +5,7 @@
 }
 
 :root {
-  --border-width: 6px;
+  --border-width: 8px;
   --inner-border-width: 0px;
   --border-radius: 16px;
   --d: 1800ms;
@@ -21,7 +21,7 @@
 .rainbow-border {
   position: relative;
   overflow: visible;
-  display: inline-block;
+  display: block;
   border-radius: var(--border-radius);
 }
 
@@ -71,20 +71,20 @@
   z-index: 3;
 
   border-radius: calc(var(--border-radius) - var(--border-width));
-}
-
-.rb-on-hover {
-  transition: 0.5s;
-}
-
-.rb-on-hover:hover {
-  cursor: pointer;
-
-  transform: scale(98%);
-  transition: 0.5s;
+  /* fixes bug with border being seen even when its under the bg */
+  /* transform: scale(101%); */
 }
 
 .rb-on-hover::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  transition: 0.5s;
+}
+
+.rb-on-hover::after {
   left: 0;
   right: 0;
   top: 0;
@@ -98,6 +98,16 @@
   right: calc(-1 * var(--border-width));
   top: calc(-1 * var(--border-width));
   bottom: calc(-1 * var(--border-width));
+
+  transition: 0.5s;
+}
+
+/* works only for transparent bg */
+.rb-on-hover:hover::after {
+  left: var(--inner-border-width);
+  right: var(--inner-border-width);
+  top: var(--inner-border-width);
+  bottom: var(--inner-border-width);
 
   transition: 0.5s;
 }

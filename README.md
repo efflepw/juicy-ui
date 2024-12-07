@@ -32,6 +32,7 @@ To get started with the app, follow these steps:
 ## TODO
 
 - [x] fix rainbow border BG overlay
+- [x] fix inner rainbow border BG overlay
 - [ ] add space effect for particles canvas
 - [ ] separate class and component functionality
 - [ ] add ability to import class functionality as TW classname

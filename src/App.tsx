@@ -11,7 +11,7 @@ import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
 import ImageHover from "./components.preview/ImageHover";
 import RainbowBorderPreview from "./components.preview/RainbowBorder";
-import { RainbowBorderV0 } from "./components/Border";
+import { RainbowBorder } from "./components/Border";
 
 type Section = {
   id: string;
@@ -30,9 +30,9 @@ const SECTION_COMPONENTS: Section[] = [
     name: "Particles",
     component: (
       <div className="w-[100%]">
-        <RainbowBorderV0>
+        <RainbowBorder>
           <Particles />
-        </RainbowBorderV0>
+        </RainbowBorder>
       </div>
     ),
   },
