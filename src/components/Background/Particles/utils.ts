@@ -1,6 +1,12 @@
 import { RefObject } from "react";
 import { MousePosition } from "../../../hooks/useMousePosition";
-import { CONFIG, MOUSE_MODES, WAVES_CONFIG } from "./const";
+import {
+  CONFIG,
+  MOUSE_MODES,
+  PARTICLES_MOVE_MODES,
+  SPACE_CONFIG,
+  WAVES_CONFIG,
+} from "./const";
 import {
   CanvasSize,
   Entity,
@@ -15,16 +21,119 @@ const getRandomColor = (): string => {
   return CONFIG.PALETTE[randomIndex];
 };
 
-export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] =>
-  Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => ({
+const getSpaceParticlePosition = (
+  canvasSize: CanvasSize
+): Pick<ParticleEntity, "x" | "y" | "angle"> => {
+  const cx = canvasSize.width / 2;
+  const cy = canvasSize.height / 2;
+
+  const rectLeft = cx - SPACE_CONFIG.RECT_WIDTH / 2;
+  const rectRight = cx + SPACE_CONFIG.RECT_WIDTH / 2;
+  const rectTop = cy - SPACE_CONFIG.RECT_HEIGHT / 2;
+  const rectBottom = cy + SPACE_CONFIG.RECT_HEIGHT / 2;
+
+  let x, y;
+
+  if (Math.random() < 0.5) {
+    x =
+      Math.random() < 0.5
+        ? Math.random() * rectLeft
+        : Math.random() * (canvasSize.width - rectRight) + rectRight;
+    y = Math.random() * canvasSize.height;
+  } else {
+    y =
+      Math.random() < 0.5
+        ? Math.random() * rectTop
+        : Math.random() * (canvasSize.height - rectBottom) + rectBottom;
+    x = Math.random() * canvasSize.width;
+  }
+
+  const angle = Math.atan2(y - cy, x - cx);
+
+  return {
+    x,
+    y,
+    angle,
+  };
+};
+
+const getSpaceParticlePositionOnRect = (
+  canvasSize: CanvasSize
+): Pick<ParticleEntity, "x" | "y" | "angle"> => {
+  const cx = canvasSize.width / 2;
+  const cy = canvasSize.height / 2;
+
+  let x = Math.random() > 0.5 ? SPACE_CONFIG.RECT_WIDTH : 0;
+  let y = Math.random() > 0.5 ? SPACE_CONFIG.RECT_HEIGHT : 0;
+
+  const minL = Math.min(SPACE_CONFIG.RECT_WIDTH, SPACE_CONFIG.RECT_HEIGHT);
+  const maxL = Math.max(SPACE_CONFIG.RECT_WIDTH, SPACE_CONFIG.RECT_HEIGHT);
+
+  const sideRatio = minL / maxL;
+
+  if (Math.random() < minL / maxL) {
+    x = SPACE_CONFIG.RECT_WIDTH * Math.random();
+  } else {
+    y = SPACE_CONFIG.RECT_HEIGHT * Math.random();
+  }
+
+  x = x + cx - SPACE_CONFIG.RECT_WIDTH / 2;
+  y = y + cy - SPACE_CONFIG.RECT_HEIGHT / 2;
+
+  const horizontal = SPACE_CONFIG.RECT_WIDTH >= SPACE_CONFIG.RECT_HEIGHT;
+
+  const angle = horizontal
+    ? Math.atan2(y - cy, sideRatio * (x - cx))
+    : Math.atan2(sideRatio * (y - cy), x - cx);
+
+  return {
+    x,
+    y,
+    angle,
+  };
+};
+
+const getSize = (): number =>
+  CONFIG.RANDOM_ARC_SIZE
+    ? Math.ceil(Math.random() * CONFIG.MAX_ARC_SIZE)
+    : CONFIG.MAX_ARC_SIZE;
+
+const getSpeedToSize = (size: number): number => {
+  return 0.2 * CONFIG.SPEED + 0.8 * CONFIG.SPEED * (size / CONFIG.MAX_ARC_SIZE);
+};
+
+export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] => {
+  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
+    return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+      const { x, y, angle } = getSpaceParticlePosition(canvasSize);
+      const size = getSize();
+
+      return {
+        x,
+        y,
+        angle,
+        size,
+        speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+        maxFloatingSpeed:
+          CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+        color: getRandomColor(),
+      };
+    });
+  }
+
+  const size = getSize();
+
+  return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => ({
     x: Math.random() * canvasSize.width,
     y: Math.random() * canvasSize.height,
     angle: Math.random() * Math.PI * 2,
-    speed: CONFIG.SPEED + Math.random() * 0.1,
+    speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+    size: getSize(),
     maxFloatingSpeed:
       CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
     color: getRandomColor(),
   }));
+};
 
 export const createWaves = (canvasSize: CanvasSize): Entity[] =>
   Array.from({ length: WAVES_CONFIG.COUNT }, () => ({
@@ -116,7 +225,9 @@ const updateParticlesPosition = (
     particle.x += Math.cos(particle.angle) * particle.speed;
     particle.y += Math.sin(particle.angle) * particle.speed;
 
-    particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+    if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.RANDOM) {
+      particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+    }
 
     if (!interacted && particle.speed > particle.maxFloatingSpeed) {
       particle.speed -= CONFIG.DISTANCE_SLOW;
@@ -137,16 +248,33 @@ const updateWavesPosition = (waves: Entity[], canvasSize: CanvasSize): void => {
   });
 };
 
+// @SPACE-TODO - it shouldn't wrap, it should teleport particles into the center
 const wrapAroundCanvas = (particle: Entity, canvasSize: CanvasSize): void => {
-  if (particle.x < 0) particle.x = canvasSize.width;
-  if (particle.x > canvasSize.width) particle.x = 0;
-  if (particle.y < 0) particle.y = canvasSize.height;
-  if (particle.y > canvasSize.height) particle.y = 0;
+  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
+    if (
+      particle.x < 0 ||
+      particle.x > canvasSize.width ||
+      particle.y < 0 ||
+      particle.y > canvasSize.height
+    ) {
+      const { x, y, angle } = getSpaceParticlePositionOnRect(canvasSize);
+
+      particle.x = x;
+      particle.y = y;
+      particle.angle = angle;
+    }
+  } else {
+    if (particle.x < 0) particle.x = canvasSize.width;
+    if (particle.x > canvasSize.width) particle.x = 0;
+    if (particle.y < 0) particle.y = canvasSize.height;
+    if (particle.y > canvasSize.height) particle.y = 0;
+  }
 };
 
 const calculateDistance = (p1: InteractableEntity, p2: InteractableEntity) =>
   Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 
+// @SPACE-TODO - add random size + transparency
 const renderParticlesArc = (
   ctx: CanvasRenderingContext2D,
   particles: ParticleEntity[]
@@ -154,7 +282,7 @@ const renderParticlesArc = (
   particles.forEach((particle) => {
     ctx.beginPath();
     ctx.fillStyle = particle.color;
-    ctx.arc(particle.x, particle.y, CONFIG.ARC_SIZE, 0, Math.PI * 2);
+    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
     ctx.shadowBlur = 10;
     ctx.shadowColor = particle.color;
     ctx.fill();
@@ -190,6 +318,24 @@ export const updateMousePosition = (
   };
 };
 
+const debugCanvas = (
+  context: CanvasRenderingContext2D,
+  canvasSize: CanvasSize
+) => {
+  context.beginPath();
+  context.stroke();
+  context.rect(
+    canvasSize.width / 2 - SPACE_CONFIG.RECT_WIDTH / 2,
+    canvasSize.height / 2 - SPACE_CONFIG.RECT_HEIGHT / 2,
+    SPACE_CONFIG.RECT_WIDTH,
+    SPACE_CONFIG.RECT_HEIGHT
+  );
+  context.shadowBlur = 6;
+  context.shadowColor = "white";
+  context.fillStyle = "black";
+  context.fill();
+};
+
 export const animateParticles = (
   canvas: HTMLCanvasElement,
   particles: ParticleEntity[],
@@ -207,6 +353,10 @@ export const animateParticles = (
   updateParticlesPosition(particles, waves, mouse, canvasSize);
 
   renderParticlesArc(context, particles);
+
+  if (CONFIG.DEBUG) {
+    debugCanvas(context, canvasSize);
+  }
 
   requestAnimationFrame(() =>
     animateParticles(

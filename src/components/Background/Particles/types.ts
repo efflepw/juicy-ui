@@ -10,6 +10,7 @@ export type InteractableEntity = Pick<Entity, "x" | "y" | "angle">;
 export type ParticleEntity = Entity & {
   maxFloatingSpeed: number;
   color: string;
+  size: number;
 };
 
 export type Mouse = {
