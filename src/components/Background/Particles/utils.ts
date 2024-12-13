@@ -248,7 +248,6 @@ const updateWavesPosition = (waves: Entity[], canvasSize: CanvasSize): void => {
   });
 };
 
-// @SPACE-TODO - it shouldn't wrap, it should teleport particles into the center
 const wrapAroundCanvas = (particle: Entity, canvasSize: CanvasSize): void => {
   if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
     if (
@@ -274,7 +273,7 @@ const wrapAroundCanvas = (particle: Entity, canvasSize: CanvasSize): void => {
 const calculateDistance = (p1: InteractableEntity, p2: InteractableEntity) =>
   Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 
-// @SPACE-TODO - add random size + transparency
+// @SPACE-TODO - add transparency
 const renderParticlesArc = (
   ctx: CanvasRenderingContext2D,
   particles: ParticleEntity[]

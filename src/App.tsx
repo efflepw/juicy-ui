@@ -11,7 +11,6 @@ import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
 import ImageHover from "./components.preview/ImageHover";
 import RainbowBorderPreview from "./components.preview/RainbowBorder";
-import { RainbowBorder } from "./components/Border";
 
 type Section = {
   id: string;
@@ -21,13 +20,16 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
+    id: "image-hover",
+    name: "Image hover",
+    component: <ImageHover />,
+  },
+  {
     id: "particles-bg",
     name: "Particles",
     component: (
       <div className="w-[100%]">
-        <RainbowBorder>
-          <Particles />
-        </RainbowBorder>
+        <Particles />
       </div>
     ),
   },
@@ -35,11 +37,6 @@ const SECTION_COMPONENTS: Section[] = [
     id: "rainbow-border",
     name: "Rainbow border",
     component: <RainbowBorderPreview />,
-  },
-  {
-    id: "image-hover",
-    name: "Image hover",
-    component: <ImageHover />,
   },
   {
     id: "buttons",
@@ -67,6 +64,11 @@ const SECTION_COMPONENTS: Section[] = [
     ),
   },
   {
+    id: "ambient",
+    name: "Ambient",
+    component: <Ambient imageSrc="dino.svg" />,
+  },
+  {
     id: "aurora-bg",
     name: "Aurora",
     component: <AuroraBg />,
@@ -75,11 +77,6 @@ const SECTION_COMPONENTS: Section[] = [
     id: "mono-particles",
     name: "Mono Particles",
     component: <MonoParticles />,
-  },
-  {
-    id: "ambient",
-    name: "Ambient",
-    component: <Ambient />,
   },
 ];
 
@@ -99,7 +96,7 @@ const App = () => {
   return (
     <div className="w-[80%] m-[auto]">
       <Header />
-      <div className="flex flex-col py-2 gap-2">
+      <div className="flex flex-col py-4 gap-2">
         <main
           className="grid flex-grow gap-2 pt-16"
           style={{ gridTemplateColumns: "1fr 5fr" }}

@@ -7,9 +7,6 @@
   align-items: center;
   justify-content: center;
 
-  width: 600px;
-  height: 400px;
-
   border-radius: 24px;
 }
 
@@ -19,12 +16,22 @@
 
 .ambient-effect-canvas {
   position: absolute;
-  top: -20%;
-  left: -10%;
+  top: var(--ver-inc);
+  left: var(--hor-inc);
 
   z-index: -2;
 }
 
 .ambient-effect-image {
   width: 400px;
+}
+
+.ambient-effect-on-hover + .ambient-effect-canvas {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.ambient-effect-on-hover:hover + .ambient-effect-canvas {
+  opacity: 1;
+  transition: 0.5s;
 }

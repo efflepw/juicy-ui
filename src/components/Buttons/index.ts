@@ -1,2 +1,1 @@
-export { default as LikeButton } from "./LikeButton";
-export { default as TwitterLikeButton } from "./TwitterLikeButton";
+export { default as EmojiButton } from "./EmojiButton";

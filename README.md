@@ -33,8 +33,16 @@ To get started with the app, follow these steps:
 
 - [x] fix rainbow border BG overlay
 - [x] fix inner rainbow border BG overlay
-- [ ] add space effect for particles canvas
+- [x] ambient hover effect
+- [x] remove magic numbers from ambient hover effect
+- [x] add ambient hover effect preview
+- [x] add space effect for particles canvas
+- [x] add particle disappear for space effect
 - [ ] separate class and component functionality
+- [ ] complete redesign
 - [ ] add ability to import class functionality as TW classname
 - [ ] try rainbow text selection
-- [ ]
+- [ ] image slider with blurred bg
+- [ ] 10 classes before publish
+- [ ] 10 components before publish
+- [ ] publish!
