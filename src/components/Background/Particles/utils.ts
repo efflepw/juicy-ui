@@ -70,8 +70,9 @@ const getSpaceParticlePositionOnRect = (
   const maxL = Math.max(SPACE_CONFIG.RECT_WIDTH, SPACE_CONFIG.RECT_HEIGHT);
 
   const sideRatio = minL / maxL;
+  const rngThreshold = sideRatio == 1 ? 0.5 : sideRatio;
 
-  if (Math.random() < minL / maxL) {
+  if (Math.random() < rngThreshold) {
     x = SPACE_CONFIG.RECT_WIDTH * Math.random();
   } else {
     y = SPACE_CONFIG.RECT_HEIGHT * Math.random();

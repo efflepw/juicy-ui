@@ -38,6 +38,7 @@ To get started with the app, follow these steps:
 - [x] add ambient hover effect preview
 - [x] add space effect for particles canvas
 - [x] add particle disappear for space effect
+- [ ] custom scroll
 - [ ] separate class and component functionality
 - [ ] complete redesign
 - [ ] add ability to import class functionality as TW classname
