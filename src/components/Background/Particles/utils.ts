@@ -4,6 +4,7 @@ import {
   CONFIG,
   MOUSE_MODES,
   PARTICLES_MOVE_MODES,
+  SNOW_CONFIG,
   SPACE_CONFIG,
   WAVES_CONFIG,
 } from "./const";
@@ -121,19 +122,37 @@ export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] => {
       };
     });
   }
+  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
+    return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+      const size = getSize();
 
-  const size = getSize();
+      return {
+        x: Math.random() * canvasSize.width,
+        y: Math.random() * canvasSize.height,
+        angle: SNOW_CONFIG.INIT_ANGLE,
+        size,
+        speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+        maxFloatingSpeed:
+          CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+        color: getRandomColor(),
+      };
+    });
+  }
 
-  return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => ({
-    x: Math.random() * canvasSize.width,
-    y: Math.random() * canvasSize.height,
-    angle: Math.random() * Math.PI * 2,
-    speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
-    size: getSize(),
-    maxFloatingSpeed:
-      CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
-    color: getRandomColor(),
-  }));
+  return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+    const size = getSize();
+
+    return {
+      x: Math.random() * canvasSize.width,
+      y: Math.random() * canvasSize.height,
+      angle: Math.random() * Math.PI * 2,
+      speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+      size,
+      maxFloatingSpeed:
+        CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+      color: getRandomColor(),
+    };
+  });
 };
 
 export const createWaves = (canvasSize: CanvasSize): Entity[] =>
@@ -228,6 +247,19 @@ const updateParticlesPosition = (
 
     if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.RANDOM) {
       particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+    }
+
+    if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
+      particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+
+      particle.angle = Math.min(
+        particle.angle,
+        SNOW_CONFIG.INIT_ANGLE + SNOW_CONFIG.MAX_ANGLE_DELTA / 2
+      );
+      particle.angle = Math.max(
+        particle.angle,
+        SNOW_CONFIG.INIT_ANGLE - SNOW_CONFIG.MAX_ANGLE_DELTA / 2
+      );
     }
 
     if (!interacted && particle.speed > particle.maxFloatingSpeed) {

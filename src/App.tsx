@@ -20,11 +20,6 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
-    id: "image-hover",
-    name: "Image hover",
-    component: <ImageHover />,
-  },
-  {
     id: "particles-bg",
     name: "Particles",
     component: (
@@ -32,6 +27,11 @@ const SECTION_COMPONENTS: Section[] = [
         <Particles />
       </div>
     ),
+  },
+  {
+    id: "image-hover",
+    name: "Image hover",
+    component: <ImageHover />,
   },
   {
     id: "rainbow-border",
@@ -66,7 +66,7 @@ const SECTION_COMPONENTS: Section[] = [
   {
     id: "ambient",
     name: "Ambient",
-    component: <Ambient imageSrc="dino.svg" />,
+    component: <Ambient imageSrc="dino.svg" showOnHover />,
   },
   {
     id: "aurora-bg",

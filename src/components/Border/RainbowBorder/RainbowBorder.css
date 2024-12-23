@@ -5,7 +5,7 @@
 }
 
 :root {
-  --border-width: 8px;
+  --border-width: 2px;
   --inner-border-width: 0px;
   --border-radius: 16px;
   --d: 1800ms;
