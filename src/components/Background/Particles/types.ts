@@ -11,6 +11,7 @@ export type ParticleEntity = Entity & {
   maxFloatingSpeed: number;
   color: string;
   size: number;
+  blur: number;
 };
 
 export type Mouse = {

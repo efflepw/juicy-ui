@@ -1,12 +1,14 @@
 import { RefObject } from "react";
 import { MousePosition } from "../../../hooks/useMousePosition";
 import {
-  CONFIG,
-  MOUSE_MODES,
+  BLUR_CONFIG,
+  PARTICLE_CONFIG,
+  SCENE_CONFIG,
   PARTICLES_MOVE_MODES,
   SNOW_CONFIG,
   SPACE_CONFIG,
   WAVES_CONFIG,
+  INTERACTION_MODES,
 } from "./const";
 import {
   CanvasSize,
@@ -17,9 +19,9 @@ import {
 } from "./types";
 
 const getRandomColor = (): string => {
-  const randomIndex = Math.floor(Math.random() * CONFIG.PALETTE.length);
+  const randomIndex = Math.floor(Math.random() * SCENE_CONFIG.PALETTE.length);
 
-  return CONFIG.PALETTE[randomIndex];
+  return SCENE_CONFIG.PALETTE[randomIndex];
 };
 
 const getSpaceParticlePosition = (
@@ -96,17 +98,29 @@ const getSpaceParticlePositionOnRect = (
 };
 
 const getSize = (): number =>
-  CONFIG.RANDOM_ARC_SIZE
-    ? Math.ceil(Math.random() * CONFIG.MAX_ARC_SIZE)
-    : CONFIG.MAX_ARC_SIZE;
+  PARTICLE_CONFIG.RANDOM_ARC_SIZE
+    ? Math.round(Math.random() * PARTICLE_CONFIG.MAX_ARC_SIZE)
+    : PARTICLE_CONFIG.MAX_ARC_SIZE;
 
 const getSpeedToSize = (size: number): number => {
-  return 0.2 * CONFIG.SPEED + 0.8 * CONFIG.SPEED * (size / CONFIG.MAX_ARC_SIZE);
+  return (
+    0.2 * PARTICLE_CONFIG.SPEED +
+    0.8 * PARTICLE_CONFIG.SPEED * (size / PARTICLE_CONFIG.MAX_ARC_SIZE)
+  );
+};
+
+const getBlurSize = () => {
+  if (!BLUR_CONFIG.RANDOM_BLUR) return BLUR_CONFIG.BLUR_RADIUS;
+
+  return (
+    Math.round(Math.random() * (BLUR_CONFIG.MAX_BLUR - BLUR_CONFIG.MIN_BLUR)) +
+    BLUR_CONFIG.MIN_BLUR
+  );
 };
 
 export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] => {
-  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
-    return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+  if (SCENE_CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
+    return Array.from({ length: SCENE_CONFIG.PARTICLES_AMOUNT }, () => {
       const { x, y, angle } = getSpaceParticlePosition(canvasSize);
       const size = getSize();
 
@@ -115,15 +129,19 @@ export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] => {
         y,
         angle,
         size,
-        speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+        speed: SCENE_CONFIG.SIZE_TO_SPEED
+          ? getSpeedToSize(size)
+          : PARTICLE_CONFIG.SPEED,
         maxFloatingSpeed:
-          CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+          PARTICLE_CONFIG.SPEED +
+          Math.random() * PARTICLE_CONFIG.FLOAT_SPEED_DELTA,
         color: getRandomColor(),
+        blur: getBlurSize(),
       };
     });
   }
-  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
-    return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+  if (SCENE_CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
+    return Array.from({ length: SCENE_CONFIG.PARTICLES_AMOUNT }, () => {
       const size = getSize();
 
       return {
@@ -131,26 +149,34 @@ export const createParticles = (canvasSize: CanvasSize): ParticleEntity[] => {
         y: Math.random() * canvasSize.height,
         angle: SNOW_CONFIG.INIT_ANGLE,
         size,
-        speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+        speed: SCENE_CONFIG.SIZE_TO_SPEED
+          ? getSpeedToSize(size)
+          : PARTICLE_CONFIG.SPEED,
         maxFloatingSpeed:
-          CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+          PARTICLE_CONFIG.SPEED +
+          (Math.random() - 0.5) * PARTICLE_CONFIG.FLOAT_SPEED_DELTA,
         color: getRandomColor(),
+        blur: getBlurSize(),
       };
     });
   }
 
-  return Array.from({ length: CONFIG.PARTICLES_AMOUNT }, () => {
+  return Array.from({ length: SCENE_CONFIG.PARTICLES_AMOUNT }, () => {
     const size = getSize();
 
     return {
       x: Math.random() * canvasSize.width,
       y: Math.random() * canvasSize.height,
       angle: Math.random() * Math.PI * 2,
-      speed: CONFIG.SIZE_TO_SPEED ? getSpeedToSize(size) : CONFIG.SPEED,
+      speed: SCENE_CONFIG.SIZE_TO_SPEED
+        ? getSpeedToSize(size)
+        : PARTICLE_CONFIG.SPEED,
       size,
       maxFloatingSpeed:
-        CONFIG.SPEED + (Math.random() - 0.5) * CONFIG.FLOAT_SPEED_DELTA,
+        PARTICLE_CONFIG.SPEED +
+        (Math.random() - 0.5) * PARTICLE_CONFIG.FLOAT_SPEED_DELTA,
       color: getRandomColor(),
+      blur: getBlurSize(),
     };
   });
 };
@@ -160,20 +186,22 @@ export const createWaves = (canvasSize: CanvasSize): Entity[] =>
     x: Math.random() * canvasSize.width,
     y: Math.random() * canvasSize.height,
     angle: Math.random() * Math.PI * 2,
-    speed: WAVES_CONFIG.BASE_SPEED + Math.random() * WAVES_CONFIG.SPEED_DELTA,
+    speed:
+      WAVES_CONFIG.BASE_SPEED + Math.random() * PARTICLE_CONFIG.SPEED_DELTA,
   }));
 
 const waveRepulsion = (
   particle: ParticleEntity,
-  wave: InteractableEntity
+  wave: InteractableEntity,
+  size: number
 ): boolean => {
   const distanceToWave = calculateDistance(particle, wave);
 
-  if (distanceToWave < CONFIG.INTERACTION_DISTANCE) {
+  if (distanceToWave < size) {
     const angle = Math.atan2(particle.y - wave.y, particle.x - wave.x);
 
     particle.angle = angle;
-    particle.speed = particle.speed + CONFIG.DISTANCE_ACCELERATOR;
+    particle.speed = particle.speed + SCENE_CONFIG.DISTANCE_ACCELERATOR;
 
     return true;
   }
@@ -193,8 +221,8 @@ const waveAttraction = (
 
     particle.angle += angleDelta;
     particle.speed = Math.min(
-      particle.speed + CONFIG.DISTANCE_ACCELERATOR,
-      CONFIG.SPEED_CAP
+      particle.speed + SCENE_CONFIG.DISTANCE_ACCELERATOR,
+      PARTICLE_CONFIG.SPEED_CAP
     );
 
     return true;
@@ -204,11 +232,19 @@ const waveAttraction = (
 };
 
 const interactWithMouse = (particle: ParticleEntity, mouse: Mouse) => {
-  switch (CONFIG.MOUSE_MODE) {
-    case MOUSE_MODES.REPULSION:
-      return waveRepulsion(particle, mouse);
-    case MOUSE_MODES.ATTRACTION:
-      return waveAttraction(particle, mouse, CONFIG.INTERACTION_DISTANCE);
+  switch (SCENE_CONFIG.MOUSE_MODE) {
+    case INTERACTION_MODES.REPULSION:
+      return waveRepulsion(
+        particle,
+        mouse,
+        SCENE_CONFIG.MOUSE_INTERACTION_DISTANCE
+      );
+    case INTERACTION_MODES.ATTRACTION:
+      return waveAttraction(
+        particle,
+        mouse,
+        SCENE_CONFIG.MOUSE_INTERACTION_DISTANCE
+      );
     default:
       return false;
   }
@@ -217,10 +253,19 @@ const interactWithMouse = (particle: ParticleEntity, mouse: Mouse) => {
 const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
   let interacted = false;
 
-  waves.forEach((wave) => {
-    interacted =
-      interacted || waveAttraction(particle, wave, WAVES_CONFIG.SIZE);
-  });
+  if (WAVES_CONFIG.WAVE_INTERACTION_MODE == INTERACTION_MODES.ATTRACTION) {
+    waves.forEach((wave) => {
+      interacted =
+        interacted || waveAttraction(particle, wave, WAVES_CONFIG.SIZE);
+    });
+  } else if (
+    WAVES_CONFIG.WAVE_INTERACTION_MODE == INTERACTION_MODES.REPULSION
+  ) {
+    waves.forEach((wave) => {
+      interacted =
+        interacted || waveRepulsion(particle, wave, WAVES_CONFIG.SIZE);
+    });
+  }
 
   return interacted;
 };
@@ -234,23 +279,29 @@ const updateParticlesPosition = (
   particles.forEach((particle) => {
     let interacted = false;
 
-    if (CONFIG.MOUSE_MODE !== MOUSE_MODES.OFF) {
+    if (SCENE_CONFIG.MOUSE_MODE !== INTERACTION_MODES.OFF) {
       interacted = interactWithMouse(particle, mouse);
     }
 
-    if (CONFIG.ENABLE_WAVES) {
+    if (SCENE_CONFIG.ENABLE_WAVES) {
       interacted = interacted || interactWithWaves(particle, waves);
+    }
+
+    if (BLUR_CONFIG.BLUR_SHIFT) {
+      particle.blur += (Math.random() - 0.5) * 0.2;
+      particle.blur = Math.min(particle.blur, BLUR_CONFIG.MAX_BLUR);
+      particle.blur = Math.max(particle.blur, BLUR_CONFIG.MIN_BLUR);
     }
 
     particle.x += Math.cos(particle.angle) * particle.speed;
     particle.y += Math.sin(particle.angle) * particle.speed;
 
-    if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.RANDOM) {
-      particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+    if (SCENE_CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.RANDOM) {
+      particle.angle += PARTICLE_CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
     }
 
-    if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
-      particle.angle += CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
+    if (SCENE_CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SNOW) {
+      particle.angle += PARTICLE_CONFIG.ANGLE_DELTA * (Math.random() - 0.5);
 
       particle.angle = Math.min(
         particle.angle,
@@ -263,8 +314,10 @@ const updateParticlesPosition = (
     }
 
     if (!interacted && particle.speed > particle.maxFloatingSpeed) {
-      particle.speed -= CONFIG.DISTANCE_SLOW;
+      particle.speed -= SCENE_CONFIG.DISTANCE_SLOW;
     }
+
+    particle.speed = Math.max(particle.speed, 0);
 
     wrapAroundCanvas(particle, canvasSize);
   });
@@ -282,7 +335,7 @@ const updateWavesPosition = (waves: Entity[], canvasSize: CanvasSize): void => {
 };
 
 const wrapAroundCanvas = (particle: Entity, canvasSize: CanvasSize): void => {
-  if (CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
+  if (SCENE_CONFIG.PARTICLES_FLOATING_MODE == PARTICLES_MOVE_MODES.SPACE) {
     if (
       particle.x < 0 ||
       particle.x > canvasSize.width ||
@@ -315,8 +368,9 @@ const renderParticlesArc = (
     ctx.beginPath();
     ctx.fillStyle = particle.color;
     ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = Math.round(particle.blur);
     ctx.shadowColor = particle.color;
+
     ctx.fill();
   });
 };
@@ -386,7 +440,7 @@ export const animateParticles = (
 
   renderParticlesArc(context, particles);
 
-  if (CONFIG.DEBUG) {
+  if (SCENE_CONFIG.DEBUG) {
     debugCanvas(context, canvasSize);
   }
 
