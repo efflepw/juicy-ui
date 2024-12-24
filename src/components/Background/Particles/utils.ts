@@ -108,8 +108,8 @@ const getSize = (): number =>
 
 const getSpeedToSize = (size: number): number => {
   return (
-    0.2 * PARTICLE_CONFIG.SPEED +
-    0.8 * PARTICLE_CONFIG.SPEED * (size / PARTICLE_CONFIG.MAX_PARTICLE_SIZE)
+    0.4 * PARTICLE_CONFIG.SPEED +
+    0.6 * PARTICLE_CONFIG.SPEED * (size / PARTICLE_CONFIG.MAX_PARTICLE_SIZE)
   );
 };
 
@@ -504,7 +504,7 @@ export const animateParticles = (
   if (SCENE_CONFIG.ICONS == PARTICLE_ICON.SNOWFLAKE) {
     renderSnowflake(context, particles);
   } else if (SCENE_CONFIG.ICONS == PARTICLE_ICON.ARC) {
-    renderParticlesArc;
+    renderParticlesArc(context, particles);
   }
 
   if (SCENE_CONFIG.DEBUG) {
