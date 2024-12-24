@@ -9,6 +9,11 @@ export const THEMES = {
   RAINBOW: ["#bb90facc", "#fd9090cc", "#fff962cc", "#9bf993cc", "#80daf5cc"],
 };
 
+export const PARTICLE_ICON = {
+  SNOWFLAKE: "snowflake",
+  ARC: "arc",
+};
+
 export const INTERACTION_MODES = {
   REPULSION: "repulsion",
   ATTRACTION: "attraction",
@@ -22,7 +27,7 @@ export const PARTICLES_MOVE_MODES = {
 };
 
 export const PARTICLE_COLOR_CONFIG = {
-  ENABLED: true,
+  ENABLED: false,
   RESET_AFTER_WRAPPING: false,
   INIT_ALPHA_0_255: 16,
   MIN_ALPHA_0_255: 16,
@@ -37,12 +42,12 @@ export const PARTICLE_CONFIG = {
   ANGLE_DELTA: 0.04,
   FLOAT_SPEED_DELTA: 0.1,
   SPEED_CAP: 2,
-  RANDOM_ARC_SIZE: true,
-  MAX_ARC_SIZE: 3,
+  RANDOM_PARTICLE_SIZE: true,
+  MAX_PARTICLE_SIZE: 3,
 };
 
 export const SCENE_CONFIG = {
-  PARTICLES_AMOUNT: 300,
+  PARTICLES_AMOUNT: 100,
   DISTANCE_ACCELERATOR: 0,
   DISTANCE_SLOW: 0.001,
   SIZE_TO_SPEED: true,
@@ -52,6 +57,7 @@ export const SCENE_CONFIG = {
   ENABLE_WAVES: true,
   PARTICLES_FLOATING_MODE: PARTICLES_MOVE_MODES.SNOW,
   DEBUG: false,
+  ICONS: PARTICLE_ICON.SNOWFLAKE,
 };
 
 export const BLUR_CONFIG = {

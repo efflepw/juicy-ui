@@ -10,6 +10,7 @@ import {
   WAVES_CONFIG,
   INTERACTION_MODES,
   PARTICLE_COLOR_CONFIG,
+  PARTICLE_ICON,
 } from "./const";
 import {
   CanvasSize,
@@ -101,14 +102,14 @@ const getSpaceParticlePositionOnRect = (
 };
 
 const getSize = (): number =>
-  PARTICLE_CONFIG.RANDOM_ARC_SIZE
-    ? Math.round(Math.random() * PARTICLE_CONFIG.MAX_ARC_SIZE)
-    : PARTICLE_CONFIG.MAX_ARC_SIZE;
+  PARTICLE_CONFIG.RANDOM_PARTICLE_SIZE
+    ? Math.round(Math.random() * PARTICLE_CONFIG.MAX_PARTICLE_SIZE)
+    : PARTICLE_CONFIG.MAX_PARTICLE_SIZE;
 
 const getSpeedToSize = (size: number): number => {
   return (
     0.2 * PARTICLE_CONFIG.SPEED +
-    0.8 * PARTICLE_CONFIG.SPEED * (size / PARTICLE_CONFIG.MAX_ARC_SIZE)
+    0.8 * PARTICLE_CONFIG.SPEED * (size / PARTICLE_CONFIG.MAX_PARTICLE_SIZE)
   );
 };
 
@@ -260,7 +261,12 @@ const interactWithWaves = (particle: ParticleEntity, waves: Entity[]) => {
   return interacted;
 };
 
-const updateParticleAlpha = (particle: ParticleEntity) => {
+const updateParticleAlpha = (particle: ParticleEntity, wrapped: boolean) => {
+  if (wrapped && PARTICLE_COLOR_CONFIG.RESET_AFTER_WRAPPING) {
+    particle.alphaToggled = false;
+    particle.alpha = PARTICLE_COLOR_CONFIG.INIT_ALPHA_0_255;
+  }
+
   if (particle.alphaToggled) {
     if (particle.alpha > PARTICLE_COLOR_CONFIG.MIN_ALPHA_0_255) {
       particle.alpha -= PARTICLE_COLOR_CONFIG.ALPHA_DELTA_DEC;
@@ -336,13 +342,8 @@ const updateParticles = (
 
     const wrapped = wrapAroundCanvas(particle, canvasSize);
 
-    if (wrapped && PARTICLE_COLOR_CONFIG.RESET_AFTER_WRAPPING) {
-      particle.alphaToggled = false;
-      particle.alpha = PARTICLE_COLOR_CONFIG.INIT_ALPHA_0_255;
-    }
-
     if (PARTICLE_COLOR_CONFIG.ENABLED) {
-      updateParticleAlpha(particle);
+      updateParticleAlpha(particle, wrapped);
     }
   });
 };
@@ -390,6 +391,36 @@ const wrapAroundCanvas = (
 const calculateDistance = (p1: InteractableEntity, p2: InteractableEntity) =>
   Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 
+const snowflake = [
+  { start: [0, -3.5], end: [0, 3.5] },
+  { start: [-3, -2], end: [3, 2] },
+  { start: [-3, 2], end: [3, -2] },
+];
+
+const renderSnowflake = (
+  ctx: CanvasRenderingContext2D,
+  particles: ParticleEntity[]
+) => {
+  particles.forEach((p) => {
+    const color = addAlphaToHex(p.color, p.alpha);
+
+    ctx.beginPath();
+
+    const k = 0.5 + p.size / 2;
+
+    snowflake.forEach((sl) => {
+      ctx.moveTo(p.x + sl.start[0] * k, p.y + sl.start[1] * k);
+      ctx.lineTo(p.x + sl.end[0] * k, p.y + sl.end[1] * k);
+    });
+    ctx.shadowBlur = Math.round(p.blur);
+    ctx.shadowColor = color;
+
+    ctx.lineWidth = k;
+    ctx.strokeStyle = color;
+    ctx.stroke();
+  });
+};
+
 const renderParticlesArc = (
   ctx: CanvasRenderingContext2D,
   particles: ParticleEntity[]
@@ -401,7 +432,7 @@ const renderParticlesArc = (
     ctx.fillStyle = color;
     ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
     ctx.shadowBlur = Math.round(particle.blur);
-    ctx.shadowColor = particle.color;
+    ctx.shadowColor = color;
 
     ctx.fill();
   });
@@ -470,7 +501,11 @@ export const animateParticles = (
   updateWaves(waves, canvasSize);
   updateParticles(particles, waves, mouse, canvasSize);
 
-  renderParticlesArc(context, particles);
+  if (SCENE_CONFIG.ICONS == PARTICLE_ICON.SNOWFLAKE) {
+    renderSnowflake(context, particles);
+  } else if (SCENE_CONFIG.ICONS == PARTICLE_ICON.ARC) {
+    renderParticlesArc;
+  }
 
   if (SCENE_CONFIG.DEBUG) {
     debugCanvas(context, canvasSize);
