@@ -406,7 +406,7 @@ const renderSnowflake = (
 
     ctx.beginPath();
 
-    const k = 0.5 + p.size / 2;
+    const k = 1 + p.size / 2;
 
     snowflake.forEach((sl) => {
       ctx.moveTo(p.x + sl.start[0] * k, p.y + sl.start[1] * k);
@@ -415,7 +415,7 @@ const renderSnowflake = (
     ctx.shadowBlur = Math.round(p.blur);
     ctx.shadowColor = color;
 
-    ctx.lineWidth = k;
+    ctx.lineWidth = k - 0.5;
     ctx.strokeStyle = color;
     ctx.stroke();
   });
