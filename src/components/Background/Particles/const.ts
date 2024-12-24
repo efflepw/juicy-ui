@@ -5,6 +5,7 @@ export const THEMES = {
   PALETTE_4: ["#FEFFD2", "#FFEEA9", "#FFBF78", "#FF7D29"],
   PALETTE_5: ["#a67c00", "#bf9b30", "#ffbf00", "#ffcf40", "#ffdc73"],
   PALETTE_6: ["#c4c4fd", "#ffec9c", "#6a71a5", "#35336b", "#091e36"],
+  PALETTE_7: ["#c4c4fd", "#fff", "#6a71a5", "#b3b1fc", "#c7dbf2"],
   RAINBOW: ["#bb90facc", "#fd9090cc", "#fff962cc", "#9bf993cc", "#80daf5cc"],
 };
 
@@ -20,8 +21,18 @@ export const PARTICLES_MOVE_MODES = {
   SNOW: "snow",
 };
 
+export const PARTICLE_COLOR_CONFIG = {
+  ENABLED: false,
+  RESET_AFTER_WRAPPING: false,
+  INIT_ALPHA_0_255: 16,
+  MIN_ALPHA_0_255: 16,
+  MAX_ALPHA_0_255: 255,
+  ALPHA_DELTA_INC: 1,
+  ALPHA_DELTA_DEC: 0.75,
+};
+
 export const PARTICLE_CONFIG = {
-  SPEED: 0.5,
+  SPEED: 1.5,
   SPEED_DELTA: 0.5,
   ANGLE_DELTA: 0.04,
   FLOAT_SPEED_DELTA: 0.1,
@@ -36,10 +47,10 @@ export const SCENE_CONFIG = {
   DISTANCE_SLOW: 0.005,
   SIZE_TO_SPEED: true,
   MOUSE_INTERACTION_DISTANCE: 50,
-  PALETTE: THEMES.PALETTE_3,
-  MOUSE_MODE: INTERACTION_MODES.REPULSION,
+  PALETTE: THEMES.PALETTE_7,
+  MOUSE_MODE: INTERACTION_MODES.OFF,
   ENABLE_WAVES: true,
-  PARTICLES_FLOATING_MODE: PARTICLES_MOVE_MODES.SNOW,
+  PARTICLES_FLOATING_MODE: PARTICLES_MOVE_MODES.SPACE,
   DEBUG: false,
 };
 
@@ -52,8 +63,8 @@ export const BLUR_CONFIG = {
 };
 
 export const SPACE_CONFIG = {
-  RECT_WIDTH: 440,
-  RECT_HEIGHT: 220,
+  RECT_WIDTH: 80,
+  RECT_HEIGHT: 40,
 };
 
 export const SNOW_CONFIG = {

@@ -94,8 +94,10 @@ const App = () => {
   };
 
   return (
-    <div className="w-[80%] m-[auto] relative">
-      <Header />
+    <div className="w-[80%] m-[auto]">
+      <div className="relative">
+        <Header />
+      </div>
       <div className="flex flex-col py-4 gap-2">
         <main
           className="grid flex-grow gap-2 pt-16"

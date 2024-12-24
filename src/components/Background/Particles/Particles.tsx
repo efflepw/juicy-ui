@@ -41,7 +41,7 @@ const Particles = () => {
     );
   }, []);
 
-  return <canvas className="canvas-preview" ref={canvasRef}></canvas>;
+  return <canvas className="canvas-preview canvas-bg" ref={canvasRef}></canvas>;
 };
 
 export default Particles;

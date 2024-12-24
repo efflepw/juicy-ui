@@ -8,11 +8,18 @@ export type Entity = {
 export type InteractableEntity = Pick<Entity, "x" | "y" | "angle">;
 
 export type ParticleEntity = Entity & {
-  maxFloatingSpeed: number;
+  maxSpeed: number;
   color: string;
   size: number;
   blur: number;
+  alpha: number;
+  alphaToggled: boolean;
 };
+
+export type ParticlesCommonProperties = Pick<
+  ParticleEntity,
+  "alpha" | "alphaToggled" | "blur" | "color" | "maxSpeed" | "speed" | "size"
+>;
 
 export type Mouse = {
   x: number;
