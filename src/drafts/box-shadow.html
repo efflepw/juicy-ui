@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draft</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #393939, #101011);
+      }
+
+      .wavy-shadow {
+        width: 150px;
+        height: 150px;
+        background-color: white;
+        border-radius: 10px;
+        animation: shadow-wave 2s infinite linear;
+      }
+
+      @keyframes shadow-wave {
+        0%,
+        100% {
+          box-shadow: -10px 15px 30px #bb90facc, 10px 5px 10px #fd9090cc,
+            0 15px 30px #fff962cc, 0 30px 50px #9bf993cc;
+        }
+        50% {
+          box-shadow: 0 5px 10px #fd9090cc, 0 5px 10px #9bf993cc,
+            -10px 15px 30px #bb90facc, 10px 30px 50px #80daf5cc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wavy-shadow"></div>
+  </body>
+</html>
+
+<!-- #fd9090cc, #fff962cc, #9bf993cc, #80daf5cc, #bb90facc  -->

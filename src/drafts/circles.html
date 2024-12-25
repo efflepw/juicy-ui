@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circles</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #282c34;
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+
+      .highlight-box {
+        position: relative; /* Ensure this is relative to position the overlay */
+        width: 300px;
+        height: 200px;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        text-align: center;
+        line-height: 200px;
+        font-size: 24px;
+        color: #282c34;
+        cursor: pointer;
+      }
+
+      .gradient-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        /* background-image: radial-gradient(
+          circle at 50% 50%,
+          #fd9090cc 0px,
+          transparent 60px,
+          #fff962cc 30px,
+          transparent 90px,
+          #9bf993cc 60px,
+          transparent 120px,
+          #80daf5cc 90px,
+          transparent 150px,
+          #bb90facc 120px,
+          transparent 180px
+        ); */
+
+        /* background-image: radial-gradient(
+          circle at 10px 73.5px,
+          #fd9090cc 0px,
+          transparent 60px,
+          #fff962cc 30px,
+          transparent 90px,
+          #9bf993cc 60px,
+          transparent 120px,
+          #80daf5cc 90px,
+          transparent 150px,
+          #bb90facc 120px,
+          transparent 180px
+        ); */
+      }
+
+      /* .gradient-overlay:hover {
+        background-image: none;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="highlight-box">
+      Move your mouse over me!
+      <div class="gradient-overlay"></div>
+    </div>
+
+    <script>
+      const box = document.querySelector(".highlight-box");
+      const overlay = document.querySelector(".gradient-overlay");
+
+      const colors = [
+        "#fd9090cc",
+        "#fff962cc",
+        "#9bf993cc",
+        "#80daf5cc",
+        "#bb90facc",
+      ];
+
+      box.addEventListener("mousemove", (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Create circular gradients at the mouse position
+        const gradientStops = colors
+          .map((color, i) => {
+            const offset = i * 30; // Staggered gradient effect
+            return `${color} ${offset}px, transparent ${offset + 60}px`;
+          })
+          .join(",");
+
+        overlay.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, ${gradientStops})`;
+      });
+
+      // Clear gradient on mouse leave
+      box.addEventListener("mouseleave", () => {
+        overlay.style.backgroundImage = "none";
+      });
+    </script>
+  </body>
+</html>

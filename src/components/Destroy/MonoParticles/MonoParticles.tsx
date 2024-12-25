@@ -21,7 +21,6 @@ const getInitialParticlesPosition = (): Particle[] => {
         x: i + WIDTH * 0.5,
         y: j + HEIGHT * 0.75,
         angle: Math.random() * Math.PI * 2 + Math.PI / 4,
-        // angle: Math.atan2(j - HEIGHT / 2, i - WIDTH / 2),
       };
 
       particles.push(particle);

@@ -11,6 +11,7 @@ import Header from "./components.preview/Header";
 import Skeleton from "./components.preview/Skeleton";
 import ImageHover from "./components.preview/ImageHover";
 import RainbowBorderPreview from "./components.preview/RainbowBorder";
+import TextPreview from "./components.preview/TextPreview";
 
 type Section = {
   id: string;
@@ -19,6 +20,21 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "text",
+    name: "Text gradient",
+    component: (
+      <div className="flex flex-col gap-6">
+        <TextPreview gradient="RAINBOW" />
+        <TextPreview gradient="BLUE-PINK" />
+        <TextPreview gradient="CACTUS" />
+        <TextPreview gradient="BLACK-PINK" />
+        <TextPreview gradient="50-SHADES" />
+        <TextPreview gradient="PEACH" />
+        <TextPreview gradient="ORCA" />
+      </div>
+    ),
+  },
   {
     id: "particles-bg",
     name: "Particles",
