@@ -29,7 +29,7 @@ const SECTION_COMPONENTS: Section[] = [
         <TextPreview gradient="BLACK-PINK" />
         <TextPreview gradient="50-SHADES" />
         <TextPreview gradient="PEACH" />
-        <TextPreview gradient="ORCA" />
+        <TextPreview gradient="DEEP-SEA-TEAL" />
       </div>
     ),
   },
@@ -109,7 +109,7 @@ const Components = () => {
 
   return (
     <div
-      className="grid flex-grow gap-2 pt-16"
+      className="grid flex-grow gap-2"
       style={{ gridTemplateColumns: "1fr 5fr" }}
     >
       <Navbar
