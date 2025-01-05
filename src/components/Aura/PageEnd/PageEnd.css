@@ -1,0 +1,35 @@
+.page-end-aura {
+  background: linear-gradient(
+    45deg,
+    #fd9090cc,
+    #fff962cc,
+    #9bf993cc,
+    #80daf5cc,
+    #bb90facc
+  );
+  position: fixed;
+  bottom: -30px;
+  left: 0;
+
+  width: 100%;
+  height: 20px;
+
+  filter: blur(20px);
+  border-radius: 50%;
+}
+
+@keyframes expandHeight {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 60px;
+  }
+  100% {
+    height: 40px;
+  }
+}
+
+.page-end-aura {
+  animation: expandHeight 0.5s ease-in-out forwards;
+}

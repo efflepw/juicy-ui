@@ -10,6 +10,7 @@ import ImageHover from "../../components.preview/ImageHover";
 import RainbowBorderPreview from "../../components.preview/RainbowBorder";
 import TextPreview from "../../components.preview/TextPreview";
 import Navbar from "../../components.preview/Navbar";
+import PageEnd from "../../components/Aura/PageEnd";
 
 type Section = {
   id: string;
@@ -18,6 +19,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "aura",
+    name: "Aura",
+    component: <PageEnd />,
+  },
   {
     id: "text",
     name: "Text gradient",

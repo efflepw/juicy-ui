@@ -10,7 +10,7 @@ const App = () => {
       <div className="relative">
         <Header />
       </div>
-      <div className="flex flex-col py-4 gap-2 pt-16">
+      <div className="flex flex-col gap-2 pt-20 pb-6">
         <Routes>
           <Route path="/" element={<Overview />} />
           <Route path="/classes" element={<Classes />} />
