@@ -10,7 +10,7 @@ import ImageHover from "../../components.preview/ImageHover";
 import RainbowBorderPreview from "../../components.preview/RainbowBorder";
 import TextPreview from "../../components.preview/TextPreview";
 import Navbar from "../../components.preview/Navbar";
-import PageEnd from "../../components/Aura/PageEnd";
+import { AuraPreview } from "../../components.preview/Aura";
 
 type Section = {
   id: string;
@@ -22,7 +22,7 @@ const SECTION_COMPONENTS: Section[] = [
   {
     id: "aura",
     name: "Aura",
-    component: <PageEnd />,
+    component: <AuraPreview />,
   },
   {
     id: "text",

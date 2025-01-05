@@ -9,7 +9,7 @@ interface CSSVars extends React.CSSProperties {
   "--gradient": string;
 }
 
-const RainbowText = ({ text, gradient }: Props) => {
+const GradientText = ({ text, gradient }: Props) => {
   const cssVars: CSSVars = { "--gradient": `${gradient}` };
 
   return (
@@ -19,4 +19,4 @@ const RainbowText = ({ text, gradient }: Props) => {
   );
 };
 
-export default RainbowText;
+export default GradientText;
