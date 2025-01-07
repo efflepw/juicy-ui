@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import "./Particles.css";
-import { useMousePosition } from "../../../hooks";
+import { usePointerPosition } from "../../../hooks";
 import { animateParticles, createParticles, createWaves } from "./utils";
 import { MOUSE_INITIAL_STATE } from "./const";
 import { CanvasSize } from "./types";
 
 const Particles = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { mouseRef } = useMousePosition();
+  const { pointerRef } = usePointerPosition();
 
   useEffect(() => {
     const clientRect = canvasRef.current?.getBoundingClientRect();
@@ -35,7 +35,7 @@ const Particles = () => {
       canvas,
       particles,
       waves,
-      mouseRef,
+      pointerRef,
       MOUSE_INITIAL_STATE,
       canvasSize
     );

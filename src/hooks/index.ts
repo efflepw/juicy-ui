@@ -1,1 +1,1 @@
-export { default as useMousePosition } from "./useMousePosition";
+export { default as usePointerPosition } from "./usePointerPosition";

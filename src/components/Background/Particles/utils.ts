@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { MousePosition } from "../../../hooks/useMousePosition";
+import { PointerPosition } from "../../../hooks/usePointerPosition";
 import {
   BLUR_CONFIG,
   PARTICLE_CONFIG,
@@ -441,7 +441,7 @@ const renderParticlesArc = (
 export const updateMousePosition = (
   canvas: HTMLCanvasElement,
   mouse: Mouse,
-  mouseRef: RefObject<MousePosition>
+  mouseRef: RefObject<PointerPosition>
 ): Mouse => {
   if (!mouseRef || !mouseRef.current) return mouse;
 
@@ -450,7 +450,7 @@ export const updateMousePosition = (
   const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
 
-  const mousePosition: MousePosition = mouseRef.current;
+  const mousePosition: PointerPosition = mouseRef.current;
 
   let angle = mouse.angle;
 
@@ -489,7 +489,7 @@ export const animateParticles = (
   canvas: HTMLCanvasElement,
   particles: ParticleEntity[],
   waves: Entity[],
-  mouseRef: RefObject<MousePosition>,
+  mouseRef: RefObject<PointerPosition>,
   mouse: Mouse,
   canvasSize: CanvasSize
 ) => {

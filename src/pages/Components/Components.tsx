@@ -11,6 +11,7 @@ import RainbowBorderPreview from "../../components.preview/RainbowBorder";
 import TextPreview from "../../components.preview/TextPreview";
 import Navbar from "../../components.preview/Navbar";
 import { AuraPreview } from "../../components.preview/Aura";
+import { CursorTrail } from "../../components/Cursor";
 
 type Section = {
   id: string;
@@ -19,6 +20,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "trail",
+    name: "Trail",
+    component: <CursorTrail />,
+  },
   {
     id: "aura",
     name: "Aura",

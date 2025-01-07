@@ -38,7 +38,17 @@ To get started with the app, follow these steps:
 - [x] add ambient hover effect preview
 - [x] add space effect for particles canvas
 - [x] add particle disappear for space effect
+- [x] add router
+- [x] gradients preview
+- [x] experiment with blur on ellipses
+- [x] cursor rainbow trail
+- [ ] add blur option to rainbow border
+- [ ] after opening particles the rest of the app is starts lagging
 - [ ] custom scroll
+- [ ] add skeleton to images
+- [ ] image increase on hover within its borders
+- [ ] gradient builder
+- [ ] make snowfall only from the top for not a long distance
 - [ ] separate class and component functionality
 - [ ] complete redesign
 - [ ] add ability to import class functionality as TW classname
