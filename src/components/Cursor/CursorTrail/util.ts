@@ -2,6 +2,15 @@ import { RefObject } from "react";
 import { Trail } from "./Trail";
 import { PointerPosition } from "../../../hooks/usePointerPosition";
 
+// temp
+const colors = [
+  "#fd9090",
+  "#fff962",
+  "#9bf993",
+  "#80daf5",
+  "#bb90fa",
+].reverse();
+
 export const drawTrail = (
   ctx: CanvasRenderingContext2D,
   trail: Trail,
@@ -26,10 +35,28 @@ export const drawTrail = (
     ctx.fill(path2d);
   });
 
-  // ctx.beginPath();
-  // ctx.arc(px, py, 15, 0, Math.PI * 2);
-  // ctx.fillStyle = "white";
-  // ctx.fill();
+  drawCursor(ctx, pointerRef);
 
   requestAnimationFrame(() => drawTrail(ctx, trail, pointerRef));
+};
+
+export const drawCursor = (
+  ctx: CanvasRenderingContext2D,
+  pointerRef: RefObject<PointerPosition>
+) => {
+  if (!pointerRef || !pointerRef.current) return;
+
+  const px = pointerRef.current.x;
+  const py = pointerRef.current.y;
+
+  const r = 15;
+
+  const sec_radius = Math.ceil(r / colors.length);
+
+  for (let i = 0; i < colors.length; i++) {
+    ctx.beginPath();
+    ctx.arc(px, py, r - i * sec_radius, 0, Math.PI * 2);
+    ctx.fillStyle = colors[i];
+    ctx.fill();
+  }
 };

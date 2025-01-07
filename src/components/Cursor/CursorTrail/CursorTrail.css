@@ -10,3 +10,11 @@
 
   z-index: -1;
 }
+
+/* body,
+a,
+span,
+button,
+div {
+  cursor: none !important;
+} */

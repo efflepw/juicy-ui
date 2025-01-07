@@ -11,8 +11,8 @@ type UsePointerPosition = {
 
 const usePointerPosition = (): UsePointerPosition => {
   const pointerRef = useRef<PointerPosition>({
-    x: 0,
-    y: 0,
+    x: -100,
+    y: -100,
   });
 
   const onMove = useCallback((e: MouseEvent) => {
