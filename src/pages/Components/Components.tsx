@@ -36,7 +36,7 @@ const SECTION_COMPONENTS: Section[] = [
     component: (
       <div className="flex flex-col gap-6">
         <TextPreview gradient="RAINBOW" />
-        <TextPreview gradient="BLUE-PINK" />
+        <TextPreview gradient="TAILWIND" />
         <TextPreview gradient="CACTUS" />
         <TextPreview gradient="BLACK-PINK" />
         <TextPreview gradient="50-SHADES" />
