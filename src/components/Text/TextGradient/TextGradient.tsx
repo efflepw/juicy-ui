@@ -1,4 +1,4 @@
-import "./GradientText.css";
+import "./TextGradient.css";
 
 type Props = {
   text: string;
@@ -9,7 +9,7 @@ interface CSSVars extends React.CSSProperties {
   "--gradient": string;
 }
 
-const GradientText = ({ text, gradient }: Props) => {
+const TextGradient = ({ text, gradient }: Props) => {
   const cssVars: CSSVars = { "--gradient": `${gradient}` };
 
   return (
@@ -19,4 +19,4 @@ const GradientText = ({ text, gradient }: Props) => {
   );
 };
 
-export default GradientText;
+export default TextGradient;

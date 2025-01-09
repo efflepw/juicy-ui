@@ -8,10 +8,9 @@ import AuroraBg from "../../components.preview/AuroraBg";
 import Skeleton from "../../components.preview/Skeleton";
 import ImageHover from "../../components.preview/ImageHover";
 import RainbowBorderPreview from "../../components.preview/RainbowBorder";
-import TextPreview from "../../components.preview/TextPreview";
 import Navbar from "../../components.preview/Navbar";
 import { AuraPreview } from "../../components.preview/Aura";
-import { CursorTrail } from "../../components/Cursor";
+import { TrailPreview } from "../../components.preview/Trail";
 
 type Section = {
   id: string;
@@ -22,32 +21,17 @@ type Section = {
 const SECTION_COMPONENTS: Section[] = [
   {
     id: "trail",
-    name: "Trail",
-    component: <CursorTrail />,
+    name: "Trail (cn)",
+    component: <TrailPreview />,
   },
   {
     id: "aura",
-    name: "Aura",
+    name: "Aura (cn)",
     component: <AuraPreview />,
   },
   {
-    id: "text",
-    name: "Text gradient",
-    component: (
-      <div className="flex flex-col gap-6">
-        <TextPreview gradient="RAINBOW" />
-        <TextPreview gradient="TAILWIND" />
-        <TextPreview gradient="CACTUS" />
-        <TextPreview gradient="BLACK-PINK" />
-        <TextPreview gradient="50-SHADES" />
-        <TextPreview gradient="PEACH" />
-        <TextPreview gradient="DEEP-SEA-TEAL" />
-      </div>
-    ),
-  },
-  {
     id: "particles-bg",
-    name: "Particles",
+    name: "Particles (cn)",
     component: (
       <div className="w-[100%]">
         <Particles />
@@ -56,22 +40,22 @@ const SECTION_COMPONENTS: Section[] = [
   },
   {
     id: "image-hover",
-    name: "Image hover",
+    name: "Image hover (3c)",
     component: <ImageHover />,
   },
   {
     id: "rainbow-border",
-    name: "Rainbow border",
+    name: "Rainbow border (cl)",
     component: <RainbowBorderPreview />,
   },
   {
     id: "buttons",
-    name: "Buttons",
+    name: "Buttons (cm)",
     component: <ButtonsPreview />,
   },
   {
     id: "rainbow-skeleton",
-    name: "Rainbow skeleton",
+    name: "Rainbow skeleton (cl)",
     component: (
       <div>
         <div className="flex gap-5 bg-white rounded px-4 py-10">
@@ -91,17 +75,17 @@ const SECTION_COMPONENTS: Section[] = [
   },
   {
     id: "ambient",
-    name: "Ambient",
+    name: "Ambient (cn)",
     component: <Ambient imageSrc="dino.svg" showOnHover />,
   },
   {
     id: "aurora-bg",
-    name: "Aurora",
+    name: "Aurora (cl)",
     component: <AuroraBg />,
   },
   {
     id: "mono-particles",
-    name: "Mono Particles",
+    name: "Mono Particles (cn + cm)",
     component: <MonoParticles />,
   },
 ];
@@ -120,10 +104,7 @@ const Components = () => {
   };
 
   return (
-    <div
-      className="grid flex-grow gap-2"
-      style={{ gridTemplateColumns: "1fr 5fr" }}
-    >
+    <div className="grid grid-cols-[1fr_4fr] flex-grow gap-2">
       <Navbar
         activeId={selectedSection.id}
         sections={SECTION_COMPONENTS}

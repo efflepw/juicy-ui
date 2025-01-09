@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router";
 
 import Header from "./components.preview/Header";
 import { Classes, Components, Contribute, Gradients, Overview } from "./pages";
+
 const App = () => {
   return (
     <div className="w-[80%] m-[auto] min-h-screen">
@@ -12,7 +13,7 @@ const App = () => {
       </div>
       <div className="flex flex-col gap-2 pt-20 pb-6 h-full">
         <Routes>
-          <Route path="/" element={<Components />} />
+          <Route path="/" element={<Overview />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/components" element={<Components />} />
           <Route path="/gradients" element={<Gradients />} />

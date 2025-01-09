@@ -1,13 +1,13 @@
 import PageEnd from "../../components/Aura/PageEnd";
-import GradientText from "../../components/Text/GradientText";
-import { BASE_GRADIENTS } from "../../const/gradients";
+import TextGradient from "../../components/Text/TextGradient";
+import { BASE_PALETTES } from "../../const/palette";
 
 const AuraPreview = () => {
   return (
     <div className="h-[1000px]">
-      <GradientText
+      <TextGradient
         text={"Scroll to the bottom of the page"}
-        gradient={BASE_GRADIENTS["50-SHADES"]}
+        gradient={BASE_PALETTES["50-SHADES"].getLinearGradient()}
       />
       <PageEnd />
     </div>

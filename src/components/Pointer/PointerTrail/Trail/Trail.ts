@@ -31,10 +31,11 @@ export class Trail {
   private MAX_RADIUS = 15;
   private MIN_RADIUS = 1;
 
-  constructor() {
+  constructor(colors: string[]) {
     this.points = [];
     this.lastX = -20;
     this.lastY = -20;
+    this.COLORS = colors;
   }
 
   pushPoint = (x: number, y: number) => {
@@ -68,6 +69,18 @@ export class Trail {
         const yOffsetRev = Math.sin(pb) * rad;
 
         return { xOffsetIn, yOffsetIn, xOffsetRev, yOffsetRev };
+      case 2:
+        if (j == 0) {
+          const xOffsetRev = Math.cos(pb) * rad;
+          const yOffsetRev = Math.sin(pb) * rad;
+
+          return { xOffsetIn: 0, yOffsetIn: 0, xOffsetRev, yOffsetRev };
+        } else {
+          const xOffsetIn = Math.cos(pa) * rad;
+          const yOffsetIn = Math.sin(pa) * rad;
+
+          return { xOffsetIn, yOffsetIn, xOffsetRev: 0, yOffsetRev: 0 };
+        }
       case 5:
         if (j < 2) {
           const farShift = (1 - j) * 2 * halfStrapWidth + 3 * halfStrapWidth;

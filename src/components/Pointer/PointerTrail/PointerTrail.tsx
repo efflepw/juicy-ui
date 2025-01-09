@@ -1,11 +1,16 @@
-import "./CursorTrail.css";
+import "./PointerTrail.css";
 
 import { useEffect, useRef } from "react";
 import { usePointerPosition } from "../../../hooks";
 import { Trail } from "./Trail";
 import { drawTrail } from "./util";
+import { Palette } from "../../../utils/palette";
 
-const CursorTrail = () => {
+type Props = {
+  palette: Palette;
+};
+
+const PointerTrail = ({ palette }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { pointerRef } = usePointerPosition();
 
@@ -23,12 +28,12 @@ const CursorTrail = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const cursorTrail = new Trail();
+    const pointerTrail = new Trail(palette.getColors());
 
-    drawTrail(ctx, cursorTrail, pointerRef);
+    drawTrail(ctx, pointerTrail, pointerRef);
   });
 
   return <canvas ref={canvasRef} className="cursor-trail"></canvas>;
 };
 
-export default CursorTrail;
+export default PointerTrail;

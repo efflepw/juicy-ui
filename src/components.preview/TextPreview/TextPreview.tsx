@@ -1,31 +1,29 @@
-import GradientText from "../../components/Text/GradientText";
-import { BASE_GRADIENTS } from "../../const/gradients";
-import { toTitleCase } from "../../utils/format";
+import TextGradient from "../../components/Text/TextGradient";
 
 const TEXT = "Wandering in the dark";
 
 type Props = {
-  gradient: keyof typeof BASE_GRADIENTS;
+  gradient: string;
 };
 
 const TextPreview = ({ gradient }: Props) => {
-  const commonClasses = "flex flex-col gap-6 p-12 rounded-lg";
+  const commonClasses =
+    "flex items-center flex-col gap-6 px-6 py-8 rounded-lg w-[30%]";
 
   return (
-    <div>
-      <h2 className="text-4xl p-2">{toTitleCase(gradient)}</h2>
+    <div className="">
       <div className="flex flex-row justify-around gap-3 text-3xl font-semibold w-full">
-        <div className={`${commonClasses} `}>
+        <div className={`${commonClasses} bg-[#0c0c0c]`}>
           <span>{TEXT}</span>
-          <GradientText text={TEXT} gradient={BASE_GRADIENTS[gradient]} />
+          <TextGradient text={TEXT} gradient={gradient} />
         </div>
         <div className={`${commonClasses} bg-[#101013ee]`}>
           <span>{TEXT}</span>
-          <GradientText text={TEXT} gradient={BASE_GRADIENTS[gradient]} />
+          <TextGradient text={TEXT} gradient={gradient} />
         </div>
         <div className={`${commonClasses} bg-white text-black`}>
           <span>{TEXT}</span>
-          <GradientText text={TEXT} gradient={BASE_GRADIENTS[gradient]} />
+          <TextGradient text={TEXT} gradient={gradient} />
         </div>
       </div>
     </div>
