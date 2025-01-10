@@ -1,0 +1,14 @@
+.image-resize-on-hover {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.image-resize-on-hover img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.image-resize-on-hover:hover img {
+  transform: scale(1.1);
+}
