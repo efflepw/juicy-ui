@@ -9,7 +9,7 @@ const AuraPreview = () => {
         text={"Scroll to the bottom of the page"}
         gradient={BASE_PALETTES["50-SHADES"].getLinearGradient()}
       />
-      <PageEnd />
+      <PageEnd palette={BASE_PALETTES["TAILWIND"]} />
     </div>
   );
 };

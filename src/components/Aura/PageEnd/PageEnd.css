@@ -1,12 +1,4 @@
 .page-end-aura {
-  background: linear-gradient(
-    45deg,
-    #fd9090cc,
-    #fff962cc,
-    #9bf993cc,
-    #80daf5cc,
-    #bb90facc
-  );
   position: fixed;
   bottom: -30px;
   left: 0;
