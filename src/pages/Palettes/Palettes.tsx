@@ -2,7 +2,7 @@ import TextPreview from "../../components.preview/TextPreview";
 import { BASE_PALETTES } from "../../const/palette";
 import { toTitleCase } from "../../utils/format";
 
-const Gradients = () => {
+const Palettes = () => {
   return (
     <div className="">
       <div>
@@ -32,4 +32,4 @@ const Gradients = () => {
   );
 };
 
-export default Gradients;
+export default Palettes;

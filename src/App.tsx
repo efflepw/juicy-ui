@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router";
 
 import Header from "./components.preview/Header";
-import { Classes, Components, Contribute, Gradients, Overview } from "./pages";
+import { Classes, Components, Contribute, Palettes, Overview } from "./pages";
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <Route path="/" element={<Overview />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/components" element={<Components />} />
-          <Route path="/gradients" element={<Gradients />} />
+          <Route path="/palettes" element={<Palettes />} />
           <Route path="/contribute" element={<Contribute />} />
         </Routes>
       </div>
