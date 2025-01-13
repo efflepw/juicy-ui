@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Palette } from "../../../utils/palette";
 
 const rainbowPalette = new Palette([
@@ -13,8 +13,16 @@ const rainbowPalette = new Palette([
 
 const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 
+const WIDTH = 196;
+const HEIGHT = 128;
+
 const PaletteBuilder = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
+
+  // const [colorAlpha, setColorAlpha] = useState<number>(256);
+  // const [gradientColor, setGradientColor] = useState<number | null>(null);
+  // const [selectedColor, setSelectedColor] = useState<number | null>(null);
 
   const [colors, setColors] = useState<string[]>(["#fff", "#cb95fd", "#000"]);
   const [angle] = useState<number>(90);
@@ -25,6 +33,11 @@ const PaletteBuilder = () => {
     setColors((colors) => [...colors, "#fff"]);
     setSelected(null);
   };
+
+  // const updateColor = (newColor: string) => {
+  //   setColors((colors) => colors.map((c, i) => (i == selected ? newColor : c)));
+  //   setSelected(null);
+  // };
 
   const selectColor = (i: number) => {
     setSelected((selected) => (i == selected ? null : i));
@@ -37,12 +50,40 @@ const PaletteBuilder = () => {
     }
   };
 
+  const drawGradient = (canvas: HTMLCanvasElement) => {
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    const colorGradient = ctx.createLinearGradient(0, 0, WIDTH, 0);
+    colorGradient.addColorStop(0, "white");
+    colorGradient.addColorStop(1, "red");
+    ctx.fillStyle = colorGradient;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    const blackGradient = ctx.createLinearGradient(0, 0, 0, HEIGHT);
+    blackGradient.addColorStop(0, "transparent");
+    blackGradient.addColorStop(1, "black");
+    ctx.fillStyle = blackGradient;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  };
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      drawGradient(canvasRef.current);
+    }
+  }, []);
+
   return (
     <div>
       <div className="py-8 flex gap-8 justify-between">
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-4 flex-wrap">
           {colors.map((color, i) => (
-            <div className="flex flex-col gap-2 h-40">
+            <div className="flex flex-col gap-2 h-32">
               <div
                 className={`w-10 rounded-lg border-2 cursor-pointer flex-1 ${
                   selected == i ? "border-black" : "border-[#fff8]"
@@ -61,7 +102,7 @@ const PaletteBuilder = () => {
             </div>
           ))}
           <div
-            className="flex justify-center items-center w-10 h-40 border-2 rounded-lg cursor-pointer text-4xl text-white border-white"
+            className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white"
             onClick={addColor}
           >
             <span>+</span>
@@ -69,16 +110,16 @@ const PaletteBuilder = () => {
         </div>
         <div className="flex gap-4">
           <div
-            className="w-40 h-40 rounded-lg"
+            className="w-32 h-32 rounded-lg"
             style={{ backgroundColor: selected ? colors[selected] : "#fff" }}
           ></div>
-          <canvas className="w-60 h-40 rounded-lg bg-white"></canvas>
+          <canvas className="w-48 h-32 rounded-lg " ref={canvasRef}></canvas>
           <div
-            className="w-10 h-40 rounded-lg bg-white"
+            className="w-10 h-32 rounded-lg"
             style={{ background: rainbowPalette.getLinearGradient() }}
           ></div>
           <div
-            className="w-10 h-40 rounded-lg"
+            className="w-10 h-32 rounded-lg"
             style={{
               background: `${whitePalette.getLinearGradient()}`,
             }}
@@ -87,13 +128,13 @@ const PaletteBuilder = () => {
       </div>
       <div className="flex gap-4">
         <div
-          className="h-40 rounded-lg flex-1"
+          className="h-32 rounded-lg flex-1"
           style={{
             background: `${palette.getLinearGradient()}`,
           }}
         ></div>
-        <div className="w-40 h-40 bg-white rounded-lg flex justify-center items-center">
-          <div className="flex justify-center items-center w-36 h-36 border-2 border-black rounded-full border-dashed">
+        <div className="w-32 h-32 bg-white rounded-lg flex justify-center items-center">
+          <div className="flex justify-center items-center w-28 h-28 border-2 border-black rounded-full border-dashed">
             <span className="text-black text-4xl select-none">{angle}</span>
           </div>
         </div>

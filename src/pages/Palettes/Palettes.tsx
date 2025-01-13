@@ -18,13 +18,13 @@ const Palettes = () => {
             <div key={name} className="pb-6">
               <h2 className="text-4xl py-8">{toTitleCase(name)}</h2>
               <div
-                className="w-full h-40 rounded-lg"
+                className="w-full h-32 rounded-lg"
                 style={{
                   background: `${palette.getLinearGradient()}`,
                 }}
               ></div>
               <div className="relative h-24">
-                <div className="absolute top-[-80px] right-0 left-0">
+                <div className="absolute top-[-64px] right-0 left-0">
                   <TextPreview gradient={palette.getLinearGradient()} />
                 </div>
               </div>

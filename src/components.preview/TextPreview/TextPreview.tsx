@@ -8,11 +8,11 @@ type Props = {
 
 const TextPreview = ({ gradient }: Props) => {
   const commonClasses =
-    "flex items-center flex-col gap-6 px-6 py-8 rounded-lg w-[30%]";
+    "flex items-center flex-col gap-4 px-8 py-6 rounded-lg max-w-[30%]";
 
   return (
     <div className="">
-      <div className="flex flex-row justify-around gap-3 text-3xl font-semibold w-full">
+      <div className="flex flex-row justify-around gap-3 text-2xl font-semibold w-full">
         <div className={`${commonClasses} bg-[#0c0c0c]`}>
           <span>{TEXT}</span>
           <TextGradient text={TEXT} gradient={gradient} />
