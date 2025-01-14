@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Palette } from "../../../utils/palette";
+import { GradientCanvas } from "./GradientCanvas";
+import { RangeSlider } from "./RangeSlider";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -10,14 +12,9 @@ const rainbowPalette = new Palette([
   "#ff00ff",
   "#ff0000",
 ]);
-
 const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 
-const WIDTH = 196;
-const HEIGHT = 128;
-
 const PaletteBuilder = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
 
   // const [colorAlpha, setColorAlpha] = useState<number>(256);
@@ -49,34 +46,6 @@ const PaletteBuilder = () => {
       setSelected(null);
     }
   };
-
-  const drawGradient = (canvas: HTMLCanvasElement) => {
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
-    const colorGradient = ctx.createLinearGradient(0, 0, WIDTH, 0);
-    colorGradient.addColorStop(0, "white");
-    colorGradient.addColorStop(1, "red");
-    ctx.fillStyle = colorGradient;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    const blackGradient = ctx.createLinearGradient(0, 0, 0, HEIGHT);
-    blackGradient.addColorStop(0, "transparent");
-    blackGradient.addColorStop(1, "black");
-    ctx.fillStyle = blackGradient;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-  };
-
-  useEffect(() => {
-    if (canvasRef.current) {
-      drawGradient(canvasRef.current);
-    }
-  }, []);
 
   return (
     <div>
@@ -113,17 +82,9 @@ const PaletteBuilder = () => {
             className="w-32 h-32 rounded-lg"
             style={{ backgroundColor: selected ? colors[selected] : "#fff" }}
           ></div>
-          <canvas className="w-48 h-32 rounded-lg " ref={canvasRef}></canvas>
-          <div
-            className="w-10 h-32 rounded-lg"
-            style={{ background: rainbowPalette.getLinearGradient() }}
-          ></div>
-          <div
-            className="w-10 h-32 rounded-lg"
-            style={{
-              background: `${whitePalette.getLinearGradient()}`,
-            }}
-          ></div>
+          <GradientCanvas />
+          <RangeSlider palette={rainbowPalette} thumbColor={"#fff"} />
+          <RangeSlider palette={whitePalette} thumbColor={"#000"} />
         </div>
       </div>
       <div className="flex gap-4">
