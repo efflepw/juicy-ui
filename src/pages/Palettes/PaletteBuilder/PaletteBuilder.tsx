@@ -3,6 +3,7 @@ import { Palette } from "../../../utils/palette";
 import { GradientCanvas } from "./GradientCanvas";
 import { RangeSlider } from "./RangeSlider";
 import { AngleSelector } from "./AngleSelector";
+import { linearRainbowToColor, MAX_RAINBOW_COLOR_VALUE } from "./utils";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -13,14 +14,15 @@ const rainbowPalette = new Palette([
   "#ff00ff",
   "#ff0000",
 ]);
+
 const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 
 const PaletteBuilder = () => {
   const [selected, setSelected] = useState<number | null>(null);
 
-  // const [colorAlpha, setColorAlpha] = useState<number>(256);
-  // const [gradientColor, setGradientColor] = useState<number | null>(null);
-  // const [selectedColor, setSelectedColor] = useState<number | null>(null);
+  const [colorAlpha, setColorAlpha] = useState<number>(256);
+  // const [colorGradient, setColorGradient] = useState<number | null>(null);
+  const [baseColor, setBaseColor] = useState<number>(0);
 
   const [colors, setColors] = useState<string[]>(["#fff", "#cb95fd", "#000"]);
   const [angle] = useState<number>(90);
@@ -83,9 +85,27 @@ const PaletteBuilder = () => {
             className="w-32 h-32 rounded-lg"
             style={{ backgroundColor: selected ? colors[selected] : "#fff" }}
           ></div>
-          <GradientCanvas />
-          <RangeSlider palette={rainbowPalette} thumbColor={"#fff"} />
-          <RangeSlider palette={whitePalette} thumbColor={"#000"} />
+          <GradientCanvas
+            baseColor={linearRainbowToColor(
+              MAX_RAINBOW_COLOR_VALUE - baseColor
+            )}
+          />
+          <RangeSlider
+            palette={rainbowPalette}
+            thumbColor={"#fff"}
+            v={baseColor}
+            minV={0}
+            maxV={MAX_RAINBOW_COLOR_VALUE}
+            onValueChange={setBaseColor}
+          />
+          <RangeSlider
+            palette={whitePalette}
+            thumbColor={"#000"}
+            v={colorAlpha}
+            minV={0}
+            maxV={255}
+            onValueChange={setColorAlpha}
+          />
         </div>
       </div>
       <div className="flex gap-4">

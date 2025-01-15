@@ -4,7 +4,11 @@ import { PointerPosition } from "../../../../hooks/usePointerPosition";
 const WIDTH = 196;
 const HEIGHT = 128;
 
-const GradientCanvas = () => {
+type Props = {
+  baseColor: string;
+};
+
+const GradientCanvas = ({ baseColor }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isMouseDown = useRef(false);
 
@@ -24,7 +28,7 @@ const GradientCanvas = () => {
 
     const colorGradient = ctx.createLinearGradient(0, 0, WIDTH, 0);
     colorGradient.addColorStop(0, "white");
-    colorGradient.addColorStop(1, "red");
+    colorGradient.addColorStop(1, baseColor);
     ctx.fillStyle = colorGradient;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -69,7 +73,7 @@ const GradientCanvas = () => {
     if (canvasRef.current) {
       drawGradient(canvasRef.current);
     }
-  }, []);
+  }, [baseColor]);
 
   useEffect(() => {
     const handleMouseUp = () => {

@@ -2,13 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { Palette } from "../../../../utils/palette";
 
 const HEIGHT = 128;
+const MAX_SLIDER_V = 120;
 
 type Props = {
+  v: number;
+  minV: number;
+  maxV: number;
   palette: Palette;
   thumbColor: string;
+  onValueChange: (v: number) => void;
 };
 
-const RangeSlider = ({ palette, thumbColor }: Props) => {
+const RangeSlider = ({
+  minV,
+  maxV,
+  palette,
+  thumbColor,
+  onValueChange,
+}: Props) => {
   const isMouseDown = useRef(false);
   const bgRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +34,13 @@ const RangeSlider = ({ palette, thumbColor }: Props) => {
     const scaleY = HEIGHT / rect.height;
     const v = (e.clientY - rect.top) * scaleY - 6;
 
-    setRectPos(Math.min(Math.max(0, v), HEIGHT - 8));
+    const validated = Math.min(Math.max(0, v), MAX_SLIDER_V);
+    const newValue = Math.round(
+      minV + (validated * (maxV - minV)) / MAX_SLIDER_V
+    );
+
+    setRectPos(validated);
+    onValueChange(newValue);
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
