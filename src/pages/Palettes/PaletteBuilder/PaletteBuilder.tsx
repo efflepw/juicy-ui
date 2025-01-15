@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Palette } from "../../../utils/palette";
 import { GradientCanvas } from "./GradientCanvas";
 import { RangeSlider } from "./RangeSlider";
+import { AngleSelector } from "./AngleSelector";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -52,7 +53,7 @@ const PaletteBuilder = () => {
       <div className="py-8 flex gap-8 justify-between">
         <div className="flex gap-4 flex-wrap">
           {colors.map((color, i) => (
-            <div className="flex flex-col gap-2 h-32">
+            <div key={i} className="flex flex-col gap-2 h-32">
               <div
                 className={`w-10 rounded-lg border-2 cursor-pointer flex-1 ${
                   selected == i ? "border-black" : "border-[#fff8]"
@@ -64,14 +65,14 @@ const PaletteBuilder = () => {
                 className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center`}
                 onClick={() => deleteColor(i)}
               >
-                <span className="rotate-[45deg] text-white text-4xl cursor-pointer">
+                <span className="rotate-[45deg] text-white text-4xl cursor-pointer select-none">
                   +
                 </span>
               </div>
             </div>
           ))}
           <div
-            className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white"
+            className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
             onClick={addColor}
           >
             <span>+</span>
@@ -94,11 +95,7 @@ const PaletteBuilder = () => {
             background: `${palette.getLinearGradient()}`,
           }}
         ></div>
-        <div className="w-32 h-32 bg-white rounded-lg flex justify-center items-center">
-          <div className="flex justify-center items-center w-28 h-28 border-2 border-black rounded-full border-dashed">
-            <span className="text-black text-4xl select-none">{angle}</span>
-          </div>
-        </div>
+        <AngleSelector />
       </div>
     </div>
   );
