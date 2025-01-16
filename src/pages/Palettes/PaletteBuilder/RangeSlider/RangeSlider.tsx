@@ -5,7 +5,6 @@ const HEIGHT = 128;
 const MAX_SLIDER_V = 120;
 
 type Props = {
-  v: number;
   minV: number;
   maxV: number;
   palette: Palette;
@@ -40,7 +39,7 @@ const RangeSlider = ({
     );
 
     setRectPos(validated);
-    onValueChange(newValue);
+    onValueChange(maxV - newValue);
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

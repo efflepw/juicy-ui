@@ -1,9 +1,7 @@
 export const MAX_RAINBOW_COLOR_VALUE = 1530;
 
 export const linearRainbowToColor = (value: number): string => {
-  if (value < 0 || value > 1530) {
-    return "#ff0000";
-  }
+  if (value < 0 || value > 1530) return "#ff0000";
 
   const section = Math.floor(value / 255);
   const offset = value % 255;
@@ -43,4 +41,13 @@ export const linearRainbowToColor = (value: number): string => {
   return `#${rgb.r.toString(16).padStart(2, "0")}${rgb.g
     .toString(16)
     .padStart(2, "0")}${rgb.b.toString(16).padStart(2, "0")}`;
+};
+
+export const gradientToColor = (
+  baseColor: string,
+  x: number,
+  y: number
+): string => {
+  console.log({ baseColor, x, y });
+  return baseColor;
 };

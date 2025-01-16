@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { PointerPosition } from "../../../../hooks/usePointerPosition";
+import { gradientToColor } from "../utils";
 
 const WIDTH = 196;
 const HEIGHT = 128;
 
 type Props = {
   baseColor: string;
+  setColor: (color: string) => void;
 };
 
-const GradientCanvas = ({ baseColor }: Props) => {
+const GradientCanvas = ({ baseColor, setColor }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isMouseDown = useRef(false);
 
@@ -56,6 +58,8 @@ const GradientCanvas = ({ baseColor }: Props) => {
       x: Math.min(Math.max(0, x), WIDTH - 20),
       y: Math.min(Math.max(0, y), HEIGHT - 16),
     });
+
+    setColor(gradientToColor(baseColor, x, y));
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -72,6 +76,7 @@ const GradientCanvas = ({ baseColor }: Props) => {
   useEffect(() => {
     if (canvasRef.current) {
       drawGradient(canvasRef.current);
+      setColor(gradientToColor(baseColor, circlePos.x, circlePos.y));
     }
   }, [baseColor]);
 
@@ -87,7 +92,15 @@ const GradientCanvas = ({ baseColor }: Props) => {
       document.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [baseColor]);
+
+  // [ff, ff, ff] [7f, 7f, ff] [00, 00, ff]
+  // [7f, 7f, 7f] [7f, 7f, 7f] [00, 00, 7f]
+  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
+
+  // [ff, ff, ff] [__, __, __] [__, __, __]
+  // [7f, 7f, 7f] [__, __, __] [__, __, __]
+  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
 
   return (
     <div className="relative">

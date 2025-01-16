@@ -4,6 +4,7 @@ import { GradientCanvas } from "./GradientCanvas";
 import { RangeSlider } from "./RangeSlider";
 import { AngleSelector } from "./AngleSelector";
 import { linearRainbowToColor, MAX_RAINBOW_COLOR_VALUE } from "./utils";
+import { addAlphaToHex } from "../../../utils/colors";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -20,9 +21,9 @@ const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 const PaletteBuilder = () => {
   const [selected, setSelected] = useState<number | null>(null);
 
-  const [colorAlpha, setColorAlpha] = useState<number>(256);
-  // const [colorGradient, setColorGradient] = useState<number | null>(null);
-  const [baseColor, setBaseColor] = useState<number>(0);
+  const [colorAlpha, setColorAlpha] = useState<number>(255);
+  const [colorGradient, setColorGradient] = useState<string>("#fff");
+  const [baseColor, setBaseColor] = useState<string>("#ff0000");
 
   const [colors, setColors] = useState<string[]>(["#fff", "#cb95fd", "#000"]);
   const [angle] = useState<number>(90);
@@ -48,6 +49,10 @@ const PaletteBuilder = () => {
       setColors((colors) => colors.filter((_, index) => index !== i));
       setSelected(null);
     }
+  };
+
+  const onUpdateBaseColor = (v: number) => {
+    setBaseColor(linearRainbowToColor(v));
   };
 
   return (
@@ -83,25 +88,21 @@ const PaletteBuilder = () => {
         <div className="flex gap-4">
           <div
             className="w-32 h-32 rounded-lg"
-            style={{ backgroundColor: selected ? colors[selected] : "#fff" }}
+            style={{
+              backgroundColor: addAlphaToHex(colorGradient, colorAlpha),
+            }}
           ></div>
-          <GradientCanvas
-            baseColor={linearRainbowToColor(
-              MAX_RAINBOW_COLOR_VALUE - baseColor
-            )}
-          />
+          <GradientCanvas baseColor={baseColor} setColor={setColorGradient} />
           <RangeSlider
             palette={rainbowPalette}
             thumbColor={"#fff"}
-            v={baseColor}
             minV={0}
             maxV={MAX_RAINBOW_COLOR_VALUE}
-            onValueChange={setBaseColor}
+            onValueChange={onUpdateBaseColor}
           />
           <RangeSlider
             palette={whitePalette}
             thumbColor={"#000"}
-            v={colorAlpha}
             minV={0}
             maxV={255}
             onValueChange={setColorAlpha}
