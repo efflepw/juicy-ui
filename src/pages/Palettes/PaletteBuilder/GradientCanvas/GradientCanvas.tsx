@@ -94,14 +94,6 @@ const GradientCanvas = ({ baseColor, setColor }: Props) => {
     };
   }, [baseColor]);
 
-  // [ff, ff, ff] [7f, 7f, ff] [00, 00, ff]
-  // [7f, 7f, 7f] [7f, 7f, 7f] [00, 00, 7f]
-  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
-
-  // [ff, ff, ff] [__, __, __] [__, __, __]
-  // [7f, 7f, 7f] [__, __, __] [__, __, __]
-  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
-
   return (
     <div className="relative">
       <canvas

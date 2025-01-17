@@ -1,4 +1,9 @@
+import { parseRgbValues, rgbToHex } from "../../../utils/colors";
+
 export const MAX_RAINBOW_COLOR_VALUE = 1530;
+
+const MAX_X = 176;
+const MAX_Y = 102;
 
 export const linearRainbowToColor = (value: number): string => {
   if (value < 0 || value > 1530) return "#ff0000";
@@ -49,5 +54,20 @@ export const gradientToColor = (
   y: number
 ): string => {
   console.log({ baseColor, x, y });
-  return baseColor;
+
+  const rgb = parseRgbValues(baseColor);
+
+  // [ff, ff, ff] [7f, 7f, ff] [00, 00, ff]
+  // [7f, 7f, 7f] [7f, 7f, 7f] [00, 00, 7f]
+  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
+
+  // const selectedRgb = {
+  //   r: 0,
+  //   g: 0,
+  //   b: 0,
+  // };
+
+  console.log(rgbToHex(rgb));
+
+  return rgbToHex(rgb);
 };
