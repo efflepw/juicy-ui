@@ -26,7 +26,7 @@ const PaletteBuilder = () => {
   const [baseColor, setBaseColor] = useState<string>("#ff0000");
 
   const [colors, setColors] = useState<string[]>(["#fff", "#cb95fd", "#000"]);
-  const [angle] = useState<number>(90);
+  const [angle, setAngle] = useState<number>(90);
 
   const palette = new Palette(colors, angle);
 
@@ -113,10 +113,10 @@ const PaletteBuilder = () => {
         <div
           className="h-32 rounded-lg flex-1"
           style={{
-            background: `${palette.getLinearGradient()}`,
+            background: `${palette.rotateLinearGradient(angle)}`,
           }}
         ></div>
-        <AngleSelector />
+        <AngleSelector angle={angle} setAngle={setAngle} />
       </div>
     </div>
   );

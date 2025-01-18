@@ -13,6 +13,12 @@ export class Palette {
     return `linear-gradient(${this.gradientAngle}deg, ${colors})`;
   };
 
+  rotateLinearGradient = (angle: number) => {
+    const colors = this.colors.join(", ");
+
+    return `linear-gradient(${angle}deg, ${colors})`;
+  };
+
   getColors = () => {
     return this.colors;
   };

@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const SIZE = 128;
 
-const AngleSelector = () => {
-  const [angle, setAngle] = useState<number>(90);
+type Props = {
+  angle: number;
+  setAngle: (v: number) => void;
+};
 
+const AngleSelector = ({ angle, setAngle }: Props) => {
   const bgRef = useRef<HTMLDivElement>(null);
   const isMouseDown = useRef(false);
 
