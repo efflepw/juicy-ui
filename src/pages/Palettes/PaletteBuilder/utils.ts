@@ -5,43 +5,35 @@ export const MAX_RAINBOW_COLOR_VALUE = 1530;
 const MAX_X = 176;
 const MAX_Y = 102;
 
-export const linearRainbowToColor = (value: number): string => {
-  if (value < 0 || value > 1530) return "#ff0000";
+export const GC_WIDTH = 196;
+export const GC_HEIGHT = 128;
 
+const getColorOffsets = (value: number) => {
   const section = Math.floor(value / 255);
   const offset = value % 255;
 
-  let rgb = { r: 0, g: 0, b: 0 };
-
   switch (section) {
     case 0:
-      rgb.r = 255;
-      rgb.g = offset;
-      break;
+      return { r: 255, g: offset, b: 0 };
     case 1:
-      rgb.r = 255 - offset;
-      rgb.g = 255;
-      break;
+      return { r: 255 - offset, g: 255, b: 0 };
     case 2:
-      rgb.g = 255;
-      rgb.b = offset;
-      break;
+      return { r: 0, g: 255, b: offset };
     case 3:
-      rgb.g = 255 - offset;
-      rgb.b = 255;
-      break;
+      return { r: 0, g: 255 - offset, b: 255 };
     case 4:
-      rgb.b = 255;
-      rgb.r = offset;
-      break;
+      return { r: offset, g: 0, b: 255 };
     case 5:
-      rgb.r = 255;
-      rgb.b = 255 - offset;
-      break;
+      return { r: 255, g: 0, b: 255 - offset };
     default:
-      rgb.r = 255;
-      break;
+      return { r: 255, g: 0, b: 0 };
   }
+};
+
+export const linearRainbowToColor = (value: number): string => {
+  if (value < 0 || value > 1530) return "#ff0000";
+
+  let rgb = getColorOffsets(value);
 
   return `#${rgb.r.toString(16).padStart(2, "0")}${rgb.g
     .toString(16)
@@ -53,21 +45,46 @@ export const gradientToColor = (
   x: number,
   y: number
 ): string => {
-  console.log({ baseColor, x, y });
-
   const rgb = parseRgbValues(baseColor);
 
-  // [ff, ff, ff] [7f, 7f, ff] [00, 00, ff]
-  // [7f, 7f, 7f] [7f, 7f, 7f] [00, 00, 7f]
-  // [00, 00, 00] [00, 00, 00] [00, 00, 00]
+  const xFactor = x / MAX_X;
+  const yFactor = y / MAX_Y;
 
-  // const selectedRgb = {
-  //   r: 0,
-  //   g: 0,
-  //   b: 0,
-  // };
+  const r = (1 - yFactor) * ((1 - xFactor) * 255 + xFactor * rgb.r);
+  const g = (1 - yFactor) * ((1 - xFactor) * 255 + xFactor * rgb.g);
+  const b = (1 - yFactor) * ((1 - xFactor) * 255 + xFactor * rgb.b);
 
-  console.log(rgbToHex(rgb));
+  const selectedRgb = {
+    r: Math.round(r),
+    g: Math.round(g),
+    b: Math.round(b),
+  };
 
-  return rgbToHex(rgb);
+  return rgbToHex(selectedRgb);
+};
+
+export const drawGradient = (canvas: HTMLCanvasElement, baseColor: string) => {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  canvas.width = GC_WIDTH;
+  canvas.height = GC_HEIGHT;
+
+  ctx.clearRect(0, 0, GC_WIDTH, GC_HEIGHT);
+
+  const colorGradient = ctx.createLinearGradient(0, 0, GC_WIDTH, 0);
+
+  colorGradient.addColorStop(0, "white");
+  colorGradient.addColorStop(1, baseColor);
+
+  ctx.fillStyle = colorGradient;
+  ctx.fillRect(0, 0, GC_WIDTH, GC_HEIGHT);
+
+  const blackGradient = ctx.createLinearGradient(0, 0, 0, GC_HEIGHT);
+
+  blackGradient.addColorStop(0, "transparent");
+  blackGradient.addColorStop(1, "black");
+
+  ctx.fillStyle = blackGradient;
+  ctx.fillRect(0, 0, GC_WIDTH, GC_HEIGHT);
 };
