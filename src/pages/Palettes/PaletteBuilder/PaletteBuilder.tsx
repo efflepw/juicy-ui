@@ -5,6 +5,7 @@ import { RangeSlider } from "./RangeSlider";
 import { AngleSelector } from "./AngleSelector";
 import { linearRainbowToColor, MAX_RAINBOW_COLOR_VALUE } from "./utils";
 import { addAlphaToHex } from "../../../utils/colors";
+import TextPreview from "../../../components.preview/TextPreview";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -30,8 +31,10 @@ const PaletteBuilder = () => {
 
   const palette = new Palette(colors, angle);
 
-  const addColor = () => {
-    setColors((colors) => [...colors, "#fff"]);
+  const onAddColor = () => {
+    const color = addAlphaToHex(colorGradient, colorAlpha);
+
+    setColors((colors) => [...colors, color]);
     setSelected(null);
   };
 
@@ -80,7 +83,7 @@ const PaletteBuilder = () => {
           ))}
           <div
             className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
-            onClick={addColor}
+            onClick={onAddColor}
           >
             <span>+</span>
           </div>
@@ -117,6 +120,9 @@ const PaletteBuilder = () => {
           }}
         ></div>
         <AngleSelector angle={angle} setAngle={setAngle} />
+      </div>
+      <div className="pt-8">
+        <TextPreview gradient={`${palette.rotateLinearGradient(angle)}`} />
       </div>
     </div>
   );
