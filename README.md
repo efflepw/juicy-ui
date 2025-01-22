@@ -1,4 +1,4 @@
-## Engaging UI lib
+## Juicy UI
 
 **At the moment**, it is a library of various UI components that feature interesting animations and effects.
 
