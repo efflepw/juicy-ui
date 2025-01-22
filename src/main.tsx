@@ -6,7 +6,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/juicy-ui">
+    <BrowserRouter basename="/juicy-ui/">
       <App />
     </BrowserRouter>
   </React.StrictMode>
