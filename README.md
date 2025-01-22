@@ -14,11 +14,11 @@ To get started with the app, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/efflepw/engaging-ui.git
+   git clone https://github.com/efflepw/juicy-ui.git
    ```
 2. **Navigate to the project directory:**
    ```bash
-   cd engaging-ui
+   cd juicy-ui
    ```
 3. **Install the dependencies:**
    ```bash
@@ -28,32 +28,3 @@ To get started with the app, follow these steps:
    ```bash
    pnpm run dev
    ```
-
-## TODO
-
-- [x] fix rainbow border BG overlay
-- [x] fix inner rainbow border BG overlay
-- [x] ambient hover effect
-- [x] remove magic numbers from ambient hover effect
-- [x] add ambient hover effect preview
-- [x] add space effect for particles canvas
-- [x] add particle disappear for space effect
-- [x] add router
-- [x] gradients preview
-- [x] experiment with blur on ellipses
-- [x] cursor rainbow trail
-- [ ] add blur option to rainbow border
-- [ ] after opening particles the rest of the app is starts lagging
-- [ ] custom scroll
-- [ ] add skeleton to images
-- [ ] image increase on hover within its borders
-- [ ] gradient builder
-- [ ] make snowfall only from the top for not a long distance
-- [ ] separate class and component functionality
-- [ ] complete redesign
-- [ ] add ability to import class functionality as TW classname
-- [ ] try rainbow text selection
-- [ ] image slider with blurred bg
-- [ ] 10 classes before publish
-- [ ] 10 components before publish
-- [ ] publish!
