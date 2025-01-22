@@ -4,7 +4,7 @@ import ButtonsPreview from "../../components.preview/ButtonsPreview";
 import { Ambient } from "../../components/Image";
 import { MonoParticles } from "../../components/Destroy";
 import { Particles } from "../../components/Background";
-import AuroraBg from "../../components.preview/AuroraBg";
+// import AuroraBg from "../../components.preview/AuroraBg";
 import Skeleton from "../../components.preview/Skeleton";
 import ImageHover from "../../components.preview/ImageHover";
 import RainbowBorderPreview from "../../components.preview/RainbowBorder";
@@ -21,17 +21,12 @@ type Section = {
 const SECTION_COMPONENTS: Section[] = [
   {
     id: "trail",
-    name: "Trail (cn)",
+    name: "Pointer trail",
     component: <TrailPreview />,
   },
   {
-    id: "aura",
-    name: "Aura (cn)",
-    component: <AuraPreview />,
-  },
-  {
     id: "particles-bg",
-    name: "Particles (cn)",
+    name: "Particles",
     component: (
       <div className="w-[100%]">
         <Particles />
@@ -39,14 +34,14 @@ const SECTION_COMPONENTS: Section[] = [
     ),
   },
   {
-    id: "image-hover",
-    name: "Image hover (3c)",
-    component: <ImageHover />,
+    id: "rainbow-border",
+    name: "Rainbow border",
+    component: <RainbowBorderPreview />,
   },
   {
-    id: "rainbow-border",
-    name: "Rainbow border (cl)",
-    component: <RainbowBorderPreview />,
+    id: "image-hover",
+    name: "Image hover",
+    component: <ImageHover />,
   },
   {
     id: "buttons",
@@ -54,8 +49,18 @@ const SECTION_COMPONENTS: Section[] = [
     component: <ButtonsPreview />,
   },
   {
-    id: "rainbow-skeleton",
-    name: "Rainbow skeleton (cl)",
+    id: "aura",
+    name: "Aura",
+    component: <AuraPreview />,
+  },
+  {
+    id: "ambient",
+    name: "Ambient",
+    component: <Ambient imageSrc="dino.svg" />,
+  },
+  {
+    id: "gradient-skeleton",
+    name: "Gradient skeleton (cl)",
     component: (
       <div>
         <div className="flex gap-5 bg-white rounded px-4 py-10">
@@ -74,20 +79,15 @@ const SECTION_COMPONENTS: Section[] = [
     ),
   },
   {
-    id: "ambient",
-    name: "Ambient (cn)",
-    component: <Ambient imageSrc="dino.svg" showOnHover />,
-  },
-  {
-    id: "aurora-bg",
-    name: "Aurora (cl)",
-    component: <AuroraBg />,
-  },
-  {
     id: "mono-particles",
-    name: "Mono Particles (cn + cm)",
+    name: "Mono Particles",
     component: <MonoParticles />,
   },
+  // {
+  //   id: "aurora-bg",
+  //   name: "Aurora (cl)",
+  //   component: <AuroraBg />,
+  // },
 ];
 
 const Components = () => {

@@ -1,3 +1,4 @@
+import { RGBColor } from "../../../types/colors";
 import { parseRgbValues, rgbToHex } from "../../../utils/colors";
 
 export const MAX_RAINBOW_COLOR_VALUE = 1530;
@@ -61,6 +62,26 @@ export const gradientToColor = (
   };
 
   return rgbToHex(selectedRgb);
+};
+
+export const reverseColor = (
+  color: string
+): { x: number; y: number; baseColor: RGBColor } => {
+  const { r, g, b } = parseRgbValues(color);
+
+  const yFactor = 1 - Math.min(r, g, b) / 255;
+  const y = Math.round(yFactor * MAX_Y);
+
+  const xFactor = (r - yFactor * 255) / (255 * (1 - yFactor));
+  const x = Math.round(xFactor * MAX_X);
+
+  const baseR = Math.round((r - (1 - xFactor) * 255) / xFactor);
+  const baseG = Math.round((g - (1 - xFactor) * 255) / xFactor);
+  const baseB = Math.round((b - (1 - xFactor) * 255) / xFactor);
+
+  const baseColor: RGBColor = { r: baseR, g: baseG, b: baseB };
+
+  return { x, y, baseColor };
 };
 
 export const drawGradient = (canvas: HTMLCanvasElement, baseColor: string) => {

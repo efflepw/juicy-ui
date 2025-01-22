@@ -26,7 +26,7 @@ const AngleSelector = ({ angle, setAngle }: Props) => {
 
     const angle = -1 * Math.atan2(SIZE / 2 - x, SIZE / 2 - y) * (180 / Math.PI);
 
-    setAngle(angle);
+    setAngle(Math.round(angle));
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

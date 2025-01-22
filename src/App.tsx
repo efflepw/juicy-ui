@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router";
 
 import Header from "./components.preview/Header";
-import { Classes, Components, Contribute, Palettes, Overview } from "./pages";
+import { Classes, Components, Contribute, Palettes } from "./pages";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
       </div>
       <div className="flex flex-col gap-2 pt-20 pb-6 h-full">
         <Routes>
-          <Route path="/" element={<Overview />} />
+          <Route path="/" element={<Components />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/components" element={<Components />} />
           <Route path="/palettes" element={<Palettes />} />

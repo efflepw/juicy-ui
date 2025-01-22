@@ -1,9 +1,27 @@
-import TextPreview from "../../components.preview/TextPreview";
+import { useEffect, useState } from "react";
+
 import { BASE_PALETTES } from "../../const/palette";
-import { toTitleCase } from "../../utils/format";
+import { Palette } from "../../utils/palette";
+
+import { useLocalStorage } from "../../hooks";
+import { PaletteJSON } from "../../types/palette";
+
 import PaletteBuilder from "./PaletteBuilder";
+import PalettesPreview from "./PalettesPreview";
 
 const Palettes = () => {
+  const [savedPalettes, setSavedPalettes] = useState<Palette[]>([]);
+
+  useEffect(() => {
+    const { getItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
+
+    const palettes = getItem().map(
+      (jsp) => new Palette(jsp.colors, jsp.angle, jsp.name)
+    );
+
+    setSavedPalettes(palettes);
+  }, []);
+
   return (
     <div className="">
       <div>
@@ -11,26 +29,14 @@ const Palettes = () => {
         <div className="px-6">
           <PaletteBuilder />
         </div>
-        {/* <h2 className="text-3xl pt-10 pb-4">Saved palettes</h2> */}
+        {!!savedPalettes.length && (
+          <>
+            <h2 className="text-3xl pt-10 pb-4">Saved palettes</h2>
+            <PalettesPreview palettes={savedPalettes} />
+          </>
+        )}
         <h2 className="text-3xl pt-10 pb-4">Base palettes</h2>
-        <div className="px-6">
-          {Object.entries(BASE_PALETTES).map(([name, palette]) => (
-            <div key={name} className="pb-6">
-              <h2 className="text-4xl py-8">{toTitleCase(name)}</h2>
-              <div
-                className="w-full h-32 rounded-lg"
-                style={{
-                  background: `${palette.getLinearGradient()}`,
-                }}
-              ></div>
-              <div className="relative h-24">
-                <div className="absolute top-[-64px] right-0 left-0">
-                  <TextPreview gradient={palette.getLinearGradient()} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <PalettesPreview palettes={BASE_PALETTES} />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import { AngleSelector } from "./AngleSelector";
 import { linearRainbowToColor, MAX_RAINBOW_COLOR_VALUE } from "./utils";
 import { addAlphaToHex } from "../../../utils/colors";
 import TextPreview from "../../../components.preview/TextPreview";
+import SavePalette from "./SavePalette";
+import ColorsRange from "./ColorsRange";
 
 const rainbowPalette = new Palette([
   "#ff0000",
@@ -38,11 +40,6 @@ const PaletteBuilder = () => {
     setSelected(null);
   };
 
-  // const updateColor = (newColor: string) => {
-  //   setColors((colors) => colors.map((c, i) => (i == selected ? newColor : c)));
-  //   setSelected(null);
-  // };
-
   const selectColor = (i: number) => {
     setSelected((selected) => (i == selected ? null : i));
   };
@@ -61,33 +58,13 @@ const PaletteBuilder = () => {
   return (
     <div>
       <div className="py-8 flex gap-8 justify-between">
-        <div className="flex gap-4 flex-wrap">
-          {colors.map((color, i) => (
-            <div key={i} className="flex flex-col gap-2 h-32">
-              <div
-                className={`w-10 rounded-lg border-2 cursor-pointer flex-1 ${
-                  selected == i ? "border-black" : "border-[#fff8]"
-                }`}
-                style={{ backgroundColor: color }}
-                onClick={() => selectColor(i)}
-              ></div>
-              <div
-                className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center`}
-                onClick={() => deleteColor(i)}
-              >
-                <span className="rotate-[45deg] text-white text-4xl cursor-pointer select-none">
-                  +
-                </span>
-              </div>
-            </div>
-          ))}
-          <div
-            className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
-            onClick={onAddColor}
-          >
-            <span>+</span>
-          </div>
-        </div>
+        <ColorsRange
+          colors={colors}
+          selected={selected}
+          selectColor={selectColor}
+          deleteColor={deleteColor}
+          onAddColor={onAddColor}
+        />
         <div className="flex gap-4">
           <div
             className="w-32 h-32 rounded-lg"
@@ -116,14 +93,15 @@ const PaletteBuilder = () => {
         <div
           className="h-32 rounded-lg flex-1"
           style={{
-            background: `${palette.rotateLinearGradient(angle)}`,
+            background: `${palette.getLinearGradient()}`,
           }}
         ></div>
         <AngleSelector angle={angle} setAngle={setAngle} />
       </div>
       <div className="pt-8">
-        <TextPreview gradient={`${palette.rotateLinearGradient(angle)}`} />
+        <TextPreview gradient={`${palette.getLinearGradient()}`} />
       </div>
+      <SavePalette palette={palette} />
     </div>
   );
 };

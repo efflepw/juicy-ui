@@ -1,9 +1,9 @@
 const NAV_LINKS = [
-  { name: "Overview", href: "/" },
-  { name: "Classes", href: "/classes" },
-  { name: "Components", href: "/components" },
+  { name: "Components", href: "/" },
+  // { name: "Classes", href: "/classes" },
+  // { name: "Components", href: "/components" },
   { name: "Palettes", href: "/palettes" },
-  { name: "Contribute", href: "/contribute" },
+  // { name: "Contribute", href: "/contribute" },
 ];
 
 const Header = () => {
