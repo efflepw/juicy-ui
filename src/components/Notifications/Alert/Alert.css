@@ -13,7 +13,7 @@
 
   padding: 4px 16px;
 
-  animation: appear 2s ease-in infinite, sizeIncrease 0.5s;
+  animation: appear 2s ease-in infinite, sizeIncrease 1s;
 }
 
 @keyframes appear {
@@ -39,6 +39,9 @@
 
 @keyframes sizeIncrease {
   0% {
+    transform: translate(-50%, -50%) scale(0%);
+  }
+  40% {
     transform: translate(-50%, -50%) scale(110%);
   }
   100% {

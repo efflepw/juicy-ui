@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Palette } from "../../../../utils/palette";
+import Alert from "../../../../components/Notifications/Alert";
 
 type Props = {
   palette: Palette;
@@ -8,16 +9,18 @@ type Props = {
 const SavePalette = ({ palette }: Props) => {
   const [name, setName] = useState<string>("");
 
+  const [alertMessage, setAlertMessage] = useState("");
+
   const commonCss =
     "bg-transparent border-2 border-white rounded-lg px-4 py-2 outline-none";
 
   const onSave = () => {
-    alert("Not Yet! But you can copy it");
+    setAlertMessage("Not Yet! But you can copy it");
   };
 
   const onCopy = () => {
     navigator.clipboard.writeText(palette.getLinearGradient());
-    alert("Copied");
+    setAlertMessage("Copied");
   };
 
   return (
@@ -38,6 +41,13 @@ const SavePalette = ({ palette }: Props) => {
           Copy CSS
         </button>
       </div>
+      {alertMessage && (
+        <Alert
+          message={alertMessage}
+          duration={4000}
+          onClose={() => setAlertMessage("")}
+        />
+      )}
     </div>
   );
 };

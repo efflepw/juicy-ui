@@ -8,17 +8,9 @@ import { addAlphaToHex } from "../../../utils/colors";
 import TextPreview from "../../../components.preview/TextPreview";
 import SavePalette from "./SavePalette";
 import ColorsRange from "./ColorsRange";
+import { BASE_COLORS } from "../../../const/colors";
 
-const rainbowPalette = new Palette([
-  "#ff0000",
-  "#ffff00",
-  "#00ff00",
-  "#00ffff",
-  "#0000ff",
-  "#ff00ff",
-  "#ff0000",
-]);
-
+const rainbowPalette = new Palette(BASE_COLORS.BASE_RAINBOW);
 const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 
 const PaletteBuilder = () => {
