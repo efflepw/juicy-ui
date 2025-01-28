@@ -11,6 +11,7 @@ import RainbowBorderPreview from "../../components.preview/RainbowBorder";
 import Navbar from "../../components.preview/Navbar";
 import { AuraPreview } from "../../components.preview/Aura";
 import { TrailPreview } from "../../components.preview/Trail";
+import AlertPreview from "../../components.preview/Alert";
 
 type Section = {
   id: string;
@@ -19,6 +20,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "alert",
+    name: "Alert",
+    component: <AlertPreview />,
+  },
   {
     id: "trail",
     name: "Pointer trail",
@@ -45,7 +51,7 @@ const SECTION_COMPONENTS: Section[] = [
   },
   {
     id: "buttons",
-    name: "Buttons (cm)",
+    name: "Buttons",
     component: <ButtonsPreview />,
   },
   {
@@ -60,7 +66,7 @@ const SECTION_COMPONENTS: Section[] = [
   },
   {
     id: "gradient-skeleton",
-    name: "Gradient skeleton (cl)",
+    name: "Gradient skeleton",
     component: (
       <div>
         <div className="flex gap-5 bg-white rounded px-4 py-10">

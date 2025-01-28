@@ -4,7 +4,7 @@ const NAV_LINKS = [
   { name: "Components", href: "/" },
   // { name: "Classes", href: "classes" },
   // { name: "Components", href: "components" },
-  { name: "Palettes", href: "/palettes" },
+  { name: "Palettes", href: "/palettes/" },
   // { name: "Contribute", href: "contribute" },
 ];
 
