@@ -1,0 +1,19 @@
+.input-validation-error {
+  box-shadow: 0px 0px 8px 4px var(--WARNING-COLOR);
+  animation: error 1s;
+  border: 2px solid var(--WARNING-COLOR) !important;
+}
+
+@keyframes error {
+  0% {
+    box-shadow: 0px 0px 16px 8px var(--WARNING-COLOR);
+  }
+
+  80% {
+    box-shadow: 0px 0px 8px 2px var(--WARNING-COLOR);
+  }
+
+  100% {
+    box-shadow: 0px 0px 8px 4px var(--WARNING-COLOR);
+  }
+}

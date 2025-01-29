@@ -12,6 +12,7 @@ import Navbar from "../../components.preview/Navbar";
 import { AuraPreview } from "../../components.preview/Aura";
 import { TrailPreview } from "../../components.preview/Trail";
 import AlertPreview from "../../components.preview/Alert";
+import Validation from "../../components.preview/Validation";
 
 type Section = {
   id: string;
@@ -20,6 +21,11 @@ type Section = {
 };
 
 const SECTION_COMPONENTS: Section[] = [
+  {
+    id: "validation",
+    name: "Validation",
+    component: <Validation />,
+  },
   {
     id: "alert",
     name: "Alert",

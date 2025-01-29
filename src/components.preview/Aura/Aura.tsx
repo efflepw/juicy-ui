@@ -4,7 +4,7 @@ import { BASE_COLORS } from "../../const/colors";
 import { Palette } from "../../utils/palette";
 
 const AuraPreview = () => {
-  const palette1 = new Palette(BASE_COLORS["50-SHADES"], 45);
+  const palette1 = new Palette(BASE_COLORS["50_SHADES"], 45);
   const palette2 = new Palette(BASE_COLORS.TAILWIND, 45);
 
   return (

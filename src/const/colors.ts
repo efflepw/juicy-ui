@@ -16,3 +16,5 @@ export const BASE_COLORS = {
     "#ff0000",
   ],
 };
+
+export const DEFAULT_WARNING_COLOR = "#ff6363";
