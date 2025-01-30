@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import ButtonsPreview from "../../components.preview/ButtonsPreview";
-import { Ambient } from "../../components/Image";
+import ButtonsPreview from "../../components.preview/Buttons";
 import { MonoParticles } from "../../components/Destroy";
 import { Particles } from "../../components/Background";
 // import AuroraBg from "../../components.preview/AuroraBg";
@@ -13,6 +12,7 @@ import { AuraPreview } from "../../components.preview/Aura";
 import { TrailPreview } from "../../components.preview/Trail";
 import AlertPreview from "../../components.preview/Alert";
 import Validation from "../../components.preview/Validation";
+import AmbientPreview from "../../components.preview/Ambient";
 
 type Section = {
   id: string;
@@ -68,7 +68,7 @@ const SECTION_COMPONENTS: Section[] = [
   {
     id: "ambient",
     name: "Ambient",
-    component: <Ambient imageSrc="dino.svg" />,
+    component: <AmbientPreview />,
   },
   {
     id: "gradient-skeleton",

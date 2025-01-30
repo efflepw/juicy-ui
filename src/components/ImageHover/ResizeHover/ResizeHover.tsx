@@ -5,7 +5,7 @@ const ResizeHover: React.FC<{}> = (): React.JSX.Element => {
     <div className="image-resize-on-hover">
       <img
         src={
-          "https://utfs.io/f/mufUz19XUjVCB1FCpkZ0Jd7LXnzyKf8oQ1tYWZAa6hImSTVU"
+          "https://isem4zg14k.ufs.sh/f/mufUz19XUjVCMcPwEMVIENv5RuXUHml2Mie6gxGVL9khJzT1"
         }
         alt=""
       />
