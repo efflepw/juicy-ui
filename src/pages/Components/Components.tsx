@@ -1,18 +1,7 @@
 import { useState } from "react";
 
-import ButtonsPreview from "../../components.preview/Buttons";
-import { MonoParticles } from "../../components/Destroy";
-import { Particles } from "../../components/Background";
-// import AuroraBg from "../../components.preview/AuroraBg";
-import Skeleton from "../../components.preview/Skeleton";
-import ImageHover from "../../components.preview/ImageHover";
-import RainbowBorderPreview from "../../components.preview/RainbowBorder";
 import Navbar from "../../components.preview/Navbar";
-import { AuraPreview } from "../../components.preview/Aura";
-import { TrailPreview } from "../../components.preview/Trail";
-import AlertPreview from "../../components.preview/Alert";
-import Validation from "../../components.preview/Validation";
-import AmbientPreview from "../../components.preview/Ambient";
+import * as PreviewComponents from "../../components.preview";
 
 type Section = {
   id: string;
@@ -22,84 +11,55 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
-    id: "validation",
-    name: "Validation",
-    component: <Validation />,
+    id: "ambient",
+    name: "Ambient",
+    component: <PreviewComponents.AmbientPreview />,
   },
   {
     id: "alert",
     name: "Alert",
-    component: <AlertPreview />,
-  },
-  {
-    id: "trail",
-    name: "Pointer trail",
-    component: <TrailPreview />,
-  },
-  {
-    id: "particles-bg",
-    name: "Particles",
-    component: (
-      <div className="w-[100%]">
-        <Particles />
-      </div>
-    ),
-  },
-  {
-    id: "rainbow-border",
-    name: "Rainbow border",
-    component: <RainbowBorderPreview />,
-  },
-  {
-    id: "image-hover",
-    name: "Image hover",
-    component: <ImageHover />,
-  },
-  {
-    id: "buttons",
-    name: "Buttons",
-    component: <ButtonsPreview />,
+    component: <PreviewComponents.AlertPreview />,
   },
   {
     id: "aura",
     name: "Aura",
-    component: <AuraPreview />,
+    component: <PreviewComponents.AuraPreview />,
   },
   {
-    id: "ambient",
-    name: "Ambient",
-    component: <AmbientPreview />,
+    id: "buttons",
+    name: "Buttons",
+    component: <PreviewComponents.ButtonsPreview />,
   },
   {
     id: "gradient-skeleton",
     name: "Gradient skeleton",
-    component: (
-      <div>
-        <div className="flex gap-5 bg-white rounded px-4 py-10">
-          <Skeleton />
-          <Skeleton />
-        </div>
-        <div className="flex gap-5 mb-6 bg-gray-700 rounded px-4 py-10 mt-10">
-          <Skeleton />
-          <Skeleton />
-        </div>
-        <div className="flex gap-5 mb-6 bg-black rounded px-4 py-10 mt-10">
-          <Skeleton />
-          <Skeleton />
-        </div>
-      </div>
-    ),
+    component: <PreviewComponents.GradientSkeletonPreview />,
   },
   {
-    id: "mono-particles",
-    name: "Mono Particles",
-    component: <MonoParticles />,
+    id: "image-hover",
+    name: "Image hover",
+    component: <PreviewComponents.ImageHoverPreview />,
   },
-  // {
-  //   id: "aurora-bg",
-  //   name: "Aurora (cl)",
-  //   component: <AuroraBg />,
-  // },
+  {
+    id: "particles-bg",
+    name: "Particles",
+    component: <PreviewComponents.ParticlesPreview />,
+  },
+  {
+    id: "rainbow-border",
+    name: "Rainbow border",
+    component: <PreviewComponents.RainbowBorderPreview />,
+  },
+  {
+    id: "trail",
+    name: "Pointer trail",
+    component: <PreviewComponents.TrailPreview />,
+  },
+  {
+    id: "validation",
+    name: "Validation",
+    component: <PreviewComponents.ValidationPreview />,
+  },
 ];
 
 const Components = () => {

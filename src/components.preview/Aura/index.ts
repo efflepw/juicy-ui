@@ -1,1 +1,1 @@
-export { default as AuraPreview } from "./Aura";
+export { default } from "./Aura";

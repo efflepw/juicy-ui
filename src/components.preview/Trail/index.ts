@@ -1,1 +1,1 @@
-export { default as TrailPreview } from "./Trail.preview";
+export { default } from "./Trail.preview";
