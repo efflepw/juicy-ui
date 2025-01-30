@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Palette } from "../../../../utils/palette";
 import Alert from "../../../../components/Notifications/Alert";
+import { ValidatedInput } from "../../../../components/Validation";
 
 type Props = {
   palette: Palette;
@@ -8,6 +9,7 @@ type Props = {
 
 const SavePalette = ({ palette }: Props) => {
   const [name, setName] = useState<string>("");
+  const [validationError, setValidationError] = useState<string>("");
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -15,7 +17,17 @@ const SavePalette = ({ palette }: Props) => {
     "bg-transparent border-2 border-white rounded-lg px-4 py-2 outline-none";
 
   const onSave = () => {
-    setAlertMessage("Not Yet! But you can copy it");
+    if (!name) {
+      setValidationError("Palette name shouldn't be empty");
+    } else {
+      setAlertMessage("Not Yet! But you can copy it");
+    }
+  };
+
+  const onUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (validationError) setValidationError("");
+
+    setName(e.currentTarget.value);
   };
 
   const onCopy = () => {
@@ -26,11 +38,12 @@ const SavePalette = ({ palette }: Props) => {
   return (
     <div className="py-12 text-lg font-medium flex gap-6">
       <div className="flex flex-1 gap-6">
-        <input
+        <ValidatedInput
           value={name}
-          onChange={(e) => setName(e.currentTarget.value)}
+          onChange={onUpdateName}
           placeholder="Palette name"
           className={`${commonCss} w-[320px]`}
+          validationError={validationError}
         />
         <button onClick={onSave} className={`${commonCss} w-40`}>
           Save

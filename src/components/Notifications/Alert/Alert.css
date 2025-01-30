@@ -14,6 +14,8 @@
   padding: 4px 16px;
 
   animation: appear 2s ease-in infinite, sizeIncrease 1s;
+
+  z-index: 100;
 }
 
 @keyframes appear {
