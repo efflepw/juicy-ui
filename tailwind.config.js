@@ -8,9 +8,10 @@ module.exports = {
       },
       backgroundColor: {
         light: "#8298B0",
+        primary: "#0c0c0c",
         secondary: "#101013ee",
         dark: "#09090b",
-        lightdark: "#101013ee",
+        light_dark: "#101013ee",
       },
       textColor: {
         gray: "#a1a1aa",
