@@ -1,14 +1,14 @@
 type UseLocalStorage<T> = {
   getItem: () => T;
-  setItem: (value: string) => void;
+  setItem: (value: T) => void;
 };
 
 const useLocalStorage = <T>(
   key: string,
   defaultValue: T
 ): UseLocalStorage<T> => {
-  const setItem = (value: string) => {
-    localStorage.setItem(key, value);
+  const setItem = (value: T): void => {
+    localStorage.setItem(key, JSON.stringify(value));
   };
 
   const getItem = (): T => {

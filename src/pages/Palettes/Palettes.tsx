@@ -12,14 +12,18 @@ import PalettesPreview from "./PalettesPreview";
 const Palettes = () => {
   const [savedPalettes, setSavedPalettes] = useState<Palette[]>([]);
 
-  useEffect(() => {
-    const { getItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
-
-    const palettes = getItem().map(
+  const storePalettes = (jsonPalettes: PaletteJSON[]) => {
+    const palettes = jsonPalettes.map(
       (jsp) => new Palette(jsp.colors, jsp.angle, jsp.name)
     );
 
     setSavedPalettes(palettes);
+  };
+
+  useEffect(() => {
+    const { getItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
+
+    storePalettes(getItem());
   }, []);
 
   return (
@@ -27,7 +31,7 @@ const Palettes = () => {
       <div>
         <h2 className="text-3xl pt-10 pb-4">Build your palette</h2>
         <div className="px-6">
-          <PaletteBuilder />
+          <PaletteBuilder storePalettes={storePalettes} />
         </div>
         {!!savedPalettes.length && (
           <>

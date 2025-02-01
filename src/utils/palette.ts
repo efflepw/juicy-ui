@@ -1,3 +1,5 @@
+import { PaletteJSON } from "../types/palette";
+
 export class Palette {
   private colors: string[];
   private gradientAngle: number;
@@ -9,17 +11,27 @@ export class Palette {
     this.name = name;
   }
 
-  getLinearGradient = () => {
+  getLinearGradient = (): string => {
     const colors = this.colors.join(", ");
 
     return `linear-gradient(${this.gradientAngle}deg, ${colors})`;
   };
 
-  getColors = () => {
+  getColors = (): string[] => {
     return this.colors;
   };
 
-  getName = () => {
+  getName = (): string => {
     return this.name;
   };
+
+  setName = (name: string) => {
+    this.name = name;
+  };
+
+  getJSON = (): PaletteJSON => ({
+    name: this.getName(),
+    colors: this.colors,
+    angle: this.gradientAngle,
+  });
 }

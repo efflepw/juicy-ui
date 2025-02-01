@@ -3,15 +3,21 @@ import { Palette } from "../../../../utils/palette";
 import Alert from "../../../../components/Notifications/Alert";
 import { ValidatedInput } from "../../../../components/Validation";
 
+import { useLocalStorage } from "../../../../hooks";
+import { PaletteJSON } from "../../../../types/palette";
+
 type Props = {
   palette: Palette;
+  storePalettes: (p: PaletteJSON[]) => void;
 };
 
-const SavePalette = ({ palette }: Props) => {
+const SavePalette = ({ palette, storePalettes }: Props) => {
   const [name, setName] = useState<string>("");
   const [validationError, setValidationError] = useState<string>("");
 
   const [alertMessage, setAlertMessage] = useState("");
+
+  const { getItem, setItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
 
   const commonCss =
     "bg-transparent border-2 border-white rounded-lg px-4 py-2 outline-none";
@@ -20,7 +26,15 @@ const SavePalette = ({ palette }: Props) => {
     if (!name) {
       setValidationError("Palette name shouldn't be empty");
     } else {
-      setAlertMessage("Not Yet! But you can copy it");
+      palette.setName(name);
+
+      const palettes = getItem();
+      palettes.push(palette.getJSON());
+
+      setItem(palettes);
+      storePalettes(palettes);
+
+      setAlertMessage("Saved!");
     }
   };
 

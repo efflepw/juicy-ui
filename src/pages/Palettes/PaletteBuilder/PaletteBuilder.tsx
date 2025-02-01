@@ -10,10 +10,16 @@ import SavePalette from "./SavePalette";
 import ColorsRange from "./ColorsRange";
 import { BASE_COLORS } from "../../../const/colors";
 
+import { PaletteJSON } from "../../../types/palette";
+
 const rainbowPalette = new Palette(BASE_COLORS.BASE_RAINBOW);
 const whitePalette = new Palette(["#fff", "#ffffff00"], 180);
 
-const PaletteBuilder = () => {
+type Props = {
+  storePalettes: (p: PaletteJSON[]) => void;
+};
+
+const PaletteBuilder = ({ storePalettes }: Props) => {
   const [selected, setSelected] = useState<number | null>(null);
 
   const [colorAlpha, setColorAlpha] = useState<number>(255);
@@ -93,7 +99,7 @@ const PaletteBuilder = () => {
       <div className="pt-8">
         <TextPreview gradient={`${palette.getLinearGradient()}`} />
       </div>
-      <SavePalette palette={palette} />
+      <SavePalette palette={palette} storePalettes={storePalettes} />
     </div>
   );
 };
