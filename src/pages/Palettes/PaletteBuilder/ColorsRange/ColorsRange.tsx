@@ -3,16 +3,9 @@ type Props = {
   colors: string[];
   selectColor: (i: number) => void;
   deleteColor: (i: number) => void;
-  onAddColor: () => void;
 };
 
-const ColorsRange = ({
-  selected,
-  colors,
-  selectColor,
-  deleteColor,
-  onAddColor,
-}: Props) => {
+const ColorsRange = ({ selected, colors, selectColor, deleteColor }: Props) => {
   return (
     <div className="flex gap-4 flex-wrap">
       {colors.map((color, i) => (
@@ -34,12 +27,6 @@ const ColorsRange = ({
           </div>
         </div>
       ))}
-      <div
-        className="flex justify-center items-center w-10 h-32 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
-        onClick={onAddColor}
-      >
-        <span>+</span>
-      </div>
     </div>
   );
 };

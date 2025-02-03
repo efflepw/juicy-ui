@@ -29,7 +29,7 @@ const SavePalette = ({ palette, storePalettes }: Props) => {
       palette.setName(name);
 
       const palettes = getItem();
-      palettes.push(palette.getJSON());
+      palettes.unshift(palette.getJSON());
 
       setItem(palettes);
       storePalettes(palettes);

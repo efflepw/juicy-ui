@@ -61,15 +61,22 @@ const PaletteBuilder = ({ storePalettes }: Props) => {
           selected={selected}
           selectColor={selectColor}
           deleteColor={deleteColor}
-          onAddColor={onAddColor}
         />
         <div className="flex gap-4">
-          <div
-            className="w-32 h-32 rounded-lg"
-            style={{
-              backgroundColor: addAlphaToHex(colorGradient, colorAlpha),
-            }}
-          ></div>
+          <div className="w-32 h-32 flex flex-col gap-2">
+            <div
+              className="rounded-lg w-32 flex-1"
+              style={{
+                backgroundColor: addAlphaToHex(colorGradient, colorAlpha),
+              }}
+            ></div>
+            <div
+              className="flex justify-center items-center w-32 h-10 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
+              onClick={onAddColor}
+            >
+              <span>+</span>
+            </div>
+          </div>
           <GradientCanvas baseColor={baseColor} setColor={setColorGradient} />
           <RangeSlider
             palette={rainbowPalette}
