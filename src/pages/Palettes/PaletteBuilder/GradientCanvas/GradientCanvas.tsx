@@ -26,13 +26,13 @@ const GradientCanvas = ({ baseColor, setColor }: Props) => {
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    const x = (e.clientX - rect.left) * scaleX - 10;
-    const y = (e.clientY - rect.top) * scaleY - 10;
+    const sx = (e.clientX - rect.left) * scaleX - 10;
+    const sy = (e.clientY - rect.top) * scaleY - 10;
 
-    setPointer({
-      x: Math.min(Math.max(0, x), GC_WIDTH - 20),
-      y: Math.min(Math.max(0, y), GC_HEIGHT - 16),
-    });
+    const x = Math.min(Math.max(0, sx), GC_WIDTH - 20);
+    const y = Math.min(Math.max(0, sy), GC_HEIGHT - 16);
+
+    setPointer({ x, y });
 
     setColor(gradientToColor(baseColor, x, y));
   };

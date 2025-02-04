@@ -20,8 +20,6 @@ type Props = {
 };
 
 const PaletteBuilder = ({ storePalettes }: Props) => {
-  const [selected, setSelected] = useState<number | null>(null);
-
   const [colorAlpha, setColorAlpha] = useState<number>(255);
   const [colorGradient, setColorGradient] = useState<string>("#fff");
   const [baseColor, setBaseColor] = useState<string>("#ff0000");
@@ -32,21 +30,10 @@ const PaletteBuilder = ({ storePalettes }: Props) => {
   const palette = new Palette(colors, angle);
 
   const onAddColor = () => {
-    const color = addAlphaToHex(colorGradient, colorAlpha);
-
-    setColors((colors) => [...colors, color]);
-    setSelected(null);
-  };
-
-  const selectColor = (i: number) => {
-    setSelected((selected) => (i == selected ? null : i));
-  };
-
-  const deleteColor = (i: number) => {
-    if (colors.length > 2) {
-      setColors((colors) => colors.filter((_, index) => index !== i));
-      setSelected(null);
-    }
+    setColors((colors) => [
+      ...colors,
+      addAlphaToHex(colorGradient, colorAlpha),
+    ]);
   };
 
   const onUpdateBaseColor = (v: number) => {
@@ -56,12 +43,7 @@ const PaletteBuilder = ({ storePalettes }: Props) => {
   return (
     <div>
       <div className="py-8 flex gap-8 justify-between">
-        <ColorsRange
-          colors={colors}
-          selected={selected}
-          selectColor={selectColor}
-          deleteColor={deleteColor}
-        />
+        <ColorsRange colors={colors} setColors={setColors} />
         <div className="flex gap-4">
           <div className="w-32 h-32 flex flex-col gap-2">
             <div

@@ -1,33 +1,42 @@
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Color from "./Color";
+
 type Props = {
-  selected: number | null;
   colors: string[];
-  selectColor: (i: number) => void;
-  deleteColor: (i: number) => void;
+  setColors: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ColorsRange = ({ selected, colors, selectColor, deleteColor }: Props) => {
+const ColorsRange = ({ colors, setColors }: Props) => {
+  const moveColor = (fromIndex: number, toIndex: number) => {
+    const newColors = [...colors];
+    const [removed] = newColors.splice(fromIndex, 1);
+
+    newColors.splice(toIndex, 0, removed);
+
+    setColors(newColors);
+  };
+
+  const deleteColor = (i: number) => {
+    if (colors.length > 2) {
+      setColors((colors) => colors.filter((_, index) => index !== i));
+    }
+  };
+
   return (
-    <div className="flex gap-4 flex-wrap">
-      {colors.map((color, i) => (
-        <div key={i} className="flex flex-col gap-2 h-32">
-          <div
-            className={`w-10 rounded-lg border-2 cursor-pointer flex-1 ${
-              selected == i ? "border-black" : "border-[#fff8]"
-            }`}
-            style={{ backgroundColor: color }}
-            onClick={() => selectColor(i)}
-          ></div>
-          <div
-            className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center`}
-            onClick={() => deleteColor(i)}
-          >
-            <span className="rotate-[45deg] text-white text-4xl cursor-pointer select-none">
-              +
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className="flex gap-4 flex-wrap">
+        {colors.map((color, i) => (
+          <Color
+            key={i}
+            idx={i}
+            color={color}
+            onDelete={() => deleteColor(i)}
+            onMove={moveColor}
+          />
+        ))}
+      </div>
+    </DndProvider>
   );
 };
 
