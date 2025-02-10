@@ -1,10 +1,10 @@
-import { ComponentDoc } from "../../types/doc";
+import { ComponentDoc as ComponentDocT } from "../../types/doc";
 
 type Props = {
-  docs: ComponentDoc[];
+  docs: ComponentDocT[];
 };
 
-const DocInstance = ({ docs }: Props) => {
+const ComponentDoc = ({ docs }: Props) => {
   return (
     <div className="my-8">
       {docs.map((section, idx) => (
@@ -24,4 +24,4 @@ const DocInstance = ({ docs }: Props) => {
   );
 };
 
-export default DocInstance;
+export default ComponentDoc;

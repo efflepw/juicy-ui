@@ -1,10 +1,12 @@
 import { RainbowBorder, ShadowBorder } from "../../components/Border";
+import { BORDER_USAGE_DOC } from "../../const/docs";
+import ComponentDoc from "../ComponentDoc";
 
 const RainbowBorderPreview = () => {
   return (
     <div className="w-full h-full p-4">
-      <div>
-        <h2 className="text-2xl font-bold mb-8">Rainbow border</h2>
+      <h2 className="text-2xl font-bold mb-8">Border</h2>
+      <div className="my-16">
         <div className="flex justify-around items-center">
           <RainbowBorder>
             <button className="preview-button"></button>
@@ -16,13 +18,13 @@ const RainbowBorderPreview = () => {
           </RainbowBorder>
           <RainbowBorder showOnHover>
             <button className="preview-button text-red-100 font-medium text-xl p-4">
-              Hover over me
+              Hover me
             </button>
           </RainbowBorder>
         </div>
+        <ComponentDoc docs={[BORDER_USAGE_DOC[0]]} />
       </div>
-      <div>
-        <h2 className="text-2xl font-bold my-8">Shadow border</h2>
+      <div className="my-16">
         <div className="flex justify-around items-center">
           <ShadowBorder>
             <button className="preview-button"></button>
@@ -34,10 +36,11 @@ const RainbowBorderPreview = () => {
           </ShadowBorder>
           <ShadowBorder showOnHover>
             <button className="preview-button text-red-100 font-medium text-xl p-4">
-              Hover over me
+              Hover me
             </button>
           </ShadowBorder>
         </div>
+        <ComponentDoc docs={[BORDER_USAGE_DOC[1]]} />
       </div>
     </div>
   );
