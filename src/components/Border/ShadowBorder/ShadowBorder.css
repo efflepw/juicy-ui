@@ -1,0 +1,39 @@
+:root {
+  --border-radius: 16px;
+  --duration: 2.5s;
+}
+
+.shadow-border {
+  border-radius: var(--border-radius);
+
+  animation: appear var(--duration) ease-in infinite;
+}
+
+.sb-on-hover {
+  animation: none;
+}
+
+.sb-on-hover:hover {
+  animation: appear var(--duration) ease-in infinite;
+}
+
+@keyframes appear {
+  0% {
+    box-shadow: 0px 0px 12px 6px #fd90d0cc;
+  }
+  20% {
+    box-shadow: 0px 0px 14px 4px #ff626fcc;
+  }
+  40% {
+    box-shadow: 0px 0px 12px 6px #f993ebcc;
+  }
+  60% {
+    box-shadow: 0px 0px 14px 6px #f58080cc;
+  }
+  80% {
+    box-shadow: 0px 0px 12px 4px #fa90e1cc;
+  }
+  100% {
+    box-shadow: 0px 0px 12px 6px #fd90abcc;
+  }
+}

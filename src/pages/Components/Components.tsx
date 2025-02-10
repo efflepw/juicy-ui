@@ -26,6 +26,11 @@ const SECTION_COMPONENTS: Section[] = [
     component: <PreviewComponents.AuraPreview />,
   },
   {
+    id: "border",
+    name: "Border",
+    component: <PreviewComponents.BorderPreview />,
+  },
+  {
     id: "buttons",
     name: "Buttons",
     component: <PreviewComponents.ButtonsPreview />,
@@ -44,11 +49,6 @@ const SECTION_COMPONENTS: Section[] = [
     id: "particles-bg",
     name: "Particles",
     component: <PreviewComponents.ParticlesPreview />,
-  },
-  {
-    id: "rainbow-border",
-    name: "Rainbow border",
-    component: <PreviewComponents.RainbowBorderPreview />,
   },
   {
     id: "trail",
