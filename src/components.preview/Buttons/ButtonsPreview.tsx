@@ -2,8 +2,9 @@ import { EmojiButton } from "../../components/Buttons";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { useState } from "react";
-import { EMOJI_USAGE_DOC } from "../../const/emoji";
+import { EMOJI_USAGE_DOC } from "../../const/docs";
 import { useClickOutside } from "../../hooks";
+import ComponentDoc from "../ComponentDoc";
 
 const ButtonsPreview = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,21 +55,7 @@ const ButtonsPreview = () => {
           </div>
         </div>
       </div>
-      <div className="mb-8">
-        {EMOJI_USAGE_DOC.map((section, idx) => (
-          <div key={idx} className="mb-4">
-            <h3 className="text-xl font-semibold mb-2">{section.heading}</h3>
-            <ul className="list-disc pl-5">
-              {section.points.map((point, idx) => (
-                <li key={idx} className="mb-1">
-                  <span className="font-medium">{point.split(":")[0]}:</span>
-                  <span>{point.split(":")[1]}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <ComponentDoc docs={EMOJI_USAGE_DOC} />
     </div>
   );
 };
