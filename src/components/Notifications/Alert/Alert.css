@@ -1,42 +1,21 @@
-.alert {
+.alert-container {
   position: fixed;
   bottom: 10%;
   left: 50%;
 
   transform: translate(-50%, -50%);
 
-  background-color: white;
-  color: black;
-
-  border-radius: 36px;
-  font-weight: 500;
-
-  padding: 4px 16px;
-
-  animation: appear 2s ease-in infinite, sizeIncrease 1s;
-
+  animation: sizeIncrease 1s;
   z-index: 100;
 }
 
-@keyframes appear {
-  0% {
-    box-shadow: 0px 0px 12px 6px #fd90d0cc;
-  }
-  20% {
-    box-shadow: 0px 0px 14px 4px #ff626fcc;
-  }
-  40% {
-    box-shadow: 0px 0px 12px 6px #f993ebcc;
-  }
-  60% {
-    box-shadow: 0px 0px 14px 6px #f58080cc;
-  }
-  80% {
-    box-shadow: 0px 0px 12px 4px #fa90e1cc;
-  }
-  100% {
-    box-shadow: 0px 0px 12px 6px #fd90abcc;
-  }
+.alert-inner {
+  background-color: white;
+  color: black;
+
+  font-weight: 500;
+
+  padding: 4px 16px;
 }
 
 @keyframes sizeIncrease {

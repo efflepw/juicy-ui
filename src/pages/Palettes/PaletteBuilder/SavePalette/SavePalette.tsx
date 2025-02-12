@@ -70,6 +70,7 @@ const SavePalette = ({ palette, storePalettes }: Props) => {
       </div>
       {alertMessage && (
         <Alert
+          border="shadow"
           message={alertMessage}
           duration={4000}
           onClose={() => setAlertMessage("")}

@@ -2,27 +2,42 @@ import { useState } from "react";
 import Alert from "../../components/Notifications/Alert";
 import { ALERT_USAGE_DOC } from "../../const/docs";
 import ComponentDoc from "../ComponentDoc";
-import { RainbowBorder } from "../../components/Border";
+import { RainbowBorder, ShadowBorder } from "../../components/Border";
 
 const AlertPreview = () => {
-  const [alerted, setAlerted] = useState(false);
+  const [shadowAlert, setShadowAlert] = useState(false);
+  const [rainbowAlert, setRainbowAlert] = useState(false);
 
   return (
     <div className="w-full h-full p-4">
       <h2 className="text-2xl font-bold mb-8">Alert</h2>
-      <div className="flex flex-col items-center my-16">
+      <div className="flex justify-around items-center my-16">
+        <ShadowBorder>
+          <button onClick={() => setShadowAlert(true)} className="px-6 py-3">
+            Show Alert
+          </button>
+        </ShadowBorder>
         <RainbowBorder>
-          <button onClick={() => setAlerted(true)} className="px-6 py-3">
+          <button onClick={() => setRainbowAlert(true)} className="px-6 py-3">
             Show Alert
           </button>
         </RainbowBorder>
       </div>
       <ComponentDoc docs={ALERT_USAGE_DOC} />
-      {alerted && (
+      {shadowAlert && (
         <Alert
+          border="shadow"
           message="Whats cooking good looking"
           duration={5000}
-          onClose={() => setAlerted(false)}
+          onClose={() => setShadowAlert(false)}
+        />
+      )}
+      {rainbowAlert && (
+        <Alert
+          border="rainbow"
+          message="Whats cooking good looking"
+          duration={5000}
+          onClose={() => setRainbowAlert(false)}
         />
       )}
     </div>
