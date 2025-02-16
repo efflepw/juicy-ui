@@ -50,7 +50,7 @@ const RainbowBorderPreview = () => {
           </RainbowBorder>
           <RainbowBorder type="with-shadow">
             <button className="preview-button text-red-100 font-medium text-xl p-4">
-              Hover me
+              Look at me
             </button>
           </RainbowBorder>
           <RainbowBorder type="shadow-hover">
