@@ -4,7 +4,7 @@ const RainbowBorderHover = () => {
   const imageBgSrc = `https://utfs.io/f/mufUz19XUjVCB1FCpkZ0Jd7LXnzyKf8oQ1tYWZAa6hImSTVU`;
 
   return (
-    <RainbowBorder showOnHover>
+    <RainbowBorder type="rb-hover">
       <img src={imageBgSrc} alt="rainbow-border-hover" />
     </RainbowBorder>
   );

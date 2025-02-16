@@ -9,6 +9,7 @@
   --inner-border-width: 0px;
   --border-radius: 16px;
   --d: 1800ms;
+  --sd: 3600ms;
   --angle: 60deg;
   --c1: #bb90facc;
   --c2: #fd9090cc;
@@ -52,6 +53,20 @@
   /* filter: blur(6px); */
 }
 
+.rb-shadow::before {
+  animation: borderRotate var(--d) linear infinite forwards,
+    boxShadow var(--sd) ease-in infinite;
+}
+
+.shadow-hover::before {
+  animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.shadow-hover:hover::before {
+  animation: borderRotate var(--d) linear infinite forwards,
+    boxShadow var(--sd) ease-in infinite;
+}
+
 .rainbow-border::after {
   content: "";
   position: absolute;
@@ -73,7 +88,6 @@
   z-index: 3;
 
   border-radius: calc(var(--border-radius) - var(--border-width));
-  /* fixes bug with border being seen even when its under the bg */
   /* transform: scale(101%); */
 }
 
@@ -117,5 +131,26 @@
 @keyframes borderRotate {
   100% {
     --angle: 420deg;
+  }
+}
+
+@keyframes boxShadow {
+  0% {
+    box-shadow: 0px 0px 6px 3px var(--c1);
+  }
+  20% {
+    box-shadow: 0px 0px 8px 2px var(--c2);
+  }
+  40% {
+    box-shadow: 0px 0px 6px 3px var(--c3);
+  }
+  60% {
+    box-shadow: 0px 0px 8px 3px var(--c4);
+  }
+  80% {
+    box-shadow: 0px 0px 6px 2px var(--c5);
+  }
+  100% {
+    box-shadow: 0px 0px 6px 3px var(--c6);
   }
 }
