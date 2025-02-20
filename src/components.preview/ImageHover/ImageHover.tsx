@@ -3,6 +3,7 @@ import {
   BlackAndWhiteHover,
   RainbowBorderHover,
   ResizeHover,
+  ShadowBorderHover,
 } from "../../components/ImageHover";
 
 const ImageHover = () => {
@@ -15,6 +16,9 @@ const ImageHover = () => {
         <AmbientHover />
         <AmbientHover />
         <AmbientHover />
+        <ShadowBorderHover />
+        <ShadowBorderHover />
+        <ShadowBorderHover />
         <ResizeHover />
         <ResizeHover />
         <ResizeHover />
