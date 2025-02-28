@@ -7,11 +7,11 @@ import { Classes, Components, Contribute, Palettes } from "./pages";
 
 const App = () => {
   return (
-    <div className="w-[80%] m-[auto] min-h-screen">
+    <div className="min-h-screen">
       <div className="relative">
         <Header />
       </div>
-      <div className="flex flex-col gap-2 pt-20 pb-6 h-full">
+      <main className="flex flex-col gap-2 pt-20 pb-6 h-full max-w-[1400px] mx-auto">
         <Routes>
           <Route path="/" element={<Components />} />
           <Route path="/classes" element={<Classes />} />
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/palettes" element={<Palettes />} />
           <Route path="/contribute" element={<Contribute />} />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 };

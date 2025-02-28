@@ -76,13 +76,13 @@ const Components = () => {
   };
 
   return (
-    <div className="grid grid-cols-[1fr_4fr] flex-grow gap-2">
+    <div className="flex flex-row gap-8">
       <Navbar
         activeId={selectedSection.id}
         sections={SECTION_COMPONENTS}
         setSelectedSection={onSelectSection}
       />
-      <div className="flex items-center justify-center py-10 px-4">
+      <div className="w-full flex items-center justify-center">
         {selectedSection.component}
       </div>
     </div>
