@@ -27,9 +27,9 @@ const Palettes = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="p-6">
       <div>
-        <h2 className="text-3xl pt-10 pb-4">Build your palette</h2>
+        <h2 className="text-3xl pb-4">Build your palette</h2>
         <div className="px-6">
           <PaletteBuilder storePalettes={storePalettes} />
         </div>
