@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Palette } from "../../utils/palette";
+import usePalettes from "../../hooks/usePalettes";
 
 type GradientSelectProps = {
   defaultPalette: Palette | null;
@@ -11,15 +12,14 @@ type GradientSelectProps = {
 // @todo add appearance one by one
 const GradientSelect = ({
   defaultPalette,
-  palettes,
   onChange,
   placeholder = "Select palette",
 }: GradientSelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Palette | null>(
-    defaultPalette
-  );
+  const [palette, setPalette] = useState<Palette | null>(defaultPalette);
   const selectRef = useRef<HTMLDivElement>(null);
+
+  const palettes = usePalettes();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,7 +38,7 @@ const GradientSelect = ({
   }, []);
 
   const handleSelect = (item: Palette) => {
-    setSelectedItem(item);
+    setPalette(item);
     setIsOpen(false);
     if (onChange) {
       onChange(item);
@@ -51,11 +51,11 @@ const GradientSelect = ({
         className="flex items-center justify-between border border-gray-300 rounded-md cursor-pointer hover:bg-secondary"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedItem ? (
+        {palette ? (
           <div className="flex items-center justify-between cursor-pointer p-1 hover:bg-secondary w-full rounded-md">
             <div
               className="w-full h-6 rounded-sm"
-              style={{ background: selectedItem.getLinearGradient() }}
+              style={{ background: palette.getLinearGradient() }}
             ></div>
           </div>
         ) : (
@@ -80,7 +80,7 @@ const GradientSelect = ({
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full">
+        <div className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full bg-primary">
           {palettes.map((item) => (
             <div
               key={item.getName()}
