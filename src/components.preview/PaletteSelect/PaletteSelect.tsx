@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Palette } from "../../utils/palette";
 import usePalettes from "../../hooks/usePalettes";
 
@@ -9,7 +10,6 @@ type GradientSelectProps = {
   placeholder?: string;
 };
 
-// @todo add appearance one by one
 const GradientSelect = ({
   defaultPalette,
   onChange,
@@ -18,7 +18,6 @@ const GradientSelect = ({
   const [isOpen, setIsOpen] = useState(false);
   const [palette, setPalette] = useState<Palette | null>(defaultPalette);
   const selectRef = useRef<HTMLDivElement>(null);
-
   const palettes = usePalettes();
 
   useEffect(() => {
@@ -80,7 +79,13 @@ const GradientSelect = ({
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full bg-primary">
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 240 }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full bg-primary "
+        >
           {palettes.map((item) => (
             <div
               key={item.getName()}
@@ -93,7 +98,7 @@ const GradientSelect = ({
               ></div>
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

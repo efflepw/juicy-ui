@@ -15,6 +15,13 @@ export const BASE_COLORS = {
     "#ff00ff",
     "#ff0000",
   ],
+  PINK_SHADOW: [
+    "#fd90d0cc",
+    "#ff626fcc",
+    "#f993ebcc",
+    "#f58080cc",
+    "#fa90e1cc",
+  ],
 };
 
 export const DEFAULT_WARNING_COLOR = "#ff6363";
