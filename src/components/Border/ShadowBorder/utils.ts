@@ -19,11 +19,9 @@ export const getPulseKeyFrames = (palette: Palette): string => {
     `;
   });
 
-  const li = (colors.length - 1) % 2;
-
   const lastKeyframe = `
     100% {
-      box-shadow: 0 0 ${BLUR_PATTERN[li]}px ${SPREAD_PATTERN[li]}px ${colors[0]};
+      box-shadow: 0 0 ${BLUR_PATTERN[0]}px ${SPREAD_PATTERN[0]}px ${colors[0]};
     }
   `;
 

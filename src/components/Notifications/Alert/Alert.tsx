@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./Alert.css";
 import { RainbowBorder, ShadowBorder } from "../../Border";
+import { BASE_PALETTES } from "../../../const/palette";
 
 type Props = {
   message: string;
@@ -30,7 +31,9 @@ const Alert = ({ border, message, duration, onClose }: Props) => {
 
   return (
     <div className="alert-container">
-      <ShadowBorder subClassName="alert-inner">{message}</ShadowBorder>
+      <ShadowBorder palette={BASE_PALETTES[7]} subClassName="alert-inner">
+        {message}
+      </ShadowBorder>
     </div>
   );
 };

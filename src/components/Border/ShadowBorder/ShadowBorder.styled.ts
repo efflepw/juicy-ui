@@ -16,12 +16,12 @@ export const StyledDiv = styled.div<{
         transition: box-shadow 0.3s ease;
 
         &:hover {
-          animation: ${pulseAnimation} 2s ease-in infinite;
+          animation: ${pulseAnimation} 2.5s ease-in infinite;
         }
       `;
     } else {
       return css`
-        animation: ${pulseAnimation} 2s ease-in infinite;
+        animation: ${pulseAnimation} 2.5s ease-in infinite;
       `;
     }
   }}
