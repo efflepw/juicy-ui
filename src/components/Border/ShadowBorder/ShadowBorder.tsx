@@ -1,35 +1,33 @@
-import "./ShadowBorder.css";
+import { Palette } from "../../../utils/palette";
+import { StyledDiv } from "./ShadowBorder.styled";
+import { getPulseKeyFrames } from "./utils";
 
 type Props = {
+  palette: Palette;
   children: React.ReactNode;
   borderRadius?: number;
   subClassName?: string;
   showOnHover?: boolean;
 };
 
-export interface CSSVars extends React.CSSProperties {
-  "--border-radius": string;
-}
-
 const ShadowBorder = ({
+  palette,
   showOnHover,
   borderRadius = 16,
   subClassName = "",
   children,
 }: Props) => {
-  const className = `shadow-border ${subClassName} ${
-    showOnHover ? "sb-on-hover" : ""
-  }`;
-
-  const cssVars: CSSVars = {
-    "--border-radius": `${borderRadius}px`,
-  };
+  const keyframesString = getPulseKeyFrames(palette);
 
   return (
-    <div className={className} style={cssVars}>
+    <StyledDiv
+      $keyframesString={keyframesString}
+      $borderRadius={borderRadius}
+      $showOnHover={showOnHover}
+      className={subClassName}
+    >
       {children}
-    </div>
+    </StyledDiv>
   );
 };
-
 export default ShadowBorder;

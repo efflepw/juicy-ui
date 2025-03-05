@@ -22,7 +22,6 @@ const AuraPreview = () => {
         />
         <PaletteSelect
           defaultPalette={defaultPalette}
-          palettes={BASE_PALETTES}
           onChange={(p: Palette) => setSelectedPalette(p)}
         />
       </div>

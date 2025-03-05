@@ -31,22 +31,22 @@ export const BORDER_USAGE_DOC = [
   {
     heading: "Rainbow Border",
     points: [
-      // "Eye-catching and Fun: The vibrant, constantly changing colors draw attention, making the element stand out and inviting users to interact.",
-      // "Memorable and Playful Experience: It adds a unique, playful touch to the UI, making the interface more memorable and enhancing the overall experience.",
+      "Eye-catching and Fun: The vibrant, constantly changing colors draw attention, making the element stand out and inviting users to interact.",
+      "Memorable and Playful Experience: It adds a unique, playful touch to the UI, making the interface more memorable and enhancing the overall experience.",
     ],
   },
   {
     heading: "Shadow Border",
     points: [
-      // "Focus Indicator: The pulsing effect naturally directs the user’s focus, helping highlight key information or call-to-action buttons.",
-      // "Modern and Dynamic Feel: It creates a sense of depth and liveliness, giving the interface a polished, modern look.",
+      "Focus Indicator: The pulsing effect naturally directs the user’s focus, helping highlight key information or call-to-action buttons.",
+      "Modern and Dynamic Feel: It creates a sense of depth and liveliness, giving the interface a polished, modern look.",
     ],
   },
   {
     heading: "Shadow Rainbow Border",
     points: [
-      // "Focus Indicator: The pulsing effect naturally directs the user’s focus, helping highlight key information or call-to-action buttons.",
-      // "Modern and Dynamic Feel: It creates a sense of depth and liveliness, giving the interface a polished, modern look.",
+      "Focus Indicator: The pulsing effect naturally directs the user’s focus, helping highlight key information or call-to-action buttons.",
+      "Modern and Dynamic Feel: It creates a sense of depth and liveliness, giving the interface a polished, modern look.",
     ],
   },
 ];

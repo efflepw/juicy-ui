@@ -3,18 +3,17 @@ import { motion } from "framer-motion";
 import { Palette } from "../../utils/palette";
 import usePalettes from "../../hooks/usePalettes";
 
-type GradientSelectProps = {
+type PaletteSelectProps = {
   defaultPalette: Palette | null;
-  palettes: Palette[];
   onChange?: (item: Palette) => void;
   placeholder?: string;
 };
 
-const GradientSelect = ({
+const PaletteSelect = ({
   defaultPalette,
   onChange,
   placeholder = "Select palette",
-}: GradientSelectProps): JSX.Element => {
+}: PaletteSelectProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [palette, setPalette] = useState<Palette | null>(defaultPalette);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -104,4 +103,4 @@ const GradientSelect = ({
   );
 };
 
-export default GradientSelect;
+export default PaletteSelect;

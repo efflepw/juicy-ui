@@ -5,4 +5,8 @@ import { ghPages } from "vite-plugin-gh-pages";
 export default defineConfig({
   plugins: [react(), ghPages()],
   base: "/juicy-ui/",
+  esbuild: {
+    jsxFactory: "styled",
+    jsxFragment: "styled.Fragment",
+  },
 });
