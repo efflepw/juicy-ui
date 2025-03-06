@@ -5,7 +5,7 @@ import usePalettes from "../../hooks/usePalettes";
 
 type PaletteSelectProps = {
   defaultPalette: Palette | null;
-  onChange?: (item: Palette) => void;
+  onChange: (item: Palette) => void;
   placeholder?: string;
 };
 
@@ -80,10 +80,10 @@ const PaletteSelect = ({
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 240 }}
+          animate={{ opacity: 1, height: 202 }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.5 }}
-          className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full bg-primary "
+          className="absolute z-10 mt-1 border border-gray-300 rounded-md shadow-lg overflow-auto w-full bg-primary"
         >
           {palettes.map((item) => (
             <div

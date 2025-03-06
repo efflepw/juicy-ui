@@ -2,15 +2,25 @@ import { useEffect } from "react";
 import "./Alert.css";
 import { RainbowBorder, ShadowBorder } from "../../Border";
 import { BASE_PALETTES } from "../../../const/palette";
+import { Palette } from "../../../utils/palette";
 
 type Props = {
+  palette: Palette;
   message: string;
   duration: number;
   border: "shadow" | "rainbow";
   onClose: () => void;
 };
 
-const Alert = ({ border, message, duration, onClose }: Props) => {
+const DEFAULT_PALETTE = BASE_PALETTES[0];
+
+const Alert = ({
+  palette = DEFAULT_PALETTE,
+  border,
+  message,
+  duration,
+  onClose,
+}: Props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
@@ -31,7 +41,7 @@ const Alert = ({ border, message, duration, onClose }: Props) => {
 
   return (
     <div className="alert-container">
-      <ShadowBorder palette={BASE_PALETTES[7]} subClassName="alert-inner">
+      <ShadowBorder palette={palette} subClassName="alert-inner">
         {message}
       </ShadowBorder>
     </div>
