@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion as m } from "motion/react";
 import { Palette } from "../../utils/palette";
 import usePalettes from "../../hooks/usePalettes";
 
@@ -78,7 +78,7 @@ const PaletteSelect = ({
       </div>
 
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 202 }}
           exit={{ opacity: 0, height: 0 }}
@@ -97,7 +97,7 @@ const PaletteSelect = ({
               ></div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
