@@ -4,7 +4,7 @@ import { parseRgbValues, rgbToHex } from "../../../utils/colors";
 export const MAX_RAINBOW_COLOR_VALUE = 1530;
 
 const MAX_X = 176;
-const MAX_Y = 102;
+const MAX_Y = 112;
 
 export const GC_WIDTH = 196;
 export const GC_HEIGHT = 128;
@@ -48,8 +48,8 @@ export const gradientToColor = (
 ): string => {
   const rgb = parseRgbValues(baseColor);
 
-  const xFactor = x / MAX_X;
-  const yFactor = y / MAX_Y;
+  const xFactor = (x - 8) / MAX_X;
+  const yFactor = (y - 8) / MAX_Y;
 
   const r = (1 - yFactor) * ((1 - xFactor) * 255 + xFactor * rgb.r);
   const g = (1 - yFactor) * ((1 - xFactor) * 255 + xFactor * rgb.g);

@@ -26,11 +26,11 @@ const GradientCanvas = ({ baseColor, setColor }: Props) => {
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    const sx = (e.clientX - rect.left) * scaleX - 10;
-    const sy = (e.clientY - rect.top) * scaleY - 10;
+    const sx = (e.clientX - rect.left) * scaleX;
+    const sy = (e.clientY - rect.top) * scaleY;
 
-    const x = Math.min(Math.max(0, sx), GC_WIDTH - 20);
-    const y = Math.min(Math.max(0, sy), GC_HEIGHT - 16);
+    const x = Math.min(Math.max(8, sx), GC_WIDTH - 12);
+    const y = Math.min(Math.max(8, sy), GC_HEIGHT - 8);
 
     setPointer({ x, y });
 
@@ -79,8 +79,8 @@ const GradientCanvas = ({ baseColor, setColor }: Props) => {
       <div
         className="w-4 h-4 rounded-full absolute border-2 border-white"
         style={{
-          left: pointer.x,
-          top: pointer.y,
+          left: pointer.x - 8,
+          top: pointer.y - 8,
         }}
       ></div>
     </div>
