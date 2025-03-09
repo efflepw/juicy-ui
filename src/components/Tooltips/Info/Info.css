@@ -1,0 +1,43 @@
+.info-tooltip-icon {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+}
+
+.info-tooltip-icon > span {
+  font-weight: bold;
+}
+
+.info-tooltip-popup {
+  position: absolute;
+  z-index: 1;
+  width: 200px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: black;
+
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+.info-tooltip-popup::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
