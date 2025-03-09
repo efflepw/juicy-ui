@@ -1,12 +1,20 @@
+import { useState } from "react";
 import { PointerTrail } from "../../components/Pointer";
-import { BASE_COLORS } from "../../const/colors";
+import { BASE_PALETTES } from "../../const/palette";
 import { Palette } from "../../utils/palette";
+import PaletteSelect from "../PaletteSelect";
 
 const TrailPreview = () => {
-  const palette = new Palette(BASE_COLORS.RAINBOW, 45);
+  const defaultPalette = BASE_PALETTES[0];
+
+  const [palette, setPalette] = useState<Palette>(defaultPalette);
 
   return (
-    <div>
+    <div className="p-4 h-full w-full">
+      <h2 className="text-2xl font-bold mb-8">Pointer trail</h2>
+      <div className="w-full flex justify-end items-center">
+        <PaletteSelect defaultPalette={defaultPalette} onChange={setPalette} />
+      </div>
       <PointerTrail palette={palette} />
     </div>
   );

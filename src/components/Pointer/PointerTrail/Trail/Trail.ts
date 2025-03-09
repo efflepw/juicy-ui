@@ -81,6 +81,56 @@ export class Trail {
 
           return { xOffsetIn, yOffsetIn, xOffsetRev: 0, yOffsetRev: 0 };
         }
+      case 3:
+        if (j == 0) {
+          const xOffsetIn = Math.cos(pa) * 3 * halfStrapWidth;
+          const yOffsetIn = Math.sin(pa) * 3 * halfStrapWidth;
+          const xOffsetRev = Math.cos(pa) * halfStrapWidth;
+          const yOffsetRev = Math.sin(pa) * halfStrapWidth;
+
+          return {
+            xOffsetIn,
+            yOffsetIn,
+            xOffsetRev,
+            yOffsetRev,
+          };
+        } else if (j == 1) {
+          const xOffsetIn = Math.cos(pa) * halfStrapWidth;
+          const yOffsetIn = Math.sin(pa) * halfStrapWidth;
+          const xOffsetRev = Math.cos(pb) * halfStrapWidth;
+          const yOffsetRev = Math.sin(pb) * halfStrapWidth;
+
+          return { xOffsetIn, yOffsetIn, xOffsetRev, yOffsetRev };
+        } else {
+          const xOffsetIn = Math.cos(pb) * 3 * halfStrapWidth;
+          const yOffsetIn = Math.sin(pb) * 3 * halfStrapWidth;
+          const xOffsetRev = Math.cos(pb) * halfStrapWidth;
+          const yOffsetRev = Math.sin(pb) * halfStrapWidth;
+
+          return { xOffsetIn, yOffsetIn, xOffsetRev, yOffsetRev };
+        }
+      case 4:
+        if (j < 2) {
+          const farShift = (1 - j) * 2 * halfStrapWidth + 2 * halfStrapWidth;
+          const closeShift = (1 - j) * 2 * halfStrapWidth;
+
+          const xOffsetIn = Math.cos(pa) * farShift;
+          const yOffsetIn = Math.sin(pa) * farShift;
+          const xOffsetRev = Math.cos(pa) * closeShift;
+          const yOffsetRev = Math.sin(pa) * closeShift;
+
+          return { xOffsetIn, yOffsetIn, xOffsetRev, yOffsetRev };
+        } else {
+          const farShift = (j - 2) * 2 * halfStrapWidth + 2 * halfStrapWidth;
+          const closeShift = (j - 2) * 2 * halfStrapWidth;
+
+          const xOffsetIn = Math.cos(pb) * farShift;
+          const yOffsetIn = Math.sin(pb) * farShift;
+          const xOffsetRev = Math.cos(pb) * closeShift;
+          const yOffsetRev = Math.sin(pb) * closeShift;
+
+          return { xOffsetIn, yOffsetIn, xOffsetRev, yOffsetRev };
+        }
       case 5:
         if (j < 2) {
           const farShift = (1 - j) * 2 * halfStrapWidth + 3 * halfStrapWidth;

@@ -2,15 +2,7 @@ import { RefObject } from "react";
 import { Trail } from "./Trail";
 import { PointerPosition } from "../../../hooks/usePointerPosition";
 
-// temp
 const colors = ["#fff"];
-// const colors = [
-//   "#fd9090",
-//   "#fff962",
-//   "#9bf993",
-//   "#80daf5",
-//   "#bb90fa",
-// ].reverse();
 
 export const drawTrail = (
   ctx: CanvasRenderingContext2D,

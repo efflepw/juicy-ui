@@ -31,7 +31,7 @@ const PointerTrail = ({ palette }: Props) => {
     const pointerTrail = new Trail(palette.getColors());
 
     drawTrail(ctx, pointerTrail, pointerRef);
-  });
+  }, [palette]);
 
   return <canvas ref={canvasRef} className="cursor-trail"></canvas>;
 };
