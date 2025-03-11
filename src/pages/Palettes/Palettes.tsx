@@ -8,9 +8,13 @@ import { PaletteJSON } from "../../types/palette";
 
 import PaletteBuilder from "./PaletteBuilder";
 import PalettesPreview from "./PalettesPreview";
+import Alert from "../../components/Notifications/Alert";
 
 const Palettes = () => {
   const [savedPalettes, setSavedPalettes] = useState<Palette[]>([]);
+  const [alert, setAlert] = useState<string>("");
+
+  const { getItem, setItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
 
   const storePalettes = (jsonPalettes: PaletteJSON[]) => {
     const palettes = jsonPalettes.map(
@@ -21,10 +25,16 @@ const Palettes = () => {
   };
 
   useEffect(() => {
-    const { getItem } = useLocalStorage<PaletteJSON[]>("palettes", []);
-
     storePalettes(getItem());
   }, []);
+
+  const onDelete = (index: number) => {
+    const newPalettes = savedPalettes.filter((_, i) => i !== index);
+
+    setSavedPalettes(newPalettes);
+    setItem(newPalettes.map((palette) => palette.getJSON()));
+    setAlert("Deleted!");
+  };
 
   return (
     <div className="p-6">
@@ -36,12 +46,19 @@ const Palettes = () => {
         {!!savedPalettes.length && (
           <>
             <h2 className="text-3xl pt-10 pb-4">Saved palettes</h2>
-            <PalettesPreview palettes={savedPalettes} />
+            <PalettesPreview palettes={savedPalettes} onDelete={onDelete} />
           </>
         )}
         <h2 className="text-3xl pt-10 pb-4">Base palettes</h2>
         <PalettesPreview palettes={BASE_PALETTES} />
       </div>
+      {alert && (
+        <Alert
+          message={alert}
+          onClose={() => setAlert("")}
+          palette={BASE_PALETTES[7]}
+        />
+      )}
     </div>
   );
 };

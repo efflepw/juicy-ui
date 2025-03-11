@@ -5,20 +5,20 @@ import { BASE_PALETTES } from "../../../const/palette";
 import { Palette } from "../../../utils/palette";
 
 type Props = {
-  palette: Palette;
   message: string;
-  duration: number;
-  border: "shadow" | "rainbow";
   onClose: () => void;
+  palette?: Palette;
+  duration?: number;
+  border?: "shadow" | "rainbow";
 };
 
 const DEFAULT_PALETTE = BASE_PALETTES[0];
 
 const Alert = ({
   palette = DEFAULT_PALETTE,
-  border,
   message,
-  duration,
+  border = "shadow",
+  duration = 5000,
   onClose,
 }: Props) => {
   useEffect(() => {

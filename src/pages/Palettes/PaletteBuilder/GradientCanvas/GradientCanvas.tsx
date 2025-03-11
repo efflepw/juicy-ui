@@ -12,8 +12,8 @@ const GradientCanvas = ({ baseColor, setColor }: Props) => {
   const isMouseDown = useRef(false);
 
   const [pointer, setPointer] = useState<PointerPosition>({
-    x: GC_WIDTH - 20,
-    y: 0,
+    x: GC_WIDTH - 12,
+    y: 8,
   });
 
   const updateMousePos = (e: MouseEvent) => {

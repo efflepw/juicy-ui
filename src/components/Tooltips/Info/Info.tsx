@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Info = ({ symbol = "!", message }: Props) => {
-  const [viewed, setViewed] = useState(false);
+  // const [viewed, setViewed] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
   return (

@@ -5,6 +5,7 @@ import { ValidatedInput } from "../../../../components/Validation";
 
 import { useLocalStorage } from "../../../../hooks";
 import { PaletteJSON } from "../../../../types/palette";
+import { BASE_PALETTES } from "../../../../const/palette";
 
 type Props = {
   palette: Palette;
@@ -35,6 +36,7 @@ const SavePalette = ({ palette, storePalettes }: Props) => {
       storePalettes(palettes);
 
       setAlertMessage("Saved!");
+      setName("");
     }
   };
 
@@ -70,6 +72,7 @@ const SavePalette = ({ palette, storePalettes }: Props) => {
       </div>
       {alertMessage && (
         <Alert
+          palette={BASE_PALETTES[0]}
           border="shadow"
           message={alertMessage}
           duration={4000}
