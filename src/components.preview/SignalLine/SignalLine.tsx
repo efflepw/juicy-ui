@@ -7,10 +7,10 @@ const SignalLinePreview = () => {
 
   return (
     <div className="h-full w-full flex flex-col justify-between relative">
-      <div className="flex justify-center">
+      <div className="flex justify-start">
         <div ref={fromRef}>element #1</div>
       </div>
-      <SignalLine from={fromRef} to={toRef} />
+      <SignalLine fromRef={fromRef} toRef={toRef} />
       <div className="flex justify-end">
         <div ref={toRef}>element #2</div>
       </div>

@@ -1,78 +1,53 @@
 import { RefObject, useEffect, useState } from "react";
+import {
+  getContainerProps,
+  getStraightLineProps,
+  getTargetFromRef,
+} from "./utils";
+import { TargetRect } from "./types";
 
 type Props<T extends HTMLElement> = {
-  from: RefObject<T>;
-  to: RefObject<T>;
+  fromRef: RefObject<T>;
+  toRef: RefObject<T>;
 };
 
-type Target = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
-const SignalLine = <T extends HTMLElement>({ from, to }: Props<T>) => {
-  // calculate absolute position for from ref
-  // calculate absolute position for to ref
-  // generate svg
-  // calculate absolute position of shape
-  // place it absolutely
-
-  const [start, setStart] = useState<Target | null>(null);
-  const [end, setEnd] = useState<Target | null>(null);
+const SignalLine = <T extends HTMLElement>({ fromRef, toRef }: Props<T>) => {
+  const [fromTarget, setFromTarget] = useState<TargetRect | null>(null);
+  const [toTarget, setToTarget] = useState<TargetRect | null>(null);
 
   useEffect(() => {
-    if (from.current && to.current) {
-      const parentRect = from.current.offsetParent?.getBoundingClientRect() ?? {
-        x: 0,
-        y: 0,
-      };
+    setFromTarget(getTargetFromRef(fromRef));
+    setToTarget(getTargetFromRef(toRef));
+  }, [fromRef, toRef]);
 
-      const fromRect = from.current.getBoundingClientRect();
-      const toRect = to.current.getBoundingClientRect();
+  if (!fromTarget || !toTarget) return null;
 
-      const fromOffsetX = fromRect.x - parentRect.x;
-      const fromOffsetY = fromRect.y - parentRect.y;
-      const toOffsetX = toRect.x - parentRect.x;
-      const toOffsetY = toRect.y - parentRect.y;
-
-      setStart({
-        x: fromOffsetX + fromRect.width / 2,
-        y: fromOffsetY + fromRect.height / 2,
-        width: fromRect.width,
-        height: fromRect.height,
-      });
-
-      setEnd({
-        x: toOffsetX + toRect.width / 2,
-        y: toOffsetY + toRect.height / 2,
-        width: toRect.width,
-        height: toRect.height,
-      });
-    }
-  }, [from, to]);
-
-  if (!start || !end) {
-    return null;
-  }
-
-  const lineCenterLeft = start.x + (end.x - start.x) / 2;
-  const lineCenterTop = start.y + (end.y - start.y) / 2;
-
-  const width = Math.abs(start.x - end.x);
-  const height = Math.abs(start.y - end.y);
+  const containerProps = getContainerProps(fromTarget, toTarget);
+  const line = getStraightLineProps(
+    fromTarget,
+    toTarget,
+    containerProps.width,
+    containerProps.height
+  );
 
   return (
     <div
-      className="absolute border-2 border-red-300"
+      className="absolute"
       style={{
-        left: lineCenterLeft - width / 2,
-        top: lineCenterTop - height / 2 + start.height / 2,
-        width: width,
-        height: height - (start.height + end.height) / 2,
+        ...containerProps,
       }}
-    ></div>
+    >
+      <svg className="w-full h-full">
+        <line
+          x1={line.start.x}
+          y1={line.start.y}
+          x2={line.end.x}
+          y2={line.end.y}
+          stroke="red"
+          strokeWidth="2"
+        />
+      </svg>
+    </div>
   );
 };
 
