@@ -11,6 +11,11 @@ type Section = {
 
 const SECTION_COMPONENTS: Section[] = [
   {
+    id: "signal-line",
+    name: "Signal line",
+    component: <PreviewComponents.SignalLinePreview />,
+  },
+  {
     id: "ambient",
     name: "Ambient",
     component: <PreviewComponents.AmbientPreview />,
