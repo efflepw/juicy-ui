@@ -66,3 +66,27 @@ export const getStraightLineProps = (
 
   return { start, end };
 };
+
+// for now only vertical elbow supported
+export const getElbowPath = (
+  from: TargetRect,
+  to: TargetRect,
+  width: number,
+  height: number
+) => {
+  const start = { x: 2, y: 2 };
+  const end = { x: 2, y: 2 };
+
+  if (from.x > to.x) start.x = width - 2;
+  else end.x = width - 2;
+
+  if (from.y > to.y) start.y = height - 2;
+  else end.y = height - 2;
+
+  const midY = (start.y + end.y) / 2;
+
+  return `M ${start.x},${start.y} 
+          L ${start.x},${midY} 
+          L ${end.x},${midY} 
+          L ${end.x},${end.y}`;
+};

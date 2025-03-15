@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
 import {
   getContainerProps,
+  getElbowPath,
   getStraightLineProps,
   getTargetFromRef,
 } from "./utils";
@@ -23,7 +24,14 @@ const SignalLine = <T extends HTMLElement>({ fromRef, toRef }: Props<T>) => {
   if (!fromTarget || !toTarget) return null;
 
   const containerProps = getContainerProps(fromTarget, toTarget);
-  const line = getStraightLineProps(
+  // const line = getStraightLineProps(
+  //   fromTarget,
+  //   toTarget,
+  //   containerProps.width,
+  //   containerProps.height
+  // );
+
+  const elbowPath = getElbowPath(
     fromTarget,
     toTarget,
     containerProps.width,
@@ -38,14 +46,15 @@ const SignalLine = <T extends HTMLElement>({ fromRef, toRef }: Props<T>) => {
       }}
     >
       <svg className="w-full h-full">
-        <line
+        {/* <line
           x1={line.start.x}
           y1={line.start.y}
           x2={line.end.x}
           y2={line.end.y}
           stroke="red"
           strokeWidth="2"
-        />
+        /> */}
+        <path d={elbowPath} stroke={"red"} strokeWidth={"red"} fill={"none"} />
       </svg>
     </div>
   );
