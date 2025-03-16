@@ -51,6 +51,11 @@ const SECTION_COMPONENTS: Section[] = [
     component: <PreviewComponents.ParticlesPreview />,
   },
   {
+    id: "signal-line",
+    name: "Signal line",
+    component: <PreviewComponents.SignalLinePreview />,
+  },
+  {
     id: "tooltip",
     name: "Tooltip",
     component: <PreviewComponents.TooltipPreview />,
