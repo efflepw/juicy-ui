@@ -49,12 +49,9 @@ export const getContainerProps = (from: TargetRect, to: TargetRect) => {
   return { width, height, left, top };
 };
 
-export const getStraightLineProps = (
-  from: TargetRect,
-  to: TargetRect,
-  width: number,
-  height: number
-) => {
+export const getStraightPath = (from: TargetRect, to: TargetRect): string => {
+  const { width, height } = getContainerSize(from, to);
+
   const start = { x: 2, y: 2 };
   const end = { x: 2, y: 2 };
 
@@ -64,16 +61,14 @@ export const getStraightLineProps = (
   if (from.y > to.y) start.y = height - 2;
   else end.y = height - 2;
 
-  return { start, end };
+  return `M ${start.x},${start.y} 
+          L ${end.x},${end.y}`;
 };
 
 // for now only vertical elbow supported
-export const getElbowPath = (
-  from: TargetRect,
-  to: TargetRect,
-  width: number,
-  height: number
-) => {
+export const getElbowPath = (from: TargetRect, to: TargetRect): string => {
+  const { width, height } = getContainerSize(from, to);
+
   const start = { x: 2, y: 2 };
   const end = { x: 2, y: 2 };
 

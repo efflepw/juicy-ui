@@ -12,7 +12,7 @@ const SignalLinePreview = () => {
         <div className="flex justify-center">
           <div ref={fromRef}>element #1</div>
         </div>
-        <SignalLine fromRef={fromRef} toRef={toRef} />
+        <SignalLine fromRef={fromRef} toRef={toRef} type="elbow" />
         <div className="flex justify-end">
           <div ref={toRef}>element #2</div>
         </div>

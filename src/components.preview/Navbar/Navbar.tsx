@@ -11,7 +11,7 @@ type Props = {
 
 const Navbar = ({ activeId, sections, setSelectedSection }: Props) => {
   return (
-    <div className="w-72 sticky top-20 left-0 h-full">
+    <div className="w-72 sticky left-0 h-full">
       <nav className="">
         <div className="">
           {sections.map(({ id, name }) => (
