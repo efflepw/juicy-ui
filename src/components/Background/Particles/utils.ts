@@ -467,29 +467,29 @@ export const updateMousePosition = (
   };
 };
 
-const debugCanvas = (
-  context: CanvasRenderingContext2D,
-  canvasSize: CanvasSize
-) => {
-  context.beginPath();
-  context.stroke();
-  context.rect(
-    canvasSize.width / 2 - SPACE_CONFIG.RECT_WIDTH / 2,
-    canvasSize.height / 2 - SPACE_CONFIG.RECT_HEIGHT / 2,
-    SPACE_CONFIG.RECT_WIDTH,
-    SPACE_CONFIG.RECT_HEIGHT
-  );
-  context.shadowBlur = 6;
-  context.shadowColor = "white";
-  context.fillStyle = "black";
-  context.fill();
-};
+// const debugCanvas = (
+//   context: CanvasRenderingContext2D,
+//   canvasSize: CanvasSize
+// ) => {
+//   context.beginPath();
+//   context.stroke();
+//   context.rect(
+//     canvasSize.width / 2 - SPACE_CONFIG.RECT_WIDTH / 2,
+//     canvasSize.height / 2 - SPACE_CONFIG.RECT_HEIGHT / 2,
+//     SPACE_CONFIG.RECT_WIDTH,
+//     SPACE_CONFIG.RECT_HEIGHT
+//   );
+//   context.shadowBlur = 6;
+//   context.shadowColor = "white";
+//   context.fillStyle = "black";
+//   context.fill();
+// };
 
 export const animateParticles = (
   canvas: HTMLCanvasElement,
   particles: ParticleEntity[],
   waves: Entity[],
-  mouseRef: RefObject<PointerPosition>,
+  mouseRef: React.RefObject<PointerPosition>,
   mouse: Mouse,
   canvasSize: CanvasSize
 ) => {
@@ -499,7 +499,7 @@ export const animateParticles = (
   context.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
   updateWaves(waves, canvasSize);
-  updateParticles(particles, waves, mouse, canvasSize);
+  updateParticles(particles, waves, updatedMouse, canvasSize);
 
   if (SCENE_CONFIG.ICONS == PARTICLE_ICON.SNOWFLAKE) {
     renderSnowflake(context, particles);
@@ -507,18 +507,7 @@ export const animateParticles = (
     renderParticlesArc(context, particles);
   }
 
-  if (SCENE_CONFIG.DEBUG) {
-    debugCanvas(context, canvasSize);
-  }
-
-  requestAnimationFrame(() =>
-    animateParticles(
-      canvas,
-      particles,
-      waves,
-      mouseRef,
-      updatedMouse,
-      canvasSize
-    )
-  );
+  // if (SCENE_CONFIG.DEBUG) {
+  //   debugCanvas(context, canvasSize);
+  // }
 };

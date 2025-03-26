@@ -31,14 +31,25 @@ const Particles = () => {
     const particles = createParticles(canvasSize);
     const waves = createWaves(canvasSize);
 
-    animateParticles(
-      canvas,
-      particles,
-      waves,
-      pointerRef,
-      MOUSE_INITIAL_STATE,
-      canvasSize
-    );
+    let animationFrameId: number;
+
+    const animate = () => {
+      animateParticles(
+        canvas,
+        particles,
+        waves,
+        pointerRef,
+        MOUSE_INITIAL_STATE,
+        canvasSize
+      );
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return <canvas className="canvas-preview canvas-bg" ref={canvasRef}></canvas>;
