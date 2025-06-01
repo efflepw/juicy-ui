@@ -47,11 +47,30 @@ const PaletteBuilder = ({ storePalettes }: Props) => {
         <div className="flex gap-4">
           <div className="w-32 h-32 flex flex-col gap-2">
             <div
-              className="rounded-lg w-32 flex-1"
+              className="rounded-lg w-32 flex-1 relative flex items-end"
               style={{
                 backgroundColor: addAlphaToHex(colorGradient, colorAlpha),
               }}
-            ></div>
+            >
+              <input
+                type="text"
+                value={colorGradient}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Allow any input but validate before setting
+                  setColorGradient(value);
+                }}
+                onBlur={(e) => {
+                  const value = e.target.value;
+                  // Validate on blur and reset if invalid
+                  if (!(value === "#" || /^#([0-9A-F]{3}){1,2}$/i.test(value))) {
+                    setColorGradient("#000");
+                  }
+                }}
+                className="w-full mx-2 mb-2 bg-[#24242424] text-white px-2 py-1 rounded-md border-2 border-white focus:outline-none font-medium text-sm"
+                placeholder="#RRGGBB"
+              />
+            </div>
             <div
               className="flex justify-center items-center w-32 h-10 border-2 rounded-lg cursor-pointer text-4xl text-white border-white select-none"
               onClick={onAddColor}

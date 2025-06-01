@@ -45,11 +45,11 @@ const SECTION_COMPONENTS: Section[] = [
     name: "Image hover",
     component: <PreviewComponents.ImageHoverPreview />,
   },
-  {
-    id: "particles-bg",
-    name: "Particles",
-    component: <PreviewComponents.ParticlesPreview />,
-  },
+  // {
+  //   id: "particles-bg",
+  //   name: "Particles",
+  //   component: <PreviewComponents.ParticlesPreview />,
+  // },
   {
     id: "signal-line",
     name: "Signal line",

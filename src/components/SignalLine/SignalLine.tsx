@@ -54,11 +54,15 @@ const SignalLine = <T extends HTMLElement>({
           stroke="white"
           strokeWidth="2"
           strokeDasharray={"20"}
-          initial={{ opacity: 0, filter: "blur(2px)", strokeDashoffset: 0 }}
+          initial={{ 
+            opacity: 0,
+            strokeDashoffset: 0,
+            // filter: "blur(2px)",
+          }}
           animate={{
             opacity: [0, 1, 0],
             strokeDashoffset: [0, -40],
-            filter: ["blur(0px)", "blur(2px)", "blur(0px)"],
+            // filter: ["blur(0px)", "blur(2px)", "blur(0px)"],
           }}
           transition={{
             duration: 1,

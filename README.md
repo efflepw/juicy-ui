@@ -1,4 +1,4 @@
-## Juicy UI
+## Yikes UI
 
 **At the moment**, it is a library of various UI components that feature interesting animations and effects.
 
@@ -14,11 +14,11 @@ To get started with the app, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/efflepw/juicy-ui.git
+   git clone https://github.com/yksfrvr/yikes-ui.git
    ```
 2. **Navigate to the project directory:**
    ```bash
-   cd juicy-ui
+   cd yikes-ui
    ```
 3. **Install the dependencies:**
    ```bash

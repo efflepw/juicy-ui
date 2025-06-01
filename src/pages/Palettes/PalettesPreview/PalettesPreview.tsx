@@ -1,5 +1,8 @@
 import TextPreview from "../../../components.preview/TextPreview";
 import { Palette } from "../../../utils/palette";
+import { useState } from "react";
+import Alert from "../../../components/Notifications/Alert";
+import { BASE_PALETTES } from "../../../const/palette";
 
 type Props = {
   palettes: Palette[];
@@ -7,22 +10,37 @@ type Props = {
 };
 
 const PalettesPreview = ({ palettes, onDelete }: Props) => {
+  const [alertMessage, setAlertMessage] = useState("");
+  
+  const onCopy = (gradient: string) => {
+    navigator.clipboard.writeText(gradient);
+    setAlertMessage("Copied");
+  };
+  
   return (
     <div className="px-6">
       {palettes.map((palette, i) => (
         <div key={palette.getName()} className="pb-6">
           <div className="flex justify-between items-center">
             <h2 className="text-4xl py-8">{palette.getName()}</h2>
-            {onDelete && (
+            <div className="flex gap-4">
               <div
-                className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center`}
-                onClick={() => onDelete(i)}
+                className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center cursor-pointer transition duration-200 hover:scale-110`}
+                onClick={() => onCopy(palette.getLinearGradient())}
+                title="Copy CSS"
               >
-                <span className="rotate-[45deg] text-4xl cursor-pointer select-none">
-                  +
-                </span>
+                <img src="copy.svg" className="filter invert" />
               </div>
-            )}
+              {onDelete && (
+                <div
+                  className={`w-10 h-10 border-2 border-white rounded-lg flex justify-center items-center cursor-pointer transition duration-200 hover:scale-110`}
+                  onClick={() => onDelete(i)}
+                  title="Delete"
+                >
+                  <img src="trash.svg" className="filter invert" />
+                </div>
+              )}
+            </div>
           </div>
           <div
             className="w-full h-32 rounded-lg"
@@ -37,6 +55,15 @@ const PalettesPreview = ({ palettes, onDelete }: Props) => {
           </div>
         </div>
       ))}
+      {alertMessage && (
+        <Alert
+          palette={BASE_PALETTES[0]}
+          border="shadow"
+          message={alertMessage}
+          duration={4000}
+          onClose={() => setAlertMessage("")}
+        />
+      )}
     </div>
   );
 };
